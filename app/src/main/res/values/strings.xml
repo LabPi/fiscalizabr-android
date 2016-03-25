@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">FiscalizaBR</string>
     <string name="action_settings">Configurações</string>
+
+    <string name="nome_proponte">NOME DO PROPONENTE</string>
+    <string name="municipio">MUNICÍPIO / UF</string>
+    <string name="objeto">OBJETO</string>
+    <string name="valor_global">VALOR GLOBAL</string>
+    <string name="inicio_vigenia">INICIO DA VIGÊNCIA</string>
+    <string name="title_activity_detalhar_convenio">Detalhes do Convênio</string>
 </resources>

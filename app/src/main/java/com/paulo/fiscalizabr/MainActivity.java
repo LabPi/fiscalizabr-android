@@ -1,5 +1,6 @@
 package com.paulo.fiscalizabr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,8 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.paulo.fiscalizabr.adapter.ConveniosAdapter;
+import com.paulo.fiscalizabr.core.Convenio;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ListView conveniosListView;
+    private ConveniosAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,35 +27,48 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        // Floating Button para pesquisa de convênios
+        FloatingActionButton pesquisarButton = (FloatingActionButton) findViewById(R.id.procurar_convenio_button);
+        pesquisarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Pesquisa de convênios", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        conveniosListView = (ListView) findViewById(R.id.listview_convenios);
+        adapter = new ConveniosAdapter(getApplicationContext());
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        for(int i=0; i<10; i++) {
+            Convenio convenio = new Convenio();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            if(i%2 == 0) {
+                convenio.setNomeProponente("Prefeitura Municipal de Jataí");
+                convenio.setMunicipio("Jataí");
+                convenio.setUf("GO");
+            } else {
+                convenio.setNomeProponente("Prefeitura Municipal de Lavras");
+                convenio.setMunicipio("Lavras");
+                convenio.setUf("MG");
+            }
+            convenio.setObjeto("Compra de ambulâncias");
+            convenio.setValorGlobal("R$ 50.000,00");
+            convenio.setInicioVigencia("25/03/2016");
+
+            adapter.addItem(convenio);
         }
 
-        return super.onOptionsItemSelected(item);
+        conveniosListView.setAdapter(adapter);
+
+        conveniosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getApplicationContext(), DetalharConvenio.class);
+                startActivity(i);
+            }
+        });
+
     }
+
 }

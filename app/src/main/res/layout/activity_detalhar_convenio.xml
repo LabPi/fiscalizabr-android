@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.paulo.fiscalizabr.MainActivity">
+    tools:context="com.paulo.fiscalizabr.DetalharConvenio">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,17 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/procurar_convenio_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/buttons_color"
-        android:clickable="true"
-        android:onClick="procurarConvenio"
-        android:src="@drawable/ic_search_white_18dp" />
+    <include layout="@layout/content_detalhar_convenio" />
 
 </android.support.design.widget.CoordinatorLayout>

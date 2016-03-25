@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4caf50</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#2e7d32</color>
+    <color name="colorPrimaryDark">#1b5e20</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="background_app_color">#e0e0e0</color>
 
     <color name="background_color">#4caf50</color> <!-- Verde -->
     <color name="buttons_color">#ffd600</color> <!-- Amarelo -->
+    <color name="divider_title_itens_listview">#3f51b5</color> <!-- Azul -->
+    <color name="divider_itens_listview">#bdbdbd</color> <!-- Cinza quase escuro -->
 </resources>
