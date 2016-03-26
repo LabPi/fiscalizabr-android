@@ -17,7 +17,7 @@
             android:background="@color/divider_title_itens_listview"
             android:gravity="center"
             android:padding="10dp"
-            android:text="DADOS DO CONVÊNIO"
+            android:text="@string/dados_convenio"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="ANO ASSINATURA / CONVÊNIO / PUBLICAÇÃO"
+            android:text="@string/assinatura_convenio_publicacao"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="DATA DA ASSINATURA"
+            android:text="@string/data_assinatura"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="DATA DA PUBLICAÇÃO"
+            android:text="@string/data_publicacao"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="ASSINADO / EMPENHADO / PUBLICADO"
+            android:text="@string/assinado_empenhado_publicado"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="INICIO DA VIGÊNCIA"
+            android:text="@string/inicio_vigenia"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="FIM DA VIGÊNCIA"
+            android:text="@string/fim_vigencia"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -153,7 +153,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="JUSTIFICATIVA"
+            android:text="@string/justificativa"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -174,7 +174,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="MODALIDADE"
+            android:text="@string/modalidade"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -195,7 +195,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="NOME DO PROGRAMA"
+            android:text="@string/nome_programa"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -216,7 +216,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="OBJETO"
+            android:text="@string/objeto"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -238,7 +238,7 @@
             android:background="@color/divider_title_itens_listview"
             android:gravity="center"
             android:padding="10dp"
-            android:text="ORGÃO CONCEDENTE"
+            android:text="@string/orgao_concedente"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -248,7 +248,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="CARGO DO CONCENTE RESPOSÁVEL"
+            android:text="@string/cargo_concedente_responsavel"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -269,7 +269,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="PERMITE AJUSTE NO CRONOGRAMA?"
+            android:text="@string/permite_ajuste_cronograma"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -290,7 +290,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="POSSUI ADITIVO"
+            android:text="@string/possui_aditivo"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -311,7 +311,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="POSSUI PROGRAMA DE OFICIO?"
+            android:text="@string/possui_programa_oficio"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -333,7 +333,7 @@
             android:background="@color/divider_title_itens_listview"
             android:gravity="center"
             android:padding="10dp"
-            android:text="PROPONENTE"
+            android:text="@string/proponente"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -343,7 +343,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="MUNICÍPIO"
+            android:text="@string/municipio_proponente"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -364,7 +364,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="NOME DO PROPONENTE"
+            android:text="@string/nome_proponente"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -385,7 +385,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="NOME DO RESPONSÁVEL"
+            android:text="@string/nome_responsavel"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -406,7 +406,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="QUALIFICAÇÃO"
+            android:text="@string/qualificacao"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -427,7 +427,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="REGIÃO"
+            android:text="@string/regiao"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -448,7 +448,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="UF"
+            android:text="@string/uf"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -470,7 +470,7 @@
             android:background="@color/divider_title_itens_listview"
             android:gravity="center"
             android:padding="10dp"
-            android:text="PROPOSTA"
+            android:text="@string/proposta"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -480,7 +480,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="ANO PROPOSTA"
+            android:text="@string/ano_proposta"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -501,7 +501,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="DATA DE INICIO DA PROPOSTA"
+            android:text="@string/data_inicio_proposta"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -522,7 +522,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="SITUAÇÃO DO CONVÊNIO"
+            android:text="@string/situacao_convenio"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -543,7 +543,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="SITUAÇÃO DA PUBLICAÇÃO DO CONVÊNIO"
+            android:text="@string/situacao_publicacao_convenio"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -564,7 +564,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="ULTIMO EMPENHO"
+            android:text="@string/ultimo_empenho"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -585,7 +585,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="ULTIMO PAGAMENTO"
+            android:text="@string/ultimo_pagamento"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -607,7 +607,7 @@
             android:background="@color/divider_title_itens_listview"
             android:gravity="center"
             android:padding="10dp"
-            android:text="VALORES"
+            android:text="@string/valores"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -617,7 +617,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="CONTRAPARTIDA FINANCEIRA"
+            android:text="@string/contrapartida_financeira"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -638,7 +638,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="CONTRAPARTIDA FINANCEIRA BENS E SERVIÇOS"
+            android:text="@string/contrapartida_financeira_bens_servicos"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -659,7 +659,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="VALOR DESEMBOLSADO"
+            android:text="@string/valor_desembolsado"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -680,7 +680,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="VALOR GLOBAL"
+            android:text="@string/valor_global"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -701,7 +701,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="REPASSE DA UNIÃO"
+            android:text="@string/repasse_uniao"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -722,7 +722,7 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="CONTRAPARTIDA TOTAL"
+            android:text="@string/contrapartida_total"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />

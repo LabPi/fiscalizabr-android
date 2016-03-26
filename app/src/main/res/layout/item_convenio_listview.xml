@@ -18,7 +18,7 @@
             android:textColor="@android:color/white"
             android:padding="10dp"
             android:textStyle="bold"
-            android:text="@string/nome_proponte" />
+            android:text="@string/nome_proponente" />
 
         <LinearLayout
             android:layout_width="match_parent"

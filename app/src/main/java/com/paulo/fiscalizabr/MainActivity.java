@@ -37,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        setUpWidgets();
+
+    }
+
+    public void setUpWidgets() {
         conveniosListView = (ListView) findViewById(R.id.listview_convenios);
         adapter = new ConveniosAdapter(getApplicationContext());
 
@@ -68,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
 
 }

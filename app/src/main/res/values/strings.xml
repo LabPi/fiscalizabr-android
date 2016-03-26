@@ -2,10 +2,55 @@
     <string name="app_name">FiscalizaBR</string>
     <string name="action_settings">Configurações</string>
 
-    <string name="nome_proponte">NOME DO PROPONENTE</string>
+    <string name="nome_proponente">NOME DO PROPONENTE</string>
     <string name="municipio">MUNICÍPIO / UF</string>
     <string name="objeto">OBJETO</string>
     <string name="valor_global">VALOR GLOBAL</string>
     <string name="inicio_vigenia">INICIO DA VIGÊNCIA</string>
     <string name="title_activity_detalhar_convenio">Detalhes do Convênio</string>
+
+    <!-- Dados do Convênio -->
+    <string name="dados_convenio">DADOS DO CONVÊNIO</string>
+    <string name="assinatura_convenio_publicacao">ANO DE ASSINATURA / CONVÊNIO / PUBLICAÇÃO</string>
+    <string name="data_assinatura">DATA DA ASSINATURA</string>
+    <string name="data_publicacao">DATA DE PUBLICAÇÃO</string>
+    <string name="assinado_empenhado_publicado">ASSINADO / EMPENHADO / PUBLICADO</string>
+    <string name="inicio_vigencia">INICIO DA VIGÊNCIA</string>
+    <string name="fim_vigencia">FIM DA VIGÊNCIA</string>
+    <string name="justificativa">JUSTIFICATIVA</string>
+    <string name="modalidade">MODALIDADE</string>
+    <string name="nome_programa">NOME DO PROGRAMA</string>
+
+    <!-- Orgão Concedente -->
+    <string name="orgao_concedente">ORGÃO CONCEDENTE</string>
+    <string name="cargo_concedente_responsavel">CARGO DO CONCEDENTE RESPONSÁVEL</string>
+    <string name="permite_ajuste_cronograma">PERMITE AJUSTE NO CRONOGRAMA?</string>
+    <string name="possui_aditivo">POSSUI ADITIVO?</string>
+    <string name="possui_programa_oficio">POSSUI PROGRAMA DE OFICIO?</string>
+
+    <!-- PROPONENTE -->
+    <string name="proponente">PROPONENTE</string>
+    <string name="nome_responsavel">NOME DO RESPONSÁVEL</string>
+    <string name="qualificacao">QUALIFICAÇÃO</string>
+    <string name="regiao">REGIÃO</string>
+    <string name="uf">UF</string>
+
+    <!-- PROPOSTA -->
+    <string name="proposta">PROPOSTA</string>
+    <string name="municipio_proponente">MUNICÍPIO</string>
+    <string name="ano_proposta">ANO DA PROPOSTA</string>
+    <string name="data_inicio_proposta">DATA DE INICIO DA PROPOSTA</string>
+    <string name="situacao_convenio">SITUAÇÃO DO CONVÊNIO</string>
+    <string name="situacao_publicacao_convenio">SITUAÇÃO DA PUBLICAÇÃO DO CONVÊNIO</string>
+    <string name="ultimo_empenho">ULTIMO EMPENHO</string>
+    <string name="ultimo_pagamento">ULTIMO PAGAMENTO</string>
+
+    <!-- VALORES -->
+    <string name="valores">VALORES</string>
+    <string name="contrapartida_financeira">CONTRAPARTIDA FINANCEIRA</string>
+    <string name="contrapartida_financeira_bens_servicos">CONTRAPARTIDA FINANCEIRA DE BENS E SERVIÇOS</string>
+    <string name="valor_desembolsado">VALOR DESEMBOLSADO</string>
+    <string name="repasse_uniao">REPASSE DA UNIÃO</string>
+    <string name="contrapartida_total">CONTRAPARTIDA TOTAL</string>
+
 </resources>
