@@ -27,6 +27,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.paulo.fiscalizabr.MainActivity" />
         </activity>
+        <activity
+            android:name=".PesquisarConvenio"
+            android:label="@string/title_activity_pesquisar_convenio"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.paulo.fiscalizabr.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

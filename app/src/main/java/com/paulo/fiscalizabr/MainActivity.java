@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
         pesquisarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Pesquisa de convênios", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent pesquisar = new Intent(getApplicationContext(), PesquisarConvenio.class);
+                startActivity(pesquisar);
             }
         });
 

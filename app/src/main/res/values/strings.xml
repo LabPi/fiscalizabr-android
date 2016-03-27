@@ -53,4 +53,9 @@
     <string name="repasse_uniao">REPASSE DA UNIÃO</string>
     <string name="contrapartida_total">CONTRAPARTIDA TOTAL</string>
 
+    <string name="title_activity_pesquisar_convenio">Procurar Convênios</string>
+
+    <string name="selecionar_data">Clique aqui para selecionar uma data</string>
+    <string name="municipio_pesquisar">Município</string>
+
 </resources>

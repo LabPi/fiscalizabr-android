@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="situacao_array">
+        <item>EM ANDAMENTO</item>
+        <item>FINALIZADO</item>
+    </string-array>
+</resources>
