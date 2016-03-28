@@ -58,4 +58,10 @@
     <string name="selecionar_data">Clique aqui para selecionar uma data</string>
     <string name="municipio_pesquisar">Município</string>
 
+    <string name="compartilhar">Compartilhar</string>
+    <string name="favoritos_menu">Favoritos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

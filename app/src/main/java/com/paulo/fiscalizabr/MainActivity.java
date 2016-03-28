@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,12 +15,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.paulo.fiscalizabr.adapter.ConveniosAdapter;
+import com.paulo.fiscalizabr.adapter.ViewPagerAdapter;
 import com.paulo.fiscalizabr.core.Convenio;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView conveniosListView;
-    private ConveniosAdapter adapter;
+    public TabLayout tabLayout;
+    public ViewPager viewPager;
+
+    // Fragments
+    private  ConveniosFragment convenios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,42 +43,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setUpWidgets();
+        setUpFragments();
+        setUpViewPager();
 
     }
 
-    public void setUpWidgets() {
-        conveniosListView = (ListView) findViewById(R.id.listview_convenios);
-        adapter = new ConveniosAdapter(getApplicationContext());
+    public void setUpFragments() {
+        convenios = new ConveniosFragment();
+    }
 
-        for(int i=0; i<10; i++) {
-            Convenio convenio = new Convenio();
+    public void setUpViewPager() {
+        viewPager = (ViewPager) findViewById(R.id.app_view_pager);
 
-            if(i%2 == 0) {
-                convenio.setNomeProponente("Prefeitura Municipal de Jataí");
-                convenio.setMunicipio("Jataí");
-                convenio.setUf("GO");
-            } else {
-                convenio.setNomeProponente("Prefeitura Municipal de Lavras");
-                convenio.setMunicipio("Lavras");
-                convenio.setUf("MG");
-            }
-            convenio.setObjeto("Compra de ambulâncias");
-            convenio.setValorGlobal("R$ 50.000,00");
-            convenio.setInicioVigencia("25/03/2016");
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-            adapter.addItem(convenio);
-        }
+        adapter.addFrag(new ConveniosFragment(), "Convênios");
+        adapter.addFrag(new ConveniosFragment(), "Favoritos");
 
-        conveniosListView.setAdapter(adapter);
+        viewPager.setAdapter(adapter);
 
-        conveniosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), DetalharConvenio.class);
-                startActivity(i);
-            }
-        });
+        tabLayout = (TabLayout) findViewById(R.id.app_tab_layout);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 }

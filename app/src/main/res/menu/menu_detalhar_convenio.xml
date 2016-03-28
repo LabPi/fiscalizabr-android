@@ -2,9 +2,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.paulo.fiscalizabr.DetalharConvenio">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/compartilhar_convenio"
+        android:orderInCategory="2"
+        android:title="@string/compartilhar"
+        android:icon="@drawable/ic_share_white_18dp"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/favoritar_convenio"
+        android:orderInCategory="1"
+        android:title="@string/favoritos_menu"
+        android:icon="@drawable/ic_grade_white_18dp"
+        app:showAsAction="always" />
 </menu>
