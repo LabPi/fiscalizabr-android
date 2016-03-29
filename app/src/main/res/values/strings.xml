@@ -68,4 +68,6 @@
     <string name="ordenar_lista">Ordenar Lista</string>
     <string name="title_activity_alterar_localizacao">Editar Localização</string>
 
+    <string name="carregando_convenios">Carregando convênios</string>
+
 </resources>

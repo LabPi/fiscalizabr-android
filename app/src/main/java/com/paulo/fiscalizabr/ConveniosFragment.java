@@ -60,6 +60,10 @@ public class ConveniosFragment extends Fragment {
 
             adapter.addItem(convenio);
         }
+        // Se a lista for vazia seta um Convenio qualquer no EmptyList
+        //adapter.addEmptyList(new Convenio());
+
+        // Fazer o mesmo com os Favoritos
 
         conveniosListView.setAdapter(adapter);
 
