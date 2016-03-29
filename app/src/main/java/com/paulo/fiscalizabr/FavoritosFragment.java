@@ -9,22 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.paulo.fiscalizabr.adapter.ConveniosAdapter;
+import com.paulo.fiscalizabr.adapter.FavoritosAdapter;
 import com.paulo.fiscalizabr.core.Convenio;
-
+import com.paulo.fiscalizabr.core.Favoritos;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ConveniosFragment extends Fragment {
+public class FavoritosFragment extends Fragment {
 
     private View view;
 
-    private ListView conveniosListView;
-    private ConveniosAdapter adapter;
+    private ListView favoritosListView;
+    private FavoritosAdapter adapter;
 
-    public ConveniosFragment() {   }
+    public FavoritosFragment() {   }
 
 
     @Override
@@ -40,35 +42,35 @@ public class ConveniosFragment extends Fragment {
 
 
     public void setUpWidgets() {
-        conveniosListView = (ListView) view.findViewById(R.id.listview_convenios);
-        adapter = new ConveniosAdapter(getContext());
+        favoritosListView = (ListView) view.findViewById(R.id.listview_convenios);
+        adapter = new FavoritosAdapter(getContext());
 
-        /*
         for(int i=0; i<10; i++) {
-            Convenio convenio = new Convenio();
+            Favoritos favoritos = new Favoritos();
 
             if(i%2 == 0) {
-                convenio.setObjetoConvenio("Compra de ambulâncias");
-                convenio.setValorConvenio("$ 500 mi");
-                convenio.setVigencia("Jan/15 á Dez/17");
-                convenio.setIsFavorito(true);
+                favoritos.setObjetoConvenio("Compra de ambulâncias");
+                favoritos.setValorConvenio("$ 500 mi");
+                favoritos.setVigencia("Jan/15 á Dez/17");
+                favoritos.setMunicipioUf("Jataí, GO");
             } else {
-                convenio.setObjetoConvenio("Pavimentação UFG");
-                convenio.setValorConvenio("$ 750 mil");
-                convenio.setVigencia("Abr/15 á Mai/17");
-                convenio.setIsFavorito(false);
+                favoritos.setObjetoConvenio("Pavimentação UFG");
+                favoritos.setValorConvenio("$ 750 mil");
+                favoritos.setVigencia("Abr/15 á Mai/17");
+                favoritos.setMunicipioUf("Lavras, MG");
             }
 
-            adapter.addItem(convenio);
-        } */
+            adapter.addItem(favoritos);
+        }
+
         // Se a lista for vazia seta um Convenio qualquer no EmptyList
-        adapter.addEmptyList(new Convenio());
+        //adapter.addEmptyList(new Favoritos());
 
         // Fazer o mesmo com os Favoritos
 
-        conveniosListView.setAdapter(adapter);
+        favoritosListView.setAdapter(adapter);
 
-        conveniosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        favoritosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getContext(), DetalharConvenio.class);

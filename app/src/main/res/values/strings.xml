@@ -69,5 +69,6 @@
     <string name="title_activity_alterar_localizacao">Editar Localização</string>
 
     <string name="carregando_convenios">Carregando convênios</string>
+    <string name="nao_possui_favoritos">Você ainda não possui Favoritos</string>
 
 </resources>

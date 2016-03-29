@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Fragments
     private  ConveniosFragment convenios;
+    private FavoritosFragment favoritos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setUpFragments() {
         convenios = new ConveniosFragment();
+        favoritos = new FavoritosFragment();
     }
 
     public void setUpViewPager() {
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFrag(new ConveniosFragment(), "Convênios");
-        adapter.addFrag(new ConveniosFragment(), "Favoritos");
+        adapter.addFrag(new FavoritosFragment(), "Favoritos");
 
         viewPager.setAdapter(adapter);
 
