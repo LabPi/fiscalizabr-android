@@ -1,5 +1,6 @@
 package com.paulo.fiscalizabr;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,8 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paulo.fiscalizabr.adapter.ConveniosAdapter;
+import com.paulo.fiscalizabr.adapter.DialogListViewAdapter;
 import com.paulo.fiscalizabr.adapter.ViewPagerAdapter;
 import com.paulo.fiscalizabr.core.Convenio;
+import com.paulo.fiscalizabr.core.ItemDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -93,9 +96,37 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(editarLocalizacao);
                 return true;
             case R.id.ordenar_lista:
-                // Adiciona aos favoritos
-                Toast.makeText(getApplicationContext(), "Ordenar Lista", Toast.LENGTH_SHORT).show();
-                // Abre Dialog
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.listview_dialog);
+
+                ListView dialogListView = (ListView) dialog.findViewById(R.id.dialog_listview);
+                DialogListViewAdapter adapter = new DialogListViewAdapter(dialog.getContext());
+
+                ItemDialog itemLista = new ItemDialog(R.drawable.ic_local_atm_black_18dp, "Valor");
+                adapter.addItem(itemLista);
+                itemLista = new ItemDialog(R.drawable.ic_today_black_36dp, "Vigência");
+                adapter.addItem(itemLista);
+
+                dialogListView.setAdapter(adapter);
+
+                dialog.setCancelable(true);
+                dialog.setTitle(getResources().getString(R.string.ordenar_lista));
+                dialog.show();
+
+                dialogListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if(position == 0) {
+                            // Valor
+                            Toast.makeText(getApplicationContext(), "Ordena pelo Valor", Toast.LENGTH_SHORT).show();
+                            dialog.hide();
+                        } else if(position == 1) {
+                            Toast.makeText(getApplicationContext(), "Ordena pela Vigência", Toast.LENGTH_SHORT).show();
+                            dialog.hide();
+                        }
+                    }
+                });
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

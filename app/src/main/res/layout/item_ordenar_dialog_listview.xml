@@ -7,14 +7,17 @@
         android:id="@+id/icone_dialog_imageview"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginTop="14dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/ic_local_atm_black_18dp"/>
 
     <TextView
         android:id="@+id/item_dialogo_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Item Dialogo" />
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_margin="16dp"
+        android:text="Valor" />
 
 </LinearLayout>

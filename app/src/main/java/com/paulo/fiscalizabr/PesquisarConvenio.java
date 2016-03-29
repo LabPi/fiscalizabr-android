@@ -62,9 +62,11 @@ public class PesquisarConvenio extends AppCompatActivity {
         minimoSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress = progress / 5000;
+                progress = progress * 5000;
+
                 String minimo = "R$ " + progress + ",00";
                 minimoTextView.setText(minimo);
-
             }
 
             @Override
@@ -79,6 +81,9 @@ public class PesquisarConvenio extends AppCompatActivity {
         maximoSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress = progress / 100000;
+                progress = progress * 100000;
+
                 String maximo = "R$ " + progress + ",00";
                 maximoTextView.setText(maximo);
             }
