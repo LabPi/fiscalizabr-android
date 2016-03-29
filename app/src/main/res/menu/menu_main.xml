@@ -2,9 +2,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.paulo.fiscalizabr.MainActivity">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/editar_localizacao"
+        android:orderInCategory="1"
+        android:title="@string/editar_localizacao"
+        android:icon="@drawable/ic_edit_location_white_24dp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/ordenar_lista"
+        android:orderInCategory="1"
+        android:title="@string/ordenar_lista"
+        android:icon="@drawable/ic_filter_list_white_24dp"
+        app:showAsAction="always" />
 </menu>

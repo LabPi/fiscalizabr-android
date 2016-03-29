@@ -47,17 +47,16 @@ public class ConveniosFragment extends Fragment {
             Convenio convenio = new Convenio();
 
             if(i%2 == 0) {
-                convenio.setNomeProponente("Prefeitura Municipal de Jataí");
-                convenio.setMunicipio("Jataí");
-                convenio.setUf("GO");
+                convenio.setObjetoConvenio("Compra de ambulâncias");
+                convenio.setValorConvenio("$ 500 mi");
+                convenio.setVigencia("Jan/15 á Dez/17");
+                convenio.setIsFavorito(true);
             } else {
-                convenio.setNomeProponente("Prefeitura Municipal de Lavras");
-                convenio.setMunicipio("Lavras");
-                convenio.setUf("MG");
+                convenio.setObjetoConvenio("Pavimentação UFG");
+                convenio.setValorConvenio("$ 750 mil");
+                convenio.setVigencia("Abr/15 á Mai/17");
+                convenio.setIsFavorito(false);
             }
-            convenio.setObjeto("Compra de ambulâncias");
-            convenio.setValorGlobal("R$ 50.000,00");
-            convenio.setInicioVigencia("25/03/2016");
 
             adapter.addItem(convenio);
         }

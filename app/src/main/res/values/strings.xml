@@ -64,4 +64,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="editar_localizacao">Editar localização</string>
+    <string name="ordenar_lista">Ordenar Lista</string>
+    <string name="title_activity_alterar_localizacao">Editar Localização</string>
+
 </resources>

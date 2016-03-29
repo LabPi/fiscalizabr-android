@@ -26,13 +26,10 @@ public class PesquisarConvenio extends AppCompatActivity {
     private TextView minimoTextView;
     private TextView maximoTextView;
 
-    private Spinner ufSpinner;
     private Spinner situacaoConvenioSpinner;
 
     private TextView inicioVigencia;
     private TextView fimVigencia;
-
-    private EditText municipioEditText;
 
     private int dia, mes, ano; // DatePicker
     private static final int DIALOG_ID = 0;
@@ -57,14 +54,10 @@ public class PesquisarConvenio extends AppCompatActivity {
         minimoTextView = (TextView) findViewById(R.id.valor_minimo_textview);
         maximoTextView = (TextView) findViewById(R.id.valor_maximo_textview);
 
-        ufSpinner = (Spinner) findViewById(R.id.estado_spinner);
         situacaoConvenioSpinner = (Spinner) findViewById(R.id.situacao_convenio_spinner);
 
         inicioVigencia = (TextView) findViewById(R.id.inicio_vigencia_pesquisar_textview);
         fimVigencia = (TextView) findViewById(R.id.fim_vigencia_pesquisar_textview);
-
-        municipioEditText = (EditText) findViewById(R.id.municipio_edittext);
-        municipioEditText.setSelected(false);
 
         minimoSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -100,11 +93,6 @@ public class PesquisarConvenio extends AppCompatActivity {
 
             }
         });
-
-        // Populando Spinner UF
-        ArrayAdapter<CharSequence> adapterUf = ArrayAdapter.createFromResource(PesquisarConvenio.this, R.array.uf_array, android.R.layout.simple_spinner_dropdown_item);
-        adapterUf.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ufSpinner.setAdapter(adapterUf);
 
         // Populando Spinner Situação Convênio
         ArrayAdapter<CharSequence> adapterSituacao = ArrayAdapter.createFromResource(PesquisarConvenio.this, R.array.situacao_array, android.R.layout.simple_spinner_dropdown_item);

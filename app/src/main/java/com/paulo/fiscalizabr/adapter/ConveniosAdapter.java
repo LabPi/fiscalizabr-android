@@ -1,11 +1,11 @@
 package com.paulo.fiscalizabr.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulo.fiscalizabr.R;
@@ -54,32 +54,33 @@ public class ConveniosAdapter extends BaseAdapter {
 
             convertView = mInflater.inflate(R.layout.item_convenio_listview, null);
 
-            holderConvenios.nomeProponente = (TextView) convertView.findViewById(R.id.nome_proponente_textview);
-            holderConvenios.municipioUf = (TextView) convertView.findViewById(R.id.municipio_uf_textview);
-            holderConvenios.objeto = (TextView) convertView.findViewById(R.id.objeto_textview);
-            holderConvenios.valorGlobal = (TextView) convertView.findViewById(R.id.valor_global_textview);
-            holderConvenios.inicioVigencia = (TextView) convertView.findViewById(R.id.inicio_vigencia_textview);
+            holderConvenios.objetoConvenio = (TextView) convertView.findViewById(R.id.objeto_convenio_textview);
+            holderConvenios.vigenciaConvenio = (TextView) convertView.findViewById(R.id.vigencia_convenio_textview);
+            holderConvenios.valorConvenio = (TextView) convertView.findViewById(R.id.valor_convenio_textview);
+            holderConvenios.isFavorito = (ImageView) convertView.findViewById(R.id.convenio_favorito_listview_imageview);
 
             convertView.setTag(holderConvenios);
         } else {
             holderConvenios = (ViewHolderConvenios) convertView.getTag();
         }
 
-        holderConvenios.nomeProponente.setText(mData.get(position).getNomeProponente());
-        holderConvenios.municipioUf.setText(mData.get(position).getMunicipio() + " / " + mData.get(position).getUf());
-        holderConvenios.objeto.setText(mData.get(position).getObjeto());
-        holderConvenios.valorGlobal.setText(mData.get(position).getValorGlobal());
-        holderConvenios.inicioVigencia.setText(mData.get(position).getInicioVigencia());
+        holderConvenios.objetoConvenio.setText(mData.get(position).getObjetoConvenio());
+        holderConvenios.vigenciaConvenio.setText(mData.get(position).getVigencia());
+        holderConvenios.valorConvenio.setText(mData.get(position).getValorConvenio());
+        if(mData.get(position).isFavorito() == true) {
+            holderConvenios.isFavorito.setImageResource(R.drawable.ic_star_white_24dp);
+        } else {
+            holderConvenios.isFavorito.setImageResource(R.drawable.ic_star_border_white_24dp);
+        }
 
         return convertView;
     }
 
     public static class ViewHolderConvenios {
-        private TextView nomeProponente;
-        private TextView municipioUf;
-        private TextView objeto;
-        private TextView valorGlobal;
-        private TextView inicioVigencia;
+        private TextView objetoConvenio;
+        private TextView vigenciaConvenio;
+        private TextView valorConvenio;
+        private ImageView isFavorito;
     }
 
 }

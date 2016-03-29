@@ -5,70 +5,50 @@ package com.paulo.fiscalizabr.core;
  */
 public class Convenio {
 
-    private String nomeProponente;
-    private String municipio;
-    private String uf;
-    private String objeto;
-    private String valorGlobal;
-    private String inicioVigencia;
+    private String objetoConvenio;
+    private boolean isFavorito;
+    private String vigencia;
+    private String valorConvenio;
 
     public Convenio() { }
 
-    public Convenio(String nomeProponente, String municipio, String uf, String objeto, String valorGlobal, String inicioVigencia) {
-        this.nomeProponente = nomeProponente;
-        this.municipio = municipio;
-        this.uf = uf;
-        this.objeto = objeto;
-        this.valorGlobal = valorGlobal;
-        this.inicioVigencia = inicioVigencia;
+    public Convenio(String objetoConvenio, boolean isFavorito, String vigencia, String valorConvenio) {
+        this.objetoConvenio = objetoConvenio;
+        this.isFavorito = isFavorito;
+        this.vigencia = vigencia;
+        this.valorConvenio = valorConvenio;
     }
 
-    public String getNomeProponente() {
-        return nomeProponente;
+    public String getObjetoConvenio() {
+        return objetoConvenio;
     }
 
-    public void setNomeProponente(String nomeProponente) {
-        this.nomeProponente = nomeProponente;
+    public void setObjetoConvenio(String objetoConvenio) {
+        this.objetoConvenio = objetoConvenio;
     }
 
-    public String getMunicipio() {
-        return municipio;
+    public boolean isFavorito() {
+        return isFavorito;
     }
 
-    public void setMunicipio(String municipio) {
-        this.municipio = municipio;
+    public void setIsFavorito(boolean isFavorito) {
+        this.isFavorito = isFavorito;
     }
 
-    public String getUf() {
-        return uf;
+    public String getVigencia() {
+        return vigencia;
     }
 
-    public void setUf(String uf) {
-        this.uf = uf;
+    public void setVigencia(String vigencia) {
+        this.vigencia = vigencia;
     }
 
-    public String getObjeto() {
-        return objeto;
+    public String getValorConvenio() {
+        return valorConvenio;
     }
 
-    public void setObjeto(String objeto) {
-        this.objeto = objeto;
-    }
-
-    public String getValorGlobal() {
-        return valorGlobal;
-    }
-
-    public void setValorGlobal(String valorGlobal) {
-        this.valorGlobal = valorGlobal;
-    }
-
-    public String getInicioVigencia() {
-        return inicioVigencia;
-    }
-
-    public void setInicioVigencia(String inicioVigencia) {
-        this.inicioVigencia = inicioVigencia;
+    public void setValorConvenio(String valorConvenio) {
+        this.valorConvenio = valorConvenio;
     }
 
 }
