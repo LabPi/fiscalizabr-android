@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulo.fiscalizabr.R;
-import com.paulo.fiscalizabr.core.Convenio;
 import com.paulo.fiscalizabr.core.Favoritos;
 
 import java.util.ArrayList;
@@ -95,6 +94,7 @@ public class FavoritosAdapter extends BaseAdapter {
                     holderFavoritos.vigenciaConvenio = (TextView) convertViewFavoritos.findViewById(R.id.vigencia_convenio_textview);
                     holderFavoritos.valorConvenio = (TextView) convertViewFavoritos.findViewById(R.id.valor_convenio_textview);
                     holderFavoritos.municipioUf = (TextView) convertViewFavoritos.findViewById(R.id.municipio_uf_textview);
+                    holderFavoritos.situacaoConvenio = (ImageView) convertViewFavoritos.findViewById(R.id.situacao_convenio_favoritos_imageview);
 
                     convertViewFavoritos.setTag(holderFavoritos);
                     break;
@@ -124,6 +124,17 @@ public class FavoritosAdapter extends BaseAdapter {
             holderFavoritos.valorConvenio.setText(mData.get(position).getValorConvenio());
             holderFavoritos.municipioUf.setText(mData.get(position).getMunicipioUf());
 
+            if(mData.get(position).getSituacaoConvenio() == 1) {
+                // problema
+                holderFavoritos.situacaoConvenio.setImageResource(R.drawable.problema);
+            } else if(mData.get(position).getSituacaoConvenio() == 2) {
+                // andamento
+                holderFavoritos.situacaoConvenio.setImageResource(R.drawable.em_andamento);
+            } else if(mData.get(position).getSituacaoConvenio() == 3) {
+                // ok
+                holderFavoritos.situacaoConvenio.setImageResource(R.drawable.ok);
+            }
+
             convertView = convertViewFavoritos;
         } else if(type == TYPE_SEPARATOR) {
             // Separator utilizado para quando a lista de noticias está vazia
@@ -141,6 +152,7 @@ public class FavoritosAdapter extends BaseAdapter {
         private TextView vigenciaConvenio;
         private TextView valorConvenio;
         private TextView municipioUf;
+        private ImageView situacaoConvenio;
     }
 
     public static class ViewHolderVazio {

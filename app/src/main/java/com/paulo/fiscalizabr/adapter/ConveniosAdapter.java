@@ -1,7 +1,6 @@
 package com.paulo.fiscalizabr.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,6 +94,7 @@ public class ConveniosAdapter extends BaseAdapter {
                     holderConvenios.vigenciaConvenio = (TextView) convertViewConvenios.findViewById(R.id.vigencia_convenio_textview);
                     holderConvenios.valorConvenio = (TextView) convertViewConvenios.findViewById(R.id.valor_convenio_textview);
                     holderConvenios.isFavorito = (ImageView) convertViewConvenios.findViewById(R.id.convenio_favorito_listview_imageview);
+                    holderConvenios.situacaoConvenio = (ImageView) convertViewConvenios.findViewById(R.id.situacao_convenio_imageview);
 
                     convertViewConvenios.setTag(holderConvenios);
                     break;
@@ -128,6 +128,17 @@ public class ConveniosAdapter extends BaseAdapter {
                 holderConvenios.isFavorito.setImageResource(R.drawable.ic_star_border_white_24dp);
             }
 
+            if(mData.get(position).getSituacaoConvenio() == 1) {
+                // problema
+                holderConvenios.situacaoConvenio.setImageResource(R.drawable.problema);
+            } else if(mData.get(position).getSituacaoConvenio() == 2) {
+                // andamento
+                holderConvenios.situacaoConvenio.setImageResource(R.drawable.em_andamento);
+            } else if(mData.get(position).getSituacaoConvenio() == 3) {
+                // ok
+                holderConvenios.situacaoConvenio.setImageResource(R.drawable.ok);
+            }
+
             convertView = convertViewConvenios;
         } else if(type == TYPE_SEPARATOR) {
             // Separator utilizado para quando a lista de noticias está vazia
@@ -145,6 +156,7 @@ public class ConveniosAdapter extends BaseAdapter {
         private TextView vigenciaConvenio;
         private TextView valorConvenio;
         private ImageView isFavorito;
+        private ImageView situacaoConvenio;
     }
 
     public static class ViewHolderVazio {

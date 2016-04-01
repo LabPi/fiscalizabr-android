@@ -9,14 +9,17 @@ public class Convenio {
     private boolean isFavorito;
     private String vigencia;
     private String valorConvenio;
+    // Situação do Convênio, 1 - Encerrado com problema; 2 - Em andamento; 3 - Encerrado com sucesso
+    private Integer situacaoConvenio;
 
     public Convenio() { }
 
-    public Convenio(String objetoConvenio, boolean isFavorito, String vigencia, String valorConvenio) {
+    public Convenio(String objetoConvenio, boolean isFavorito, String vigencia, String valorConvenio, Integer situacaoConvenio) {
         this.objetoConvenio = objetoConvenio;
         this.isFavorito = isFavorito;
         this.vigencia = vigencia;
         this.valorConvenio = valorConvenio;
+        situacaoConvenio = situacaoConvenio;
     }
 
     public String getObjetoConvenio() {
@@ -51,4 +54,11 @@ public class Convenio {
         this.valorConvenio = valorConvenio;
     }
 
+    public Integer getSituacaoConvenio() {
+        return situacaoConvenio;
+    }
+
+    public void setSituacaoConvenio(Integer situacaoConvenio) {
+        this.situacaoConvenio = situacaoConvenio;
+    }
 }

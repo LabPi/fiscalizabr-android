@@ -9,11 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.paulo.fiscalizabr.adapter.ConveniosAdapter;
 import com.paulo.fiscalizabr.adapter.FavoritosAdapter;
-import com.paulo.fiscalizabr.core.Convenio;
 import com.paulo.fiscalizabr.core.Favoritos;
 
 /**
@@ -53,11 +50,13 @@ public class FavoritosFragment extends Fragment {
                 favoritos.setValorConvenio("$ 500 mi");
                 favoritos.setVigencia("Jan/15 á Dez/17");
                 favoritos.setMunicipioUf("Jataí, GO");
+                favoritos.setSituacaoConvenio(2);
             } else {
                 favoritos.setObjetoConvenio("Pavimentação UFG");
                 favoritos.setValorConvenio("$ 750 mil");
                 favoritos.setVigencia("Abr/15 á Mai/17");
                 favoritos.setMunicipioUf("Lavras, MG");
+                favoritos.setSituacaoConvenio(1);
             }
 
             adapter.addItem(favoritos);

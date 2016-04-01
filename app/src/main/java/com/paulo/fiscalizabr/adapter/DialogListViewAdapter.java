@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulo.fiscalizabr.R;
-import com.paulo.fiscalizabr.core.Convenio;
 import com.paulo.fiscalizabr.core.ItemDialog;
 
 import java.util.ArrayList;

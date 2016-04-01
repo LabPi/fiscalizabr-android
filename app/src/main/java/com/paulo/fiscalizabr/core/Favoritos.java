@@ -9,14 +9,17 @@ public class Favoritos {
     private String vigencia;
     private String valorConvenio;
     private String municipioUf;
+    // Situação do Convênio, 1 - Encerrado com problema; 2 - Em andamento; 3 - Encerrado com sucesso
+    private Integer situacaoConvenio;
 
     public Favoritos() {    }
 
-    public Favoritos(String objetoConvenio, String vigencia, String valorConvenio, String municipioUf) {
+    public Favoritos(String objetoConvenio, String vigencia, String valorConvenio, String municipioUf, Integer situacaoConvenio) {
         this.objetoConvenio = objetoConvenio;
         this.vigencia = vigencia;
         this.valorConvenio = valorConvenio;
         this.municipioUf = municipioUf;
+        this.situacaoConvenio = situacaoConvenio;
     }
 
     public String getObjetoConvenio() {
@@ -51,4 +54,11 @@ public class Favoritos {
         this.municipioUf = municipioUf;
     }
 
+    public Integer getSituacaoConvenio() {
+        return situacaoConvenio;
+    }
+
+    public void setSituacaoConvenio(Integer situacaoConvenio) {
+        this.situacaoConvenio = situacaoConvenio;
+    }
 }

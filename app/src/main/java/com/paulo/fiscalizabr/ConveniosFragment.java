@@ -43,7 +43,6 @@ public class ConveniosFragment extends Fragment {
         conveniosListView = (ListView) view.findViewById(R.id.listview_convenios);
         adapter = new ConveniosAdapter(getContext());
 
-        /*
         for(int i=0; i<10; i++) {
             Convenio convenio = new Convenio();
 
@@ -52,17 +51,19 @@ public class ConveniosFragment extends Fragment {
                 convenio.setValorConvenio("$ 500 mi");
                 convenio.setVigencia("Jan/15 á Dez/17");
                 convenio.setIsFavorito(true);
+                convenio.setSituacaoConvenio(1);
             } else {
                 convenio.setObjetoConvenio("Pavimentação UFG");
                 convenio.setValorConvenio("$ 750 mil");
                 convenio.setVigencia("Abr/15 á Mai/17");
                 convenio.setIsFavorito(false);
+                convenio.setSituacaoConvenio(3);
             }
 
             adapter.addItem(convenio);
-        } */
+        }
         // Se a lista for vazia seta um Convenio qualquer no EmptyList
-        adapter.addEmptyList(new Convenio());
+        //adapter.addEmptyList(new Convenio());
 
         // Fazer o mesmo com os Favoritos
 
