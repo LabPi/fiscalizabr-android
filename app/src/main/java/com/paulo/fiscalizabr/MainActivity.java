@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.paulo.fiscalizabr.adapter.ConveniosAdapter;
 import com.paulo.fiscalizabr.adapter.DialogListViewAdapter;
 import com.paulo.fiscalizabr.adapter.ViewPagerAdapter;
+import com.paulo.fiscalizabr.connection.DownloadConvenios;
 import com.paulo.fiscalizabr.core.Convenio;
 import com.paulo.fiscalizabr.core.ItemDialog;
 
@@ -41,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        DownloadConvenios downloadConvenios = new DownloadConvenios(getApplicationContext());
+        downloadConvenios.execute();
 
         municipioEstado = (TextView) findViewById(R.id.municipio_estado_main_textview);
         // Carrega Municipio/Estado do arquivo de preferências

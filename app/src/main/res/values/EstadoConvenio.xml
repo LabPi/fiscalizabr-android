@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="situacao_array">
-        <item>EM ANDAMENTO</item>
-        <item>FINALIZADO</item>
+        <item>AGUARDANDO PRESTAÇÃO DE CONTAS</item>
+        <item>EM EXECUÇÃO</item>
+        <item>ASSINADO</item>
+        <item>PRESTAÇÃO DE CONTAS EM ANÁLISE</item>
+        <item>PRESTAÇÃO DE CONTAS REJEITADA</item>
+        <item>PRESTAÇÃO DE CONTAS EM COMPLEMENTAÇÃO</item>
+        <item>PRESTAÇÃO DE CONTAS APROVADA</item>
+        <item>PLANO DE TRABALHO COMPLEMENTADO EM ANÁLISE</item>
+        <item>PLANO DE TRABALHO EM COMPLEMENTAÇÃO</item>
+        <item>PROPOSTA EM ANÁLISE</item>
+        <item>PLANO DE TRABALHO EM ANÁLISE</item>
     </string-array>
 </resources>
