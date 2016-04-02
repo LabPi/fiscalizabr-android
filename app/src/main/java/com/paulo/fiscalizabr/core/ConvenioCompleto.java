@@ -20,6 +20,7 @@ public class ConvenioCompleto {
     private String modalidade;
     private String nomePrograma;
     private String objeto;
+    private Integer numeroConvenio;
 
     // Orgão Concedente
     private String cargoResponsavelConcedente;
@@ -380,4 +381,11 @@ public class ConvenioCompleto {
         this.valorTotalContrapartida = valorTotalContrapartida;
     }
 
+    public Integer getNumeroConvenio() {
+        return numeroConvenio;
+    }
+
+    public void setNumeroConvenio(Integer numeroConvenio) {
+        this.numeroConvenio = numeroConvenio;
+    }
 }

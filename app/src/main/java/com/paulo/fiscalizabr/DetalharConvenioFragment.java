@@ -26,34 +26,52 @@ public class DetalharConvenioFragment extends Fragment {
     private TextView justificativa;
     private TextView modalidade;
     private TextView nomePrograma;
+    private TextView numeroConvenio;
+    private TextView numeroInterno;
+    private TextView numeroProcesso;
     private TextView objeto;
+
+    private TextView qtdAditivos;
+    private TextView qtdEmpenhos;
+    private TextView qtdProrrogas;
+    private TextView situacaoConvenio;
+    private TextView subSituacaoConvenio;
+    private TextView ultimoEmpenho;
+    private TextView ultimoPagamento;
 
     // Orgão Concedente
     private TextView cargoConcedenteResponsavel;
-    private TextView permiteAjusteCronograma;
+    private TextView nomeOrgaoConcedente;
+    private TextView nomeResponsavelConcedente;
+
+    // Orgão Superior
+    private TextView nomeOrgaoSuperior;
+    private TextView permiteAjusteCronogramaFisico;
     private TextView possuiAditivo;
-    private TextView possuiProgramaOficio;
+    private TextView prorrogasDeOficio;
 
     // Proponente
+    private TextView bairroProponente;
+    private TextView cargoResponsavelProponente;
+    private TextView cepProponente;
+    private TextView enderecoProponente;
+    private TextView esferaAdministrativa;
     private TextView municipio;
     private TextView nomeProponente;
-    private TextView nomeResponsavel;
     private TextView qualificacao;
     private TextView regiao;
     private TextView uf;
 
     // Proposta
     private TextView anoProposta;
-    private TextView dataInicioProposta;
-    private TextView situacaoConvenio;
-    private TextView situacaoPublicacaoConvenio;
-    private TextView ultimoEmpenho;
-    private TextView ultimoPagamento;
+    private TextView dataInclusaoProposta;
+    private TextView situacaoProposta;
+    private TextView numeroProposta;
 
     // Valores
-    private TextView contrapartidaFinanceira;
     private TextView contrapartidaFinanceiraBensServicos;
     private TextView valorDesembolsado;
+    private TextView valorEmpenhado;
     private TextView valorGlobal;
     private TextView repasseUniao;
     private TextView contrapartidaTotal;
@@ -85,34 +103,50 @@ public class DetalharConvenioFragment extends Fragment {
         justificativa = (TextView) view.findViewById(R.id.justificativa_textview);
         modalidade = (TextView) view.findViewById(R.id.modalidade_textview);
         nomePrograma = (TextView) view.findViewById(R.id.nome_programa_textview);
+        numeroConvenio = (TextView) view.findViewById(R.id.numero_convenio_textview);
+        numeroInterno = (TextView) view.findViewById(R.id.numero_interno_textview);
+        numeroProcesso = (TextView) view.findViewById(R.id.numero_processo_textview);
         objeto = (TextView) view.findViewById(R.id.objeto_convenio_textview);
+        qtdAditivos = (TextView) view.findViewById(R.id.qtd_aditivos_textview);
+        qtdEmpenhos = (TextView) view.findViewById(R.id.qtd_empenhos_textview);
+        qtdProrrogas = (TextView) view.findViewById(R.id.qtd_prorrogas_textview);
+        situacaoConvenio = (TextView) view.findViewById(R.id.situacao_convenio_textview);
+        subSituacaoConvenio = (TextView) view.findViewById(R.id.subsituacao_convenio_textview);
+        ultimoEmpenho = (TextView) view.findViewById(R.id.ultimo_empenho_textview);
+        ultimoPagamento = (TextView) view.findViewById(R.id.ultimo_pagamento_textview);
 
         // Orgão Concedente
         cargoConcedenteResponsavel = (TextView) view.findViewById(R.id.cargo_concedente_responsavel_textview);
-        permiteAjusteCronograma = (TextView) view.findViewById(R.id.ajuste_cronograma_textview);
-        possuiAditivo = (TextView) view.findViewById(R.id.aditivo_textview);
-        possuiProgramaOficio = (TextView) view.findViewById(R.id.programa_oficio_textview);
+        nomeOrgaoConcedente = (TextView) view.findViewById(R.id.nome_orgao_concedente_textview);
+        nomeResponsavelConcedente = (TextView) view.findViewById(R.id.nome_responsavel_concedente_textview);
+
+        // Orgão Superior
+        nomeOrgaoSuperior = (TextView) view.findViewById(R.id.nome_orgao_superior_textview);
+        permiteAjusteCronogramaFisico = (TextView) view.findViewById(R.id.permite_ajuste_cronograma_fisico_textview);
+        possuiAditivo = (TextView) view.findViewById(R.id.possui_aditivo_textview);
+        prorrogasDeOficio = (TextView) view.findViewById(R.id.prorrogas_de_oficio_textview);
 
         // Proponente
+        bairroProponente = (TextView) view.findViewById(R.id.bairro_proponente_textview);
+        cargoResponsavelProponente = (TextView) view.findViewById(R.id.cargo_responsavel_proponente_textview);
+        cepProponente = (TextView) view.findViewById(R.id.cep_proponente_textview);
+        enderecoProponente = (TextView) view.findViewById(R.id.endereco_proponente_textview);
+        esferaAdministrativa = (TextView) view.findViewById(R.id.esfera_administrativa_textview);
         municipio = (TextView) view.findViewById(R.id.municipio_proponente_textview);
         nomeProponente = (TextView) view.findViewById(R.id.nome_proponente_detalhado_textview);
-        nomeResponsavel = (TextView) view.findViewById(R.id.nome_responsavel_textview);
         qualificacao = (TextView) view.findViewById(R.id.qualificacao_textview);
         regiao = (TextView) view.findViewById(R.id.regiao_textview);
         uf = (TextView) view.findViewById(R.id.uf_textview);
 
         // Proposta
         anoProposta = (TextView) view.findViewById(R.id.ano_proposta_textview);
-        dataInicioProposta = (TextView) view.findViewById(R.id.data_inicio_proposta_textview);
-        situacaoConvenio = (TextView) view.findViewById(R.id.situacao_convenio_textview);
-        situacaoPublicacaoConvenio = (TextView) view.findViewById(R.id.situacao_publicacao_convenio_textview);
-        ultimoEmpenho = (TextView) view.findViewById(R.id.ultimo_empenho_textview);
-        ultimoPagamento = (TextView) view.findViewById(R.id.ultimo_pagamento_textview);
+        dataInclusaoProposta = (TextView) view.findViewById(R.id.data_inclusao_proposta_textview);
+        numeroProposta = (TextView) view.findViewById(R.id.numero_proposta_textview);
 
         // Valores
-        contrapartidaFinanceira = (TextView) view.findViewById(R.id.contrapartida_financeira_textview);
         contrapartidaFinanceiraBensServicos = (TextView) view.findViewById(R.id.contrapartida_financeira_bens_servicos_textview);
         valorDesembolsado = (TextView) view.findViewById(R.id.valor_desembolsado_textview);
+        valorEmpenhado = (TextView) view.findViewById(R.id.valor_empenhado_textview);
         valorGlobal = (TextView) view.findViewById(R.id.valor_global_detalhado_textview);
         repasseUniao = (TextView) view.findViewById(R.id.repasse_uniao_textview);
         contrapartidaTotal = (TextView) view.findViewById(R.id.contrapartida_total_textview);
@@ -120,119 +154,10 @@ public class DetalharConvenioFragment extends Fragment {
 
     // Carrega os dados do convenio do webservice e seta nos TextViews
     public void carregaDadosConvenio() {
-        conv = new ConvenioCompleto();
-        conv.setAnoAssinatura("2016");
-        conv.setAnoConvenio("2016");
-        conv.setAnoPublicacao("2016");
-        conv.setDataAssinatura("26/03/2016");
-        conv.setDataPublicacao("26/02/2016");
-        conv.setEstaAssinado(true);
-        conv.setEstaEmpenhado(true);
-        conv.setEstaPublicado(true);
-        conv.setInicioVigencia("26/03/2016");
-        conv.setFimVigencia("26/03/2016");
-        conv.setJustificativa("Teste de Justificativa");
-        conv.setModalidade("Teste de Modalidade");
-        conv.setNomePrograma("Minha casa, minha vida");
-        conv.setObjeto("Construção de casas populares");
-
-        conv.setCargoResponsavelConcedente("Presidente da República");
-        conv.setPermiteAjusteCronogramaFisico(false);
-        conv.setPossuiAditivo(true);
-        conv.setPossuiProgramaDoOficio(true);
-
-        conv.setMunicipio("Jataí");
-        conv.setNomeProponente("Prefeitura Municipal de Jataí");
-        conv.setNomeResponsavelProponente("Paulo Henrique Lima Oliveira");
-        conv.setQualificacao("Prefeito");
-        conv.setRegiao("Centro - Oeste");
-        conv.setUf("GO");
-
-        conv.setAnoProposta("2016");
-        conv.setDataInicioProposta("26/03/2016");
-        conv.setSituacaoConvenio("OK");
-        conv.setSituacaoPublicacaoConvenio("PUBLICADO");
-        conv.setUltimoEmpenho("26/03/2016");
-        conv.setUltimoPagamento("26/03/2016");
-
-        conv.setValorContrapartidaFinanceira("R$ 100.000,00");
-        conv.setValorContrapartidaFinanceiraBensEServicos("R$ 50.000,00");
-        conv.setValorDesembolsado("R$ 150.000,00");
-        conv.setValorGlobal("R$ 150.000,00");
-        conv.setValorRepasseUniao("R$ 100.000,00");
-        conv.setValorTotalContrapartida("R$ 200.000,00");
+        // Carrega do WS
     }
 
     private void setDadosConvenio() {
-        // Dados do Convênio
-        anoAssinaturaConvenioPublicacao.setText(conv.getAnoAssinatura() + " / " + conv.getAnoConvenio() + " / " + conv.getAnoPublicacao());
-        dataAssinatura.setText(conv.getDataAssinatura());
-        dataPublicacao.setText(conv.getDataPublicacao());
-
-        String assinado;
-        String empenhado;
-        String publicado;
-
-        if(conv.isEstaAssinado()) assinado = "SIM";
-        else assinado = "NÃO";
-
-        if(conv.isEstaEmpenhado()) empenhado = "SIM";
-        else empenhado = "NÃO";
-
-        if(conv.isEstaPublicado()) publicado = "SIM";
-        else publicado = "NÃO";
-
-        assinadoEmpenhadoPublicado.setText(assinado + " / " + empenhado + " / " + publicado);
-        inicioVigencia.setText(conv.getInicioVigencia());
-        fimVigencia.setText(conv.getFimVigencia());
-        justificativa.setText(conv.getJustificativa());
-        modalidade.setText(conv.getModalidade());
-        nomePrograma.setText(conv.getNomePrograma());
-        objeto.setText(conv.getObjeto());
-
-        // Orgão Concedente
-        cargoConcedenteResponsavel.setText(conv.getCargoResponsavelConcedente());
-
-        String permiteAjuste;
-        String aditivo;
-        String programaOficio;
-
-        if(conv.isPermiteAjusteCronogramaFisico()) permiteAjuste = "SIM";
-        else permiteAjuste = "NÃO";
-
-        if(conv.isPossuiAditivo()) aditivo = "SIM";
-        else aditivo = "NÃO";
-
-        if(conv.isPossuiProgramaDoOficio()) programaOficio = "SIM";
-        else programaOficio = "NÃO";
-
-        permiteAjusteCronograma.setText(permiteAjuste);
-        possuiAditivo.setText(aditivo);
-        possuiProgramaOficio.setText(programaOficio);
-
-        // Proponente
-
-        municipio.setText(conv.getMunicipio());
-        nomeProponente.setText(conv.getNomeProponente());
-        nomeResponsavel.setText(conv.getNomeResponsavelProponente());
-        qualificacao.setText(conv.getQualificacao());
-        regiao.setText(conv.getRegiao());
-        uf.setText(conv.getUf());
-
-        // Proposta
-        anoProposta.setText(conv.getAnoProposta());
-        dataInicioProposta.setText(conv.getDataInicioProposta());
-        situacaoConvenio.setText(conv.getSituacaoConvenio());
-        situacaoPublicacaoConvenio.setText(conv.getSituacaoPublicacaoConvenio());
-        ultimoEmpenho.setText(conv.getUltimoEmpenho());
-        ultimoPagamento.setText(conv.getUltimoPagamento());
-
-        // Valores
-        contrapartidaFinanceira.setText(conv.getValorContrapartidaFinanceira());
-        contrapartidaFinanceiraBensServicos.setText(conv.getValorContrapartidaFinanceiraBensEServicos());
-        valorDesembolsado.setText(conv.getValorDesembolsado());
-        valorGlobal.setText(conv.getValorGlobal());
-        repasseUniao.setText(conv.getValorRepasseUniao());
-        contrapartidaTotal.setText(conv.getValorTotalContrapartida());
+        // Pega os dados do WS e seta aqui
     }
 }

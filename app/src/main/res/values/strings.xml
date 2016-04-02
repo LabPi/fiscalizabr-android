@@ -20,16 +20,38 @@
     <string name="justificativa">JUSTIFICATIVA</string>
     <string name="modalidade">MODALIDADE</string>
     <string name="nome_programa">NOME DO PROGRAMA</string>
+    <string name="numero_convenio">NÚMERO DO CONVÊNIO</string>
+    <string name="numero_interno">NÚMERO INTERNO</string>
+    <string name="numero_processo">NÚMERO DO PROCESSO</string>
+    <string name="qtd_aditivos">QUANTIDADE DE ADITIVOS</string>
+    <string name="qtd_empenhos">QUANTIDADE DE EMPENHOS</string>
+    <string name="qtd_prorrogas">QUANTIDADE DE PRORROGAS</string>
+    <string name="situacao_convenio">SITUAÇÃO CONVÊNIO</string>
+    <string name="subsituacao_convenio">SUBSITUAÇÃO CONVÊNIO</string>
+    <string name="ultimo_empenho">ULTIMO EMPENHO</string>
+    <string name="ultimo_pagamento">ULTIMO PAGAMENTO</string>
 
     <!-- Orgão Concedente -->
     <string name="orgao_concedente">ORGÃO CONCEDENTE</string>
     <string name="cargo_concedente_responsavel">CARGO DO CONCEDENTE RESPONSÁVEL</string>
-    <string name="permite_ajuste_cronograma">PERMITE AJUSTE NO CRONOGRAMA?</string>
+    <string name="nome_orgao_concedente">NOME DO ORGÃO CONCEDENTE</string>
+    <string name="nome_responsavel_concedente">NOME DO CONCEDENTE RESPONSÁVEL</string>
+
+    <!-- Orgão Superior -->
+    <string name="orgao_superior">ORGÃO SUPERIOR</string>
+    <string name="nome_orgao_superior">NOME DO ORGÃO SUPERIOR</string>
+    <string name="permite_ajuste_cronograma_fisico">PERMITE AJUSTE NO CRONOGRAMA FISICO?</string>
     <string name="possui_aditivo">POSSUI ADITIVO?</string>
-    <string name="possui_programa_oficio">POSSUI PROGRAMA DE OFICIO?</string>
+    <string name="prorrogas_de_oficio">PRORROGAS DE OFICIO</string>
 
     <!-- PROPONENTE -->
     <string name="proponente">PROPONENTE</string>
+    <string name="bairro_proponente">BAIRRO</string>
+    <string name="cargo_responsavel_proponente">CARGO RESPONSÁVEL</string>
+    <string name="cep_proponente">CEP</string>
+    <string name="endereco_proponente">ENDEREÇO</string>
+    <string name="esfera_administrativa">ESFERA ADMINISTRATIVA</string>
+    <string name="municipio_proponente">MUNICÍPIO</string>
     <string name="nome_responsavel">NOME DO RESPONSÁVEL</string>
     <string name="qualificacao">QUALIFICAÇÃO</string>
     <string name="regiao">REGIÃO</string>
@@ -37,18 +59,16 @@
 
     <!-- PROPOSTA -->
     <string name="proposta">PROPOSTA</string>
-    <string name="municipio_proponente">MUNICÍPIO</string>
     <string name="ano_proposta">ANO DA PROPOSTA</string>
-    <string name="data_inicio_proposta">DATA DE INICIO DA PROPOSTA</string>
-    <string name="situacao_convenio">SITUAÇÃO DO CONVÊNIO</string>
-    <string name="situacao_publicacao_convenio">SITUAÇÃO DA PUBLICAÇÃO DO CONVÊNIO</string>
-    <string name="ultimo_empenho">ULTIMO EMPENHO</string>
-    <string name="ultimo_pagamento">ULTIMO PAGAMENTO</string>
+    <string name="data_inclusao">DATA DE INCLUSÃO</string>
+    <string name="identificacao">IDENTIFICAÇÃO</string>
+    <string name="numero_proposta">NÚMERO DA PROPOSTA</string>
 
     <!-- VALORES -->
     <string name="valores">VALORES</string>
     <string name="contrapartida_financeira">CONTRAPARTIDA FINANCEIRA</string>
     <string name="contrapartida_financeira_bens_servicos">CONTRAPARTIDA FINANCEIRA DE BENS E SERVIÇOS</string>
+    <string name="valor_empenhado">VALOR EMPENHADO</string>
     <string name="valor_desembolsado">VALOR DESEMBOLSADO</string>
     <string name="repasse_uniao">REPASSE DA UNIÃO</string>
     <string name="contrapartida_total">CONTRAPARTIDA TOTAL</string>
