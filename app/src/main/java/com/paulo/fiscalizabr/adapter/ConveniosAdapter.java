@@ -129,13 +129,13 @@ public class ConveniosAdapter extends BaseAdapter {
             }
 
             if(mData.get(position).getSituacaoConvenio() == 1) {
-                // problema
+                // vermleho
                 holderConvenios.situacaoConvenio.setImageResource(R.drawable.problema);
             } else if(mData.get(position).getSituacaoConvenio() == 2) {
-                // andamento
+                // amarelo
                 holderConvenios.situacaoConvenio.setImageResource(R.drawable.em_andamento);
             } else if(mData.get(position).getSituacaoConvenio() == 3) {
-                // ok
+                // verde
                 holderConvenios.situacaoConvenio.setImageResource(R.drawable.ok);
             }
 

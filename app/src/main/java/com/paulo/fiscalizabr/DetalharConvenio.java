@@ -1,5 +1,6 @@
 package com.paulo.fiscalizabr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,9 +11,18 @@ import android.widget.Toast;
 
 public class DetalharConvenio extends AppCompatActivity {
 
+    public static Integer idConvenio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent i = getIntent();
+        Bundle dados = i.getExtras();
+
+        int idConvenio = dados.getInt("idConvenio");
+        this.idConvenio = idConvenio;
+
         setContentView(R.layout.activity_detalhar_convenio);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_detalhar_convenios);

@@ -1,5 +1,6 @@
 package com.paulo.fiscalizabr;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.paulo.fiscalizabr.core.ConvenioCompleto;
+import com.paulo.fiscalizabr.connection.DownloadConvenioId;
+import com.paulo.fiscalizabr.core.DadosConvenio;
+
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -15,79 +19,80 @@ import com.paulo.fiscalizabr.core.ConvenioCompleto;
 public class DetalharConvenioFragment extends Fragment {
 
     private View view;
+    public static ArrayList<DadosConvenio> dadosConvenio;
 
     // Dados do Convênio
-    private TextView anoAssinaturaConvenioPublicacao;
-    private TextView dataAssinatura;
-    private TextView dataPublicacao;
-    private TextView assinadoEmpenhadoPublicado;
-    private TextView inicioVigencia;
-    private TextView fimVigencia;
-    private TextView justificativa;
-    private TextView modalidade;
-    private TextView nomePrograma;
-    private TextView numeroConvenio;
-    private TextView numeroInterno;
-    private TextView numeroProcesso;
-    private TextView objeto;
+    private static TextView anoAssinaturaConvenioPublicacao;
+    private static TextView dataAssinatura;
+    private static TextView dataPublicacao;
+    private static TextView assinadoEmpenhadoPublicado;
+    private static TextView inicioVigencia;
+    private static TextView fimVigencia;
+    private static TextView justificativa;
+    private static TextView modalidade;
+    private static TextView nomePrograma;
+    private static TextView numeroConvenio;
+    private static TextView numeroInterno;
+    private static TextView numeroProcesso;
+    private static TextView objeto;
 
-    private TextView qtdAditivos;
-    private TextView qtdEmpenhos;
-    private TextView qtdProrrogas;
-    private TextView situacaoConvenio;
-    private TextView subSituacaoConvenio;
-    private TextView ultimoEmpenho;
-    private TextView ultimoPagamento;
+    private static TextView qtdAditivos;
+    private static TextView qtdEmpenhos;
+    private static TextView qtdProrrogas;
+    private static TextView situacaoConvenio;
+    private static TextView subSituacaoConvenio;
+    private static TextView ultimoEmpenho;
+    private static TextView ultimoPagamento;
 
     // Orgão Concedente
-    private TextView cargoConcedenteResponsavel;
-    private TextView nomeOrgaoConcedente;
-    private TextView nomeResponsavelConcedente;
+    private static TextView cargoConcedenteResponsavel;
+    private static TextView nomeOrgaoConcedente;
+    private static TextView nomeResponsavelConcedente;
 
     // Orgão Superior
-    private TextView nomeOrgaoSuperior;
-    private TextView permiteAjusteCronogramaFisico;
-    private TextView possuiAditivo;
-    private TextView prorrogasDeOficio;
+    private static TextView nomeOrgaoSuperior;
+    private static TextView permiteAjusteCronogramaFisico;
+    private static TextView possuiAditivo;
+    private static TextView prorrogasDeOficio;
 
     // Proponente
-    private TextView bairroProponente;
-    private TextView cargoResponsavelProponente;
-    private TextView cepProponente;
-    private TextView enderecoProponente;
-    private TextView esferaAdministrativa;
-    private TextView municipio;
-    private TextView nomeProponente;
-    private TextView qualificacao;
-    private TextView regiao;
-    private TextView uf;
+    private static TextView bairroProponente;
+    private static TextView cargoResponsavelProponente;
+    private static TextView cepProponente;
+    private static TextView enderecoProponente;
+    private static TextView esferaAdministrativa;
+    private static TextView municipio;
+    private static TextView nomeProponente;
+    private static TextView qualificacao;
+    private static TextView regiao;
+    private static TextView uf;
 
     // Proposta
-    private TextView anoProposta;
-    private TextView dataInclusaoProposta;
-    private TextView situacaoProposta;
-    private TextView numeroProposta;
+    private static TextView anoProposta;
+    private static TextView dataInclusaoProposta;
+    private static TextView situacaoProposta;
+    private static TextView numeroProposta;
 
     // Valores
-    private TextView contrapartidaFinanceiraBensServicos;
-    private TextView valorDesembolsado;
-    private TextView valorEmpenhado;
-    private TextView valorGlobal;
-    private TextView repasseUniao;
-    private TextView contrapartidaTotal;
+    private static TextView contrapartidaFinanceiraBensServicos;
+    private static TextView valorDesembolsado;
+    private static TextView valorEmpenhado;
+    private static TextView valorGlobal;
+    private static TextView repasseUniao;
+    private static TextView contrapartidaTotal;
 
-    private ConvenioCompleto conv;
-
-    public DetalharConvenioFragment() { }
+    public DetalharConvenioFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_detalhar_convenio, container, false);
 
+        dadosConvenio = new ArrayList<DadosConvenio>();
+
         setUpWidgets();
         carregaDadosConvenio();
-        setDadosConvenio();
 
         return view;
     }
@@ -155,9 +160,100 @@ public class DetalharConvenioFragment extends Fragment {
     // Carrega os dados do convenio do webservice e seta nos TextViews
     public void carregaDadosConvenio() {
         // Carrega do WS
+        DownloadConvenioId downloadConvenioId = new DownloadConvenioId(getContext(), DetalharConvenio.idConvenio);
+        downloadConvenioId.execute();
     }
 
-    private void setDadosConvenio() {
+    public static void setDadosConvenio() {
         // Pega os dados do WS e seta aqui
+        anoAssinaturaConvenioPublicacao.setText(dadosConvenio.get(0).getAnoAssinatura() + " / " + dadosConvenio.get(0).getAnoConvenio() + " / " + dadosConvenio.get(0).getAnoPublicacao());
+        dataAssinatura.setText(dadosConvenio.get(0).getDataAssinatura());
+        dataPublicacao.setText(dadosConvenio.get(0).getDataPublicacao());
+
+        String assinado, empenhado, publicado;
+        if (dadosConvenio.get(0).isEstaAssinado()) assinado = "SIM";
+        else assinado = "NÃO";
+
+        if (dadosConvenio.get(0).isEstaEmpenhado()) empenhado = "SIM";
+        else empenhado = "NÃO";
+
+        if (dadosConvenio.get(0).isEstaPublicado()) publicado = "SIM";
+        else publicado = "NÃO";
+
+        assinadoEmpenhadoPublicado.setText(assinado + " / " + empenhado + " / " + publicado);
+        inicioVigencia.setText(dadosConvenio.get(0).getInicioVigencia());
+        fimVigencia.setText(dadosConvenio.get(0).getFimVigencia());
+        justificativa.setText(dadosConvenio.get(0).getJustificativa());
+        modalidade.setText(dadosConvenio.get(0).getModalidade());
+        nomePrograma.setText(dadosConvenio.get(0).getNomePrograma());
+        numeroConvenio.setText(String.valueOf(dadosConvenio.get(0).getNumeroConvenio()));
+        numeroInterno.setText(dadosConvenio.get(0).getNumeroInterno());
+        numeroProcesso.setText(dadosConvenio.get(0).getNumeroProcesso());
+        objeto.setText(dadosConvenio.get(0).getObjeto());
+
+        qtdAditivos.setText(String.valueOf(dadosConvenio.get(0).getQuantidadeAditivos()));
+        qtdEmpenhos.setText(String.valueOf(dadosConvenio.get(0).getQuantidadeEmpenhos()));
+        qtdProrrogas.setText(String.valueOf(dadosConvenio.get(0).getQuantidadeProrrogas()));
+        situacaoConvenio.setText(dadosConvenio.get(0).getSituacaoConvenio());
+        subSituacaoConvenio.setText(dadosConvenio.get(0).getSubsituacaoConvenio());
+        ultimoEmpenho.setText(dadosConvenio.get(0).getUltimoEmpenho());
+        ultimoPagamento.setText(dadosConvenio.get(0).getUltimoPagamento());
+
+        cargoConcedenteResponsavel.setText(dadosConvenio.get(0).getOrgaoConcedente().getCargoResponsavelConcedente());
+        nomeOrgaoConcedente.setText(dadosConvenio.get(0).getOrgaoConcedente().getNomeOrgaoConcedente());
+        nomeResponsavelConcedente.setText(dadosConvenio.get(0).getOrgaoConcedente().getNomeResponsavelConcedente());
+
+        nomeOrgaoSuperior.setText(dadosConvenio.get(0).getOrgaoSuperior().getNomeOrgaoSuperior());
+
+        String ajuste, aditivo, oficio;
+
+        if (dadosConvenio.get(0).isPermiteAjusteNoCronogramaFisico()) ajuste = "SIM";
+        else ajuste = "NÃO";
+
+        if (dadosConvenio.get(0).isPossuiAditivo()) aditivo = "SIM";
+        else aditivo = "NÃO";
+
+        if (dadosConvenio.get(0).isPossuiProrrogaDeOficio()) oficio = "SIM";
+        else oficio = "NÃO";
+
+        permiteAjusteCronogramaFisico.setText(ajuste);
+        possuiAditivo.setText(aditivo);
+        prorrogasDeOficio.setText(oficio);
+
+        bairroProponente.setText(dadosConvenio.get(0).getProponente().getBairroProponente());
+        cargoResponsavelProponente.setText(dadosConvenio.get(0).getProponente().getCargoResponsavelProponente());
+        cepProponente.setText(dadosConvenio.get(0).getProponente().getCepProponente());
+        enderecoProponente.setText(dadosConvenio.get(0).getProponente().getEnderecoProponente());
+        esferaAdministrativa.setText(dadosConvenio.get(0).getProponente().getEsferaAdministrativa());
+        municipio.setText(dadosConvenio.get(0).getProponente().getMunicipio());
+        nomeProponente.setText(dadosConvenio.get(0).getProponente().getNomeProponente());
+        qualificacao.setText(dadosConvenio.get(0).getProponente().getQualificacao());
+        regiao.setText(dadosConvenio.get(0).getProponente().getRegiao());
+        uf.setText(dadosConvenio.get(0).getProponente().getUf());
+
+        anoProposta.setText(String.valueOf(dadosConvenio.get(0).getProposta().getAnoProposta()));
+        dataInclusaoProposta.setText(dadosConvenio.get(0).getProposta().getDataInclusaoProposta());
+        numeroProposta.setText(String.valueOf(dadosConvenio.get(0).getProposta().getNumeroProposta()));
+
+        contrapartidaFinanceiraBensServicos.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorContrapartidaFinanceiraBensEServicos())));
+        valorDesembolsado.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorDesembolsado())));
+        valorEmpenhado.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorEmpenhado())));
+        valorGlobal.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorGlobal())));
+        repasseUniao.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorRepasseUniao())));
+        contrapartidaTotal.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorTotalContrapartida())));
     }
+
+    public static String converteValor(String valor) {
+        if (Integer.parseInt(valor) < 1000) return "R$ " + valor + ",00";
+        else {
+            if (Integer.parseInt(valor) < 1000000) {
+                int valorMilhares = Integer.parseInt(valor) / 10000;
+                return "R$ " + valorMilhares + " mil";
+            } else {
+                int valorMilhares = Integer.parseInt(valor) / 1000000;
+                return "R$ " + valorMilhares + " mi";
+            }
+        }
+    }
+
 }

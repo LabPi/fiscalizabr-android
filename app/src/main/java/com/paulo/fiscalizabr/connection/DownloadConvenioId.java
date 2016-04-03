@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.paulo.fiscalizabr.DetalharConvenioFragment;
 import com.paulo.fiscalizabr.core.DadosConvenio;
 import com.paulo.fiscalizabr.core.OrgaoConcedente;
 import com.paulo.fiscalizabr.core.OrgaoSuperior;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 // http://fiscalizabr-dccufla.rhcloud.com/rest/convenios/idConvenio
 public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosConvenio>> {
 
-    private Integer idConvenio;
+    public Integer idConvenio;
 
     private Context context;
 
@@ -453,92 +454,9 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
             //DatabaseController database = new DatabaseController(context);
 
             for(int i=0; i<result.size(); i++) {
-                // Mostra o Convenio
-                //database.addPromocao(result.get(i));
-
-                Log.v("ANO ASSINATURA", result.get(i).getAnoAssinatura().toString());
-                Log.v("ANO PUBLICAÇÃO", result.get(i).getAnoPublicacao().toString());
-                Log.v("CODIGO AÇÃO", result.get(i).getCodigoAcao());
-                Log.v("CODIGO PROGRAMA", result.get(i).getCodigoPrograma());
-                Log.v("DATA ASSINATURA", result.get(i).getDataAssinatura());
-                Log.v("DATA PUBLICAÇÃO", result.get(i).getDataPublicacao());
-                Log.v("ESTA ASSINADO", String.valueOf(result.get(i).isEstaAssinado()));
-                Log.v("ESTA EMPENHADO", String.valueOf(result.get(i).isEstaEmpenhado()));
-                Log.v("ESTA PUBLICADO", String.valueOf(result.get(i).isEstaPublicado()));
-                Log.v("FIM VIGENCIA", result.get(i).getFimVigencia());
-                Log.v("IDENTIFICACAO CONVENIO", result.get(i).getIdentificacaoConvenio().toString());
-                Log.v("IDENT PROP PROGRAMA", result.get(i).getIdentificacaoPropostaPrograma().toString());
-                Log.v("INICIO VIGENCIA", result.get(i).getInicioVigencia());
-                Log.v("JUSTIFICATIVA", result.get(i).getJustificativa());
-                Log.v("MES ASSINATURA", result.get(i).getMesAssinatura().toString());
-                Log.v("MES PUBLICACAO", result.get(i).getMesPublicacao().toString());
-                Log.v("MODALIDADE", result.get(i).getModalidade());
-                Log.v("NOME DO PROGRAMA", result.get(i).getNomePrograma());
-                Log.v("NUMERO DO CONVENIO", result.get(i).getNumeroConvenio().toString());
-                Log.v("NUMERO INTERNO", result.get(i).getNumeroInterno());
-                Log.v("NUMERO DO PROCESSO", result.get(i).getNumeroProcesso());
-                Log.v("OBJETO", result.get(i).getObjeto());
-
-                // ORGÃO CONCEDENTE
-
-                Log.v("ORGÃO CONCEDENTE", "1");
-                Log.v("CARGO RESP. CONCEDENTE", result.get(i).getOrgaoConcedente().getCargoResponsavelConcedente());
-                Log.v("CODIGO ORGAO CONCEDENTE", result.get(i).getOrgaoConcedente().getCodigoOrgaoConcedente().toString());
-                Log.v("CODIGO RESP. CONCEDENTE", result.get(i).getOrgaoConcedente().getCodigoResponsavelConcedente());
-                Log.v("NOME ORGAO CONCEDENTE", result.get(i).getOrgaoConcedente().getNomeOrgaoConcedente());
-                Log.v("NOME RESP. CONCEDENTE", result.get(i).getOrgaoConcedente().getNomeResponsavelConcedente());
-
-                // ORGÃO SUPERIOR
-
-                Log.v("ORGÃO SUPERIOR", "1");
-                Log.v("COD ORGAO SUPERIOR", result.get(i).getOrgaoSuperior().getCodigoOrgaoSuperior().toString());
-                Log.v("NOME ORGAO SUPERIOR", result.get(i).getOrgaoSuperior().getNomeOrgaoSuperior());
-                Log.v("PER AJUSTE CRON. FISICO", String.valueOf(result.get(i).isPermiteAjusteNoCronogramaFisico()));
-                Log.v("POSSUI ADITIVO", String.valueOf(result.get(i).isPossuiAditivo()));
-                Log.v("PRO. DE OFICIO", String.valueOf(result.get(i).isPossuiProrrogaDeOficio()));
-
-                // PROPONENTE
-
-                Log.v("PROPONENTE", "1");
-                Log.v("BAIRRO ", result.get(i).getProponente().getBairroProponente());
-                Log.v("CARGO RESP.", result.get(i).getProponente().getCargoResponsavelProponente());
-                Log.v("CEP", result.get(i).getProponente().getCepProponente());
-                Log.v("CODIGO RESPONSAVEL", result.get(i).getProponente().getCodigoResponsavelProponente());
-                Log.v("ENDERECO", result.get(i).getProponente().getEnderecoProponente());
-                Log.v("ESFERA ADMINISTRATIVA", result.get(i).getProponente().getEsferaAdministrativa());
-                Log.v("IDENTIFICACAO", result.get(i).getProponente().getIdentificacaoProponente());
-                Log.v("MUNICIPIO", result.get(i).getProponente().getMunicipio());
-                Log.v("NOME PROPONENTE", result.get(i).getProponente().getNomeProponente());
-                Log.v("NOME RESPONSAVEL", result.get(i).getProponente().getNomeResponsavelProponente());
-                Log.v("QUALIFICAÇÃO", result.get(i).getProponente().getQualificacao());
-                Log.v("REGIÃO", result.get(i).getProponente().getRegiao());
-                Log.v("UF", result.get(i).getProponente().getUf());
-
-                // PROPOSTA
-
-                Log.v("PROPOSTA", "1");
-                Log.v("ANO PROPOSTA", result.get(i).getProposta().getAnoProposta().toString());
-                Log.v("DATA INCLUSAO", result.get(i).getProposta().getDataInclusaoProposta());
-                Log.v("IDENTIFICACAO", result.get(i).getProposta().getIdentificacaoProposta().toString());
-                Log.v("NUMERO PROPOSTA", result.get(i).getProposta().getNumeroProposta().toString());
-
-                Log.v("QTD ADITIVOS", result.get(i).getQuantidadeAditivos().toString());
-                Log.v("QTD EMPENHOS", result.get(i).getQuantidadeEmpenhos().toString());
-                Log.v("QTD PRORROGAS", result.get(i).getQuantidadeProrrogas().toString());
-                Log.v("SITUACAO CONVENIO", result.get(i).getSituacaoConvenio());
-                Log.v("SUBSITUACAO CONVENIO", result.get(i).getSubsituacaoConvenio());
-                Log.v("ULTIMO EMPENHO", result.get(i).getUltimoEmpenho());
-                Log.v("ULTIMO PGTO", result.get(i).getUltimoPagamento());
-
-                // VALOR
-                Log.v("VALOR", "1");
-                Log.v("VALOR CONTR. FIN. B&S", result.get(i).getValorConvenio().getValorContrapartidaFinanceiraBensEServicos().toString());
-                Log.v("VALOR DESEMBOLSADO", result.get(i).getValorConvenio().getValorDesembolsado().toString());
-                Log.v("EMPENHADO", result.get(i).getValorConvenio().getValorEmpenhado().toString());
-                Log.v("GLOBAL", result.get(i).getValorConvenio().getValorGlobal().toString());
-                Log.v("REPASSE UNIAO", result.get(i).getValorConvenio().getValorRepasseUniao().toString());
-                Log.v("TOTAL CONTRAPARTIDA", result.get(i).getValorConvenio().getValorTotalContrapartida().toString());
+                DetalharConvenioFragment.dadosConvenio.add(result.get(i));
             }
+            DetalharConvenioFragment.setDadosConvenio();
 
             //MainActivityFragment.loadPromocoesItens(); */
         }

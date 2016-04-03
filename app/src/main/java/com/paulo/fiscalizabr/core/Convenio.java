@@ -28,6 +28,10 @@ public class Convenio {
         11 - PLANO DE TRABALHO EM ANÁLISE
     */
     private Integer situacaoConvenio;
+    private Integer mesVigencia;
+    private Integer anoVigencia;
+    private Integer mesFinalVigencia;
+    private Integer anoFinalVigencia;
 
     public Convenio() { }
 
@@ -112,5 +116,37 @@ public class Convenio {
 
     public void setNomeProponente(String nomeProponente) {
         this.nomeProponente = nomeProponente;
+    }
+
+    public Integer getMesVigencia() {
+        return mesVigencia;
+    }
+
+    public void setMesVigencia(Integer mesVigencia) {
+        this.mesVigencia = mesVigencia;
+    }
+
+    public Integer getAnoVigencia() {
+        return anoVigencia;
+    }
+
+    public void setAnoVigencia(Integer anoVigencia) {
+        this.anoVigencia = anoVigencia;
+    }
+
+    public Integer getMesFinalVigencia() {
+        return mesFinalVigencia;
+    }
+
+    public void setMesFinalVigencia(Integer mesFinalVigencia) {
+        this.mesFinalVigencia = mesFinalVigencia;
+    }
+
+    public Integer getAnoFinalVigencia() {
+        return anoFinalVigencia;
+    }
+
+    public void setAnoFinalVigencia(Integer anoFinalVigencia) {
+        this.anoFinalVigencia = anoFinalVigencia;
     }
 }

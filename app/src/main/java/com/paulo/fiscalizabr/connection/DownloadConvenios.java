@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.paulo.fiscalizabr.ConveniosFragment;
+import com.paulo.fiscalizabr.MainActivity;
 import com.paulo.fiscalizabr.core.Convenio;
 
 import org.json.JSONArray;
@@ -15,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -74,11 +77,17 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
             convenio.setNumeroConvenio(numeroConvenio);
 
             objeto = convenioObject.getString(OBJETO);
-            convenio.setObjetoConvenio(objeto);
+            convenio.setObjetoConvenio(objeto.toUpperCase());
 
             inicioVigencia = getReadableData(convenioObject.getString(INICIO_VIGENCIA));
             fimVigencia = getReadableData(convenioObject.getString(FIM_VIGENCIA));
             convenio.setVigencia(inicioVigencia + " a " + fimVigencia);
+            // Inicio Vigencia
+            convenio.setMesVigencia(Integer.parseInt(inicioVigencia.substring(3, 5)));
+            convenio.setAnoVigencia(Integer.parseInt(inicioVigencia.substring(6)));
+
+            convenio.setMesFinalVigencia(Integer.parseInt(fimVigencia.substring(3, 5)));
+            convenio.setAnoFinalVigencia(Integer.parseInt(fimVigencia.substring(6)));
 
             municipio = convenioObject.getString(MUNICIPIO);
             convenio.setMunicipio(municipio);
@@ -90,7 +99,7 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
             convenio.setNomeProponente(nomeProponente);
 
             valorGlobal = convenioObject.getString(VALOR_GLOBAL);
-            convenio.setValorConvenio("R$ " + valorGlobal);
+            convenio.setValorConvenio(valorGlobal);
 
             situacaoConvenio = convenioObject.getString(SITUACAO_CONVENIO);
 
@@ -193,11 +202,8 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
             //DatabaseController database = new DatabaseController(context);
 
             for(int i=0; i<result.size(); i++) {
-                Log.v("NUMERO DO CONVÊNIO", result.get(i).getNumeroConvenio().toString());
-                Log.v("OBJETO DO CONVÊNIO", result.get(i).getObjetoConvenio());
-                Log.v("VIGÊNCIA", result.get(i).getVigencia());
-                Log.v("VALOR DO CONVÊNIO", result.get(i).getValorConvenio());
-                Log.v("SITUAÇÃO DO CONVÊNIO", result.get(i).getSituacaoConvenio().toString());
+                ConveniosFragment.listaConvenios.add(result.get(i));
+                ConveniosFragment.setUpConvenios();
                 //database.addPromocao(result.get(i));
             }
 
