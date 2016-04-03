@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.paulo.fiscalizabr.adapter.ConveniosAdapter;
 import com.paulo.fiscalizabr.connection.DownloadConvenios;
 import com.paulo.fiscalizabr.core.Convenio;
+import com.paulo.fiscalizabr.tools.CheckConnection;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ public class ConveniosFragment extends Fragment {
 
     private ListView conveniosListView;
     public static ConveniosAdapter adapter;
-    public static ArrayList<Convenio> listaConvenios;
+    public static ArrayList<Convenio> listaConvenios = new ArrayList<Convenio>();
 
     public ConveniosFragment() {   }
 
@@ -37,16 +39,15 @@ public class ConveniosFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_convenios, container, false);
 
-        listaConvenios = new ArrayList<Convenio>();
-
-        DownloadConvenios downloadConvenios = new DownloadConvenios(getContext());
-        downloadConvenios.execute();
+        // Só carrega dados do servidor se a listaConvenios estiver vazia
+        if(listaConvenios.isEmpty()) {
+            carregaDadosServidor();
+        }
 
         setUpWidgets();
 
         return view;
     }
-
 
     public void setUpWidgets() {
         conveniosListView = (ListView) view.findViewById(R.id.listview_convenios);
@@ -66,9 +67,21 @@ public class ConveniosFragment extends Fragment {
                     Intent i = new Intent(getContext(), DetalharConvenio.class);
                     i.putExtras(bundle);
                     startActivity(i);
-                } // else do nothing
+                } else {
+                    carregaDadosServidor();
+                }
             }
         });
+    }
+
+    public void carregaDadosServidor() {
+        CheckConnection conexaoInternet = new CheckConnection(getContext());
+        if(conexaoInternet.isConnected() == false) {
+            Toast.makeText(getContext(), "Ops, estamos sem conexão com a Internet!", Toast.LENGTH_SHORT).show();
+        } else {
+            DownloadConvenios downloadConvenios = new DownloadConvenios(getContext());
+            downloadConvenios.execute();
+        }
     }
 
     public static void setUpConvenios() {

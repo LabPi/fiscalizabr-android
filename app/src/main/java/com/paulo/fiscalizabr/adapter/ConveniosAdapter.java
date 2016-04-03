@@ -142,8 +142,8 @@ public class ConveniosAdapter extends BaseAdapter {
             convertView = convertViewConvenios;
         } else if(type == TYPE_SEPARATOR) {
             // Separator utilizado para quando a lista de noticias está vazia
-            holderVazio.iconeVazio.setImageResource(R.drawable.ic_room_black_48dp);
-            holderVazio.textoVazio.setText(convertViewVazio.getResources().getString(R.string.carregando_convenios));
+            //holderVazio.iconeVazio.setImageResource(R.drawable.ic_room_black_48dp);
+            //holderVazio.textoVazio.setText(convertViewVazio.getResources().getString(R.string.carregando_convenios));
 
             convertView = convertViewVazio;
         }
