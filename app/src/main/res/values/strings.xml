@@ -91,4 +91,11 @@
     <string name="carregando_convenios">Carregando convênios</string>
     <string name="nao_possui_favoritos">Você ainda não possui Favoritos</string>
 
+    <!-- Shared Preferences -->
+    <string name="preference_cidade">com.paulo.fiscalizabr.PREFERENCE_CIDADE</string>
+    <string name="preference_uf">com.paulo.fiscalizabr.PREFERENCE_UF</string>
+
+    <string name="default_cidade">Brasília</string>
+    <string name="default_uf">DF</string>
+
 </resources>

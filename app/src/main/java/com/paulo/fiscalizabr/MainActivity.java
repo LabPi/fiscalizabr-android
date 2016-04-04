@@ -1,14 +1,18 @@
 package com.paulo.fiscalizabr;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public TabLayout tabLayout;
     public ViewPager viewPager;
 
-    private TextView municipioEstado;
+    private static TextView municipioEstado;
 
     // Fragments
     private  ConveniosFragment convenios;
@@ -48,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
         setUpFragments();
 
         municipioEstado = (TextView) findViewById(R.id.municipio_estado_main_textview);
-        // Carrega Municipio/Estado do arquivo de preferências
-        municipioEstado.setText("Lavras, MG");
+
+        carregaMunicipioUfPreference();
 
         // Floating Button para pesquisa de convênios
         FloatingActionButton pesquisarButton = (FloatingActionButton) findViewById(R.id.procurar_convenio_button);
@@ -63,6 +67,22 @@ public class MainActivity extends AppCompatActivity {
 
         setUpViewPager();
 
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        carregaMunicipioUfPreference();
+    }
+
+    public void carregaMunicipioUfPreference() {
+        // Carrega Municipio/Estado do arquivo de preferências
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String cidadePreference = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
+        String ufPreference = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
+
+        municipioEstado.setText(cidadePreference + ", " + ufPreference);
     }
 
     public void setUpFragments() {
@@ -98,8 +118,12 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.editar_localizacao:
                 // Compartilha convenio
-                Intent editarLocalizacao = new Intent(getApplicationContext(), AlterarLocalizacao.class);
-                startActivity(editarLocalizacao);
+                //Intent editarLocalizacao = new Intent(getApplicationContext(), AlterarLocalizacao.class);
+                //startActivity(editarLocalizacao);
+
+                Intent intent = new Intent(this.getApplicationContext(), AlterarPreferencias.class);
+                startActivity(intent);
+
                 return true;
             case R.id.ordenar_lista:
                 final Dialog dialog = new Dialog(MainActivity.this);

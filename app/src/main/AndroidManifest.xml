@@ -49,6 +49,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.paulo.fiscalizabr.MainActivity" />
         </activity>
+
+        <activity
+            android:name="com.paulo.fiscalizabr.AlterarPreferencias"
+            android:label="@string/editar_localizacao"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.paulo.fiscalizabr.MainActivity" />
+        </activity>
+
     </application>
 
 </manifest>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <EditTextPreference
+        android:title="@string/municipio_pesquisar"
+        android:key="@string/preference_cidade"
+        android:defaultValue="@string/default_cidade"
+        android:inputType="text"
+        android:singleLine="true" />
+
+    <ListPreference
+        android:dependency="@string/preference_cidade"
+        android:key="@string/preference_uf"
+        android:title="@string/uf"
+        android:dialogTitle="@string/default_uf"
+        android:entries="@array/uf_array"
+        android:entryValues="@array/uf_array"
+        android:defaultValue="@string/default_uf" />
+
+</PreferenceScreen>
