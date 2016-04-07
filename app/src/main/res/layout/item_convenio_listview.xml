@@ -55,15 +55,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             android:background="@android:color/white">
 
             <ImageView
                 android:id="@+id/icone_date_imageview"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginBottom="16dp"
                 android:src="@drawable/ic_today_black_36dp" />
 
             <TextView
@@ -71,28 +69,39 @@
                 android:layout_toRightOf="@id/icone_date_imageview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="JAN/2016 a ABR/2016" />
 
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/icone_valor_convenio_imageview"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_valor_convenio_lista" />
+
             <TextView
                 android:id="@+id/valor_convenio_textview"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:layout_marginRight="16dp"
+                android:layout_toRightOf="@id/icone_valor_convenio_imageview"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@android:color/white"
                 android:text="$ 500 mil" />
 
         </RelativeLayout>
-
-
-
     </LinearLayout>
 
 </LinearLayout>

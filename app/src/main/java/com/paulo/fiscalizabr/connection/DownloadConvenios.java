@@ -211,11 +211,12 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
 
                 //DatabaseController database = new DatabaseController(context);
 
+                ConveniosFragment.listaConvenios.clear(); // Limpa lista de convênios
                 for (int i = 0; i < result.size(); i++) {
-                    ConveniosFragment.listaConvenios.add(result.get(i));
-                    ConveniosFragment.setUpConvenios();
+                    ConveniosFragment.listaConvenios.add(result.get(i)); // Atualiza os convênios
                     //database.addPromocao(result.get(i));
                 }
+                ConveniosFragment.setUpConvenios(); // Carrega os convênios para o ListView da Activity
 
                 //MainActivityFragment.loadPromocoesItens(); */
             } else {

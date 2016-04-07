@@ -7,6 +7,7 @@ public class Convenio {
 
     public final String RESULT_IS_NULL = "RESULT_IS_NULL"; // Resultado da busca do Convênio não retornou resultados
     public final String NO_INTERNET = "NO_INTERNET"; // Contém dados resultantes da busca no servidor
+    public final String IS_LOADING = "IS_LOADING"; // Está carregando os convênios do servidor
 
     private Integer numeroConvenio;
     private String objetoConvenio;

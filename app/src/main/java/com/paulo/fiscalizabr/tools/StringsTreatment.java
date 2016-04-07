@@ -10,18 +10,18 @@ public class StringsTreatment {
     // De acordo com a data este método retorna a String com o Ano/Mes correspondente
     public static String converteAnoMes(Integer mes, Integer ano) {
         String result = "";
-        if(mes == 1) result = "Jan/"+ano;
-        if(mes == 2) result = "Fev/"+ano;
-        if(mes == 3) result = "Mar/"+ano;
-        if(mes == 4) result = "Abr/"+ano;
-        if(mes == 5) result = "Mai/"+ano;
-        if(mes == 6) result = "Jun/"+ano;
-        if(mes == 7) result = "Jul/"+ano;
-        if(mes == 8) result = "Ago/"+ano;
-        if(mes == 9) result = "Set/"+ano;
-        if(mes == 10) result = "Out/"+ano;
-        if(mes == 11) result = "Nov/"+ano;
-        if(mes == 12) result = "Dez/"+ano;
+        if(mes == 1) result = "Janeiro de "+ano;
+        if(mes == 2) result = "Fevereiro de "+ano;
+        if(mes == 3) result = "Março de "+ano;
+        if(mes == 4) result = "Abril de "+ano;
+        if(mes == 5) result = "Maio de "+ano;
+        if(mes == 6) result = "Junho de "+ano;
+        if(mes == 7) result = "Julho de "+ano;
+        if(mes == 8) result = "Agosto de "+ano;
+        if(mes == 9) result = "Setembro de "+ano;
+        if(mes == 10) result = "Outubro de "+ano;
+        if(mes == 11) result = "Novembro de "+ano;
+        if(mes == 12) result = "Dezembro de "+ano;
 
         return result;
     }

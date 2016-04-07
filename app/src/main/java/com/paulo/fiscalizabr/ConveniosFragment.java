@@ -63,9 +63,12 @@ public class ConveniosFragment extends Fragment {
         conveniosListView = (ListView) view.findViewById(R.id.listview_convenios);
         adapter = new ConveniosAdapter(getContext());
 
-        setUpConvenios();
+        adapter.clear();
+        adapter.addEmptyList(new Convenio(new Convenio().IS_LOADING));
 
         conveniosListView.setAdapter(adapter);
+
+        carregaDadosServidor();
 
         conveniosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -102,11 +105,10 @@ public class ConveniosFragment extends Fragment {
     }
 
     public static void setUpConvenios() {
+        adapter.clear();
         if(listaConvenios.size() == 0) {
-            adapter.clear();
             adapter.addEmptyList(new Convenio(new Convenio().RESULT_IS_NULL));
         } else {
-            adapter.clear();
             for (int i = 0; i < listaConvenios.size(); i++) {
                 Convenio convenio = new Convenio();
 
