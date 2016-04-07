@@ -5,6 +5,9 @@ package com.paulo.fiscalizabr.core;
  */
 public class Convenio {
 
+    public final String RESULT_IS_NULL = "RESULT_IS_NULL"; // Resultado da busca do Convênio não retornou resultados
+    public final String NO_INTERNET = "NO_INTERNET"; // Contém dados resultantes da busca no servidor
+
     private Integer numeroConvenio;
     private String objetoConvenio;
     private boolean isFavorito;
@@ -44,6 +47,11 @@ public class Convenio {
         this.nomeProponente = nomeProponente;
         this.vigencia = vigencia;
         this.valorConvenio = valorConvenio;
+    }
+
+    // Utilizado para setar a imagem e a mensagem a ser exibida no ListView
+    public Convenio(String objetoConvenio) {
+        this.objetoConvenio = objetoConvenio;
     }
 
     public String getObjetoConvenio() {

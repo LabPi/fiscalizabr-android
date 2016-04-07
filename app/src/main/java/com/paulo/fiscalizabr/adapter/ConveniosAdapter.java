@@ -141,9 +141,16 @@ public class ConveniosAdapter extends BaseAdapter {
 
             convertView = convertViewConvenios;
         } else if(type == TYPE_SEPARATOR) {
-            // Separator utilizado para quando a lista de noticias está vazia
-            //holderVazio.iconeVazio.setImageResource(R.drawable.ic_room_black_48dp);
-            //holderVazio.textoVazio.setText(convertViewVazio.getResources().getString(R.string.carregando_convenios));
+            if(mData.get(0).getObjetoConvenio().equals(mData.get(0).RESULT_IS_NULL)) {
+                holderVazio.iconeVazio.setImageResource(R.drawable.ic_sentiment_dissatisfied_black_48dp);
+                holderVazio.textoVazio.setText(convertViewVazio.getResources().getString(R.string.resultado_busca_null));
+            } else if(mData.get(0).getObjetoConvenio().equals(mData.get(0).NO_INTERNET)) {
+                holderVazio.iconeVazio.setImageResource(R.drawable.ic_cloud_off_black_48dp);
+                holderVazio.textoVazio.setText(convertViewVazio.getResources().getString(R.string.conexao_internet_null));
+            } else {
+                holderVazio.iconeVazio.setImageResource(R.drawable.ic_autorenew_black_48dp);
+                holderVazio.textoVazio.setText(convertViewVazio.getResources().getString(R.string.carregando_convenios));
+            }
 
             convertView = convertViewVazio;
         }

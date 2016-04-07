@@ -98,4 +98,7 @@
     <string name="default_cidade">Brasília</string>
     <string name="default_uf">DF</string>
 
+    <string name="resultado_busca_null">Não foram encontrados resultados para este município!</string>
+    <string name="conexao_internet_null">Ops, verifique sua conexão com a Internet!</string>
+
 </resources>

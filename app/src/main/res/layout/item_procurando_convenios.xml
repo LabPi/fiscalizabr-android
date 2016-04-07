@@ -14,17 +14,16 @@
             android:id="@+id/localizacao_carregando_imageview"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_autorenew_black_48dp" />
+            android:layout_gravity="center" />
 
         <TextView
             android:id="@+id/carrregando_convenios_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center_horizontal"
             android:layout_marginTop="34dp"
-            android:text="@string/carregando_convenios"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 

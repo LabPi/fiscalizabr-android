@@ -87,7 +87,9 @@ public class ConveniosFragment extends Fragment {
     public void carregaDadosServidor() {
         CheckConnection conexaoInternet = new CheckConnection(getContext());
         if(conexaoInternet.isConnected() == false) {
-            Toast.makeText(getContext(), "Ops, estamos sem conexão com a Internet!", Toast.LENGTH_SHORT).show();
+            adapter.clear();
+            adapter.addEmptyList(new Convenio(new Convenio().NO_INTERNET));
+            //Toast.makeText(getContext(), "Ops, estamos sem conexão com a Internet!", Toast.LENGTH_SHORT).show();
         } else {
             // Carrega Municipio/Estado do arquivo de preferências
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -102,7 +104,7 @@ public class ConveniosFragment extends Fragment {
     public static void setUpConvenios() {
         if(listaConvenios.size() == 0) {
             adapter.clear();
-            adapter.addEmptyList(new Convenio());
+            adapter.addEmptyList(new Convenio(new Convenio().RESULT_IS_NULL));
         } else {
             adapter.clear();
             for (int i = 0; i < listaConvenios.size(); i++) {
