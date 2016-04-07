@@ -2,9 +2,12 @@ package com.paulo.fiscalizabr;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -13,6 +16,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.paulo.fiscalizabr.connection.DownloadConveniosParametros;
+import com.paulo.fiscalizabr.tools.StringsTreatment;
+
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class PesquisarConvenio extends AppCompatActivity {
@@ -35,6 +42,8 @@ public class PesquisarConvenio extends AppCompatActivity {
     private Boolean isInicio;
 
     private Calendar myCalendar = Calendar.getInstance();
+
+    public StringsTreatment tratamentoString = new StringsTreatment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +68,10 @@ public class PesquisarConvenio extends AppCompatActivity {
         minimoSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progress = progress / 5000;
-                progress = progress * 5000;
+                //progress = progress / 5000;
+                //progress = progress * 5000;
 
-                String minimo = "R$ " + progress + ",00";
-                minimoTextView.setText(minimo);
+                minimoTextView.setText(tratamentoString.converteValor(String.valueOf(progress)));
             }
 
             @Override
@@ -78,11 +86,10 @@ public class PesquisarConvenio extends AppCompatActivity {
         maximoSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progress = progress / 100000;
-                progress = progress * 100000;
+                //progress = progress / 100000;
+                //progress = progress * 100000;
 
-                String maximo = "R$ " + progress + ",00";
-                maximoTextView.setText(maximo);
+                maximoTextView.setText(tratamentoString.converteValor(String.valueOf(progress)));
             }
 
             @Override
@@ -141,7 +148,49 @@ public class PesquisarConvenio extends AppCompatActivity {
     }
 
     public void pesquisarConvenio(View view) {
-        Toast.makeText(this.getApplicationContext(), "Realiza Pesquisa do Convênio", Toast.LENGTH_SHORT).show();
+        String municipio, uf, inicioVigencia, fimVigencia, situacaoConvenio;
+        int valorMinimo, valorMaximo;
+
+        // Carrega Municipio/Estado do arquivo de preferências
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        municipio = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
+        uf = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
+
+        valorMaximo = maximoSeekBar.getProgress();
+        valorMinimo = minimoSeekBar.getProgress();
+        inicioVigencia = this.inicioVigencia.getText().toString();
+        fimVigencia = this.fimVigencia.getText().toString();
+        situacaoConvenio = situacaoConvenioSpinner.getSelectedItem().toString();
+
+        if(situacaoConvenio.equals("AGUARDANDO PRESTAÇÃO DE CONTAS")) {
+            situacaoConvenio = "AGUARDANDO_PRESTACAO_CONTAS";
+        } else if(situacaoConvenio.equals("EM EXECUÇÃO")) {
+            situacaoConvenio = "EM_EXECUCAO";
+        } else if(situacaoConvenio.equals("ASSINADO")) {
+            situacaoConvenio = "ASSINADO";
+        } else if(situacaoConvenio.equals("PRESTAÇÃO DE CONTAS EM ANÁLISE")) {
+            situacaoConvenio = "PRESTACAO_CONTAS_EM_ANALISE";
+        } else if(situacaoConvenio.equals("PRESTAÇÃO DE CONTAS REJEITADA")) {
+            situacaoConvenio = "PRESTACAO_CONTAS_REJEITADA";
+        } else if(situacaoConvenio.equals("PRESTAÇÃO DE CONTAS EM COMPLEMENTAÇÃO")) {
+            situacaoConvenio = "PRESTACAO_CONTAS_EM_COMPLEMENTACAO";
+        } else if(situacaoConvenio.equals("PRESTAÇÃO DE CONTAS APROVADA")) {
+            situacaoConvenio = "PRESTACAO_CONTAS_APROVADA";
+        } else if(situacaoConvenio.equals("PLANO DE TRABALHO COMPLEMENTADO EM ANÁLISE")) {
+            situacaoConvenio = "PLANO_TRABALHO_COMPLEMENTADO_EM_ANALISE";
+        } else if(situacaoConvenio.equals("PLANO DE TRABALHO EM COMPLEMENTAÇÃO")) {
+            situacaoConvenio = "PLANO_TRABALHO_EM_COMPLEMENTACAO";
+        } else if(situacaoConvenio.equals("PROPOSTA EM ANÁLISE")) {
+            situacaoConvenio = "PROPOSTA_EM_ANALISE";
+        } else if(situacaoConvenio.equals("PLANO DE TRABALHO EM ANÁLISE")) {
+            situacaoConvenio = "PLANO_TRABALHO_EM_ANALISE";
+        }
+
+        DownloadConveniosParametros downloadConveniosParametros = new DownloadConveniosParametros(getApplicationContext(), municipio, uf, String.valueOf(valorMinimo), String.valueOf(valorMaximo), inicioVigencia, fimVigencia, situacaoConvenio);
+        downloadConveniosParametros.execute();
+
+        this.finish();
+
     }
 
 }

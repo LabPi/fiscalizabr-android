@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.paulo.fiscalizabr.connection.DownloadConvenioId;
 import com.paulo.fiscalizabr.core.DadosConvenio;
+import com.paulo.fiscalizabr.tools.StringsTreatment;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class DetalharConvenioFragment extends Fragment {
 
     private View view;
     public static ArrayList<DadosConvenio> dadosConvenio;
+    public static StringsTreatment tratamentoString = new StringsTreatment();
 
     // Dados do Convênio
     private static TextView anoAssinaturaConvenioPublicacao;
@@ -235,25 +237,12 @@ public class DetalharConvenioFragment extends Fragment {
         dataInclusaoProposta.setText(dadosConvenio.get(0).getProposta().getDataInclusaoProposta());
         numeroProposta.setText(String.valueOf(dadosConvenio.get(0).getProposta().getNumeroProposta()));
 
-        contrapartidaFinanceiraBensServicos.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorContrapartidaFinanceiraBensEServicos())));
-        valorDesembolsado.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorDesembolsado())));
-        valorEmpenhado.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorEmpenhado())));
-        valorGlobal.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorGlobal())));
-        repasseUniao.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorRepasseUniao())));
-        contrapartidaTotal.setText(converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorTotalContrapartida())));
-    }
-
-    public static String converteValor(String valor) {
-        if (Integer.parseInt(valor) < 1000) return "R$ " + valor + ",00";
-        else {
-            if (Integer.parseInt(valor) < 1000000) {
-                int valorMilhares = Integer.parseInt(valor) / 10000;
-                return "R$ " + valorMilhares + " mil";
-            } else {
-                int valorMilhares = Integer.parseInt(valor) / 1000000;
-                return "R$ " + valorMilhares + " mi";
-            }
-        }
+        contrapartidaFinanceiraBensServicos.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorContrapartidaFinanceiraBensEServicos())));
+        valorDesembolsado.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorDesembolsado())));
+        valorEmpenhado.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorEmpenhado())));
+        valorGlobal.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorGlobal())));
+        repasseUniao.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorRepasseUniao())));
+        contrapartidaTotal.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorTotalContrapartida())));
     }
 
 }

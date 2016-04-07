@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.paulo.fiscalizabr.ConveniosFragment;
-import com.paulo.fiscalizabr.MainActivity;
 import com.paulo.fiscalizabr.core.Convenio;
 
 import org.json.JSONArray;
@@ -17,24 +16,36 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Created by Paulo on 01/04/2016.
+ * Created by Paulo on 04/04/2016.
  */
-public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Convenio>> {
 
-    private String municipio;
-    private String uf;
+// Baixa os convenios baseados nos parametros passados
+// http://fiscalizabr-dccufla.rhcloud.com/rest/convenios?mun=Lavras&uf=MG&iniPer=01/01/2015&fimPer=31/12/2015
+
+public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayList<Convenio>> {
 
     private Context context;
+    private String municipio;
+    private String uf;
+    private String valorMinimo;
+    private String valorMaximo;
+    private String inicioVigencia;
+    private String fimVigencia;
+    private String situacaoConvenio;
 
-    public DownloadConvenios(Context context, String municipio, String uf) {
+    public DownloadConveniosParametros(Context context, String municipio, String uf, String valorMinimo, String valorMaximo, String inicioVigencia, String fimVigencia, String situacaoConveio) {
         this.municipio = municipio;
         this.uf = uf;
+        this.valorMinimo = valorMinimo;
+        this.valorMaximo = valorMaximo;
+        this.inicioVigencia = inicioVigencia;
+        this.fimVigencia = fimVigencia;
+        this.situacaoConvenio = situacaoConveio;
         this.context = context;
     }
 
@@ -45,7 +56,7 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
         return data;
     }
 
-    private ArrayList<Convenio> getConveniosDataFromJson(String appJsonStr) throws JSONException {
+    private ArrayList<Convenio> getConveniosParametrosDataFromJson(String appJsonStr) throws JSONException {
 
         final String ID_CONVENIO = "convenios";
         final String NUMERO_CONVENIO = "numeroConvenio";
@@ -147,11 +158,13 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
         String dataJsonStr = "{\"convenios\":";
 
         try {
-            final String CONVENIO_URL = "http://fiscalizabr-dccufla.rhcloud.com/rest/convenios?" +
-                                        "mun="+municipio+
-                                        "&uf="+uf;
+            final String CONVENIO_URL = "\n" + "http://fiscalizabr-dccufla.rhcloud.com/rest/convenios?" +
+                                                "mun=" + municipio +
+                                                "&uf=" + uf +
+                                                "&iniPer=" + inicioVigencia +
+                                                "&fimPer=" + fimVigencia;
 
-            Log.v("URL CONVENIO", CONVENIO_URL);
+            Log.v("URL", CONVENIO_URL);
 
             Uri builtUri = Uri.parse(CONVENIO_URL);
 
@@ -179,7 +192,7 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
             } else {
                 dataJsonStr += buffer.toString() + "}";
                 try {
-                    return getConveniosDataFromJson(dataJsonStr);
+                    return getConveniosParametrosDataFromJson(dataJsonStr);
                 } catch(JSONException e) {
                     e.printStackTrace();
                 }
@@ -211,17 +224,20 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
 
                 //DatabaseController database = new DatabaseController(context);
 
+                ConveniosFragment.listaConvenios.clear();
                 for (int i = 0; i < result.size(); i++) {
                     ConveniosFragment.listaConvenios.add(result.get(i));
                     ConveniosFragment.setUpConvenios();
                     //database.addPromocao(result.get(i));
                 }
 
+                Log.v("FINAL", "OK");
+
                 //MainActivityFragment.loadPromocoesItens(); */
-            } else {
-                ConveniosFragment.listaConvenios.clear();
-                ConveniosFragment.setUpConvenios();
             }
+        } else {
+            ConveniosFragment.listaConvenios.clear();
+            ConveniosFragment.setUpConvenios();
         }
     }
 
