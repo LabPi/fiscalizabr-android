@@ -207,18 +207,13 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
     protected void onPostExecute(ArrayList<Convenio> result) {
         if(result != null) {
             if (!result.isEmpty()) {
-                // Adiciona produtos no banco de dados
-
-                //DatabaseController database = new DatabaseController(context);
-
+                // Limpa a tabela do banco e adiciona os convenios para fazer o cache local
                 ConveniosFragment.listaConvenios.clear(); // Limpa lista de convênios
                 for (int i = 0; i < result.size(); i++) {
                     ConveniosFragment.listaConvenios.add(result.get(i)); // Atualiza os convênios
                     //database.addPromocao(result.get(i));
                 }
                 ConveniosFragment.setUpConvenios(); // Carrega os convênios para o ListView da Activity
-
-                //MainActivityFragment.loadPromocoesItens(); */
             } else {
                 ConveniosFragment.listaConvenios.clear();
                 ConveniosFragment.setUpConvenios();

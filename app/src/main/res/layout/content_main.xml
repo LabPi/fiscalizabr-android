@@ -17,4 +17,5 @@
         android:dividerHeight="16dp"
         android:divider="@android:color/transparent"
         android:scrollbars="none" />
+
 </RelativeLayout>

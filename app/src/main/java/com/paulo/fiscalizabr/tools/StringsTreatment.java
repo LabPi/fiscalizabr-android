@@ -26,7 +26,7 @@ public class StringsTreatment {
         return result;
     }
 
-    // Método teste
+    // Converte o valor para apresentar no ListView
     public static String converteValor(String valor) {
         BigDecimal valorGlobal = new BigDecimal(valor);
         if (valorGlobal.compareTo(new BigDecimal(1000)) < 0) {
@@ -37,6 +37,23 @@ public class StringsTreatment {
         } else {
             BigDecimal valorMilhares = valorGlobal.divide(new BigDecimal(1000000));
             return "R$ " + valorMilhares + " mi";
+        }
+    }
+
+    // Converte o valor para apresentar no TextView do Spinner
+    public static String converteValorSpinner(String valor) {
+        BigDecimal valorGlobal = new BigDecimal(valor);
+        if(valorGlobal.intValue() < 1) {
+            return "R$ 0.00";
+        } else if (valorGlobal.compareTo(new BigDecimal(50000)) < 0) {
+            return "R$ " + String.format("%.0f",valorGlobal) + " mil";
+        } else if (valorGlobal.compareTo(new BigDecimal(1000000)) < 0) {
+            valorGlobal = valorGlobal.divide(new BigDecimal(1000));
+            return "R$ " + String.format("%.0f",valorGlobal) + " mil";
+        } else {
+            BigDecimal valorMilhares = valorGlobal.divide(new BigDecimal(1000000));
+            valorGlobal = valorGlobal.divide(new BigDecimal(1000000));
+            return "R$ " + String.format("%.1f",valorGlobal) + " mi";
         }
     }
 

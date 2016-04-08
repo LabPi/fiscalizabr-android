@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.paulo.fiscalizabr.connection.DownloadConvenioId;
 import com.paulo.fiscalizabr.core.DadosConvenio;
+import com.paulo.fiscalizabr.enums.Modalidade;
 import com.paulo.fiscalizabr.tools.StringsTreatment;
 
 import java.util.ArrayList;
