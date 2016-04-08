@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.paulo.fiscalizabr.ConveniosFragment;
+import com.paulo.fiscalizabr.ConveniosPesquisaDetalhada;
 import com.paulo.fiscalizabr.core.Convenio;
 
 import org.json.JSONArray;
@@ -158,13 +158,16 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
         String dataJsonStr = "{\"convenios\":";
 
         try {
-            final String CONVENIO_URL = "\n" + "http://fiscalizabr-dccufla.rhcloud.com/rest/convenios?" +
+            final String CONVENIO_URL = "http://fiscalizabr-dccufla.rhcloud.com/rest/convenios?" +
                                                 "mun=" + municipio +
                                                 "&uf=" + uf +
                                                 "&iniPer=" + inicioVigencia +
-                                                "&fimPer=" + fimVigencia;
+                                                "&fimPer=" + fimVigencia +
+                                                "&minV=" + valorMinimo +
+                                                "&maxV=" + valorMaximo +
+                                                "&sit=" + situacaoConvenio;
 
-            Log.v("URL", CONVENIO_URL);
+            Log.v("URL PARAMETRO", CONVENIO_URL);
 
             Uri builtUri = Uri.parse(CONVENIO_URL);
 
@@ -224,10 +227,10 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
 
                 //DatabaseController database = new DatabaseController(context);
 
-                ConveniosFragment.listaConvenios.clear();
+                ConveniosPesquisaDetalhada.listaConvenios.clear();
                 for (int i = 0; i < result.size(); i++) {
-                    ConveniosFragment.listaConvenios.add(result.get(i));
-                    ConveniosFragment.setUpConvenios();
+                    ConveniosPesquisaDetalhada.listaConvenios.add(result.get(i));
+                    ConveniosPesquisaDetalhada.setUpConvenios();
                     //database.addPromocao(result.get(i));
                 }
 
@@ -236,8 +239,8 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
                 //MainActivityFragment.loadPromocoesItens(); */
             }
         } else {
-            ConveniosFragment.listaConvenios.clear();
-            ConveniosFragment.setUpConvenios();
+            ConveniosPesquisaDetalhada.listaConvenios.clear();
+            ConveniosPesquisaDetalhada.setUpConvenios();
         }
     }
 

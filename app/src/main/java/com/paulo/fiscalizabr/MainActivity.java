@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.paulo.fiscalizabr.adapter.DialogListViewAdapter;
 import com.paulo.fiscalizabr.adapter.ViewPagerAdapter;
+import com.paulo.fiscalizabr.connection.DownloadConveniosParametros;
 import com.paulo.fiscalizabr.core.ItemDialog;
 
 public class MainActivity extends AppCompatActivity {

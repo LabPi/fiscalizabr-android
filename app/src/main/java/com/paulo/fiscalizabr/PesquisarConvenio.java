@@ -2,12 +2,12 @@ package com.paulo.fiscalizabr;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -16,10 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.paulo.fiscalizabr.connection.DownloadConveniosParametros;
 import com.paulo.fiscalizabr.tools.StringsTreatment;
 
-import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class PesquisarConvenio extends AppCompatActivity {
@@ -185,10 +183,22 @@ public class PesquisarConvenio extends AppCompatActivity {
             situacaoConvenio = "PLANO_TRABALHO_EM_ANALISE";
         }
 
-        DownloadConveniosParametros downloadConveniosParametros = new DownloadConveniosParametros(getApplicationContext(), municipio, uf, String.valueOf(valorMinimo), String.valueOf(valorMaximo), inicioVigencia, fimVigencia, situacaoConvenio);
-        downloadConveniosParametros.execute();
+        // valorMinimo, valorMaximo, inicioVigencia, fimVigencia, situacaoConvenio
+        if(valorMinimo == 0 || valorMaximo == 0 || inicioVigencia.equals("Clique aqui para selecionar uma data") ||
+                fimVigencia.equals("Clique aqui para selecionar uma data")) {
+            Toast.makeText(this, "Selecione valores para todos os campos antes de continuar", Toast.LENGTH_SHORT).show();
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putString("valorMinimo", String.valueOf(valorMinimo));
+            bundle.putString("valorMaximo", String.valueOf(valorMaximo));
+            bundle.putString("inicioVigencia", inicioVigencia);
+            bundle.putString("fimVigencia", fimVigencia);
+            bundle.putString("situacaoConvenio", situacaoConvenio);
 
-        this.finish();
+            Intent i = new Intent(getApplicationContext(), ConveniosPesquisaDetalhada.class);
+            i.putExtras(bundle);
+            startActivity(i);
+        }
 
     }
 

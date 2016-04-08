@@ -10,7 +10,13 @@ import android.widget.TextView;
 
 import com.paulo.fiscalizabr.connection.DownloadConvenioId;
 import com.paulo.fiscalizabr.core.DadosConvenio;
+import com.paulo.fiscalizabr.enums.EsferaAdministrativa;
 import com.paulo.fiscalizabr.enums.Modalidade;
+import com.paulo.fiscalizabr.enums.Qualificacao;
+import com.paulo.fiscalizabr.enums.Regiao;
+import com.paulo.fiscalizabr.enums.SituacaoConvenio;
+import com.paulo.fiscalizabr.enums.SubsituacaoConvenio;
+import com.paulo.fiscalizabr.enums.UF;
 import com.paulo.fiscalizabr.tools.StringsTreatment;
 
 import java.util.ArrayList;
@@ -187,7 +193,7 @@ public class DetalharConvenioFragment extends Fragment {
         inicioVigencia.setText(dadosConvenio.get(0).getInicioVigencia());
         fimVigencia.setText(dadosConvenio.get(0).getFimVigencia());
         justificativa.setText(dadosConvenio.get(0).getJustificativa());
-        modalidade.setText(dadosConvenio.get(0).getModalidade());
+        modalidade.setText(Modalidade.valueOf(dadosConvenio.get(0).getModalidade()).getDescricao());
         nomePrograma.setText(dadosConvenio.get(0).getNomePrograma());
         numeroConvenio.setText(String.valueOf(dadosConvenio.get(0).getNumeroConvenio()));
         numeroInterno.setText(dadosConvenio.get(0).getNumeroInterno());
@@ -197,8 +203,8 @@ public class DetalharConvenioFragment extends Fragment {
         qtdAditivos.setText(String.valueOf(dadosConvenio.get(0).getQuantidadeAditivos()));
         qtdEmpenhos.setText(String.valueOf(dadosConvenio.get(0).getQuantidadeEmpenhos()));
         qtdProrrogas.setText(String.valueOf(dadosConvenio.get(0).getQuantidadeProrrogas()));
-        situacaoConvenio.setText(dadosConvenio.get(0).getSituacaoConvenio());
-        subSituacaoConvenio.setText(dadosConvenio.get(0).getSubsituacaoConvenio());
+        situacaoConvenio.setText(SituacaoConvenio.valueOf(dadosConvenio.get(0).getSituacaoConvenio()).getDescricao());
+        subSituacaoConvenio.setText(SubsituacaoConvenio.valueOf(dadosConvenio.get(0).getSubsituacaoConvenio()).getDescricao());
         ultimoEmpenho.setText(dadosConvenio.get(0).getUltimoEmpenho());
         ultimoPagamento.setText(dadosConvenio.get(0).getUltimoPagamento());
 
@@ -227,12 +233,12 @@ public class DetalharConvenioFragment extends Fragment {
         cargoResponsavelProponente.setText(dadosConvenio.get(0).getProponente().getCargoResponsavelProponente());
         cepProponente.setText(dadosConvenio.get(0).getProponente().getCepProponente());
         enderecoProponente.setText(dadosConvenio.get(0).getProponente().getEnderecoProponente());
-        esferaAdministrativa.setText(dadosConvenio.get(0).getProponente().getEsferaAdministrativa());
+        esferaAdministrativa.setText(EsferaAdministrativa.valueOf(dadosConvenio.get(0).getProponente().getEsferaAdministrativa()).getDescricao());
         municipio.setText(dadosConvenio.get(0).getProponente().getMunicipio());
         nomeProponente.setText(dadosConvenio.get(0).getProponente().getNomeProponente());
-        qualificacao.setText(dadosConvenio.get(0).getProponente().getQualificacao());
-        regiao.setText(dadosConvenio.get(0).getProponente().getRegiao());
-        uf.setText(dadosConvenio.get(0).getProponente().getUf());
+        qualificacao.setText(Qualificacao.valueOf(dadosConvenio.get(0).getProponente().getQualificacao()).getDescricao());
+        regiao.setText(Regiao.valueOf(dadosConvenio.get(0).getProponente().getRegiao()).getDescricao());
+        uf.setText(UF.valueOf(dadosConvenio.get(0).getProponente().getUf()).getDescricao());
 
         anoProposta.setText(String.valueOf(dadosConvenio.get(0).getProposta().getAnoProposta()));
         dataInclusaoProposta.setText(dadosConvenio.get(0).getProposta().getDataInclusaoProposta());

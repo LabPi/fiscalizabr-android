@@ -49,16 +49,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.paulo.fiscalizabr.MainActivity" />
         </activity>
-
         <activity
-            android:name="com.paulo.fiscalizabr.AlterarPreferencias"
+            android:name=".AlterarPreferencias"
             android:label="@string/editar_localizacao"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.paulo.fiscalizabr.MainActivity" />
         </activity>
-
+        <activity
+            android:name=".ConveniosPesquisaDetalhada"
+            android:label="@string/title_activity_convenios_pesquisa_detalhada"
+            android:parentActivityName=".PesquisarConvenio"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.paulo.fiscalizabr.PesquisarConvenio" />
+        </activity>
     </application>
 
 </manifest>
