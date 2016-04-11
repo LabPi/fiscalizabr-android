@@ -104,5 +104,7 @@
 
     <string name="situacao_publicacao_convenio">SITUAÇÃO DA PUBLICAÇÃO</string>
     <string name="nome_responsavel_pelo_proponente">NOME DO RESPONSÁVEL PELO PROPONENTE</string>
+    <string name="title_activity_splash_screen_fiscaliza">SplashScreenFiscaliza</string>
+    <string name="mensagem_splash_screen">Carregando dados dos nossos servidores</string>
 
 </resources>

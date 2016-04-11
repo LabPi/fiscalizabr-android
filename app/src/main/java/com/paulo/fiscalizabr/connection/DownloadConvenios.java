@@ -31,13 +31,15 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
 
     private String municipio;
     private String uf;
+    public boolean isPreference;
 
     private Context context;
 
-    public DownloadConvenios(Context context, String municipio, String uf) {
+    public DownloadConvenios(Context context, String municipio, String uf, boolean isPreference) {
         this.municipio = municipio;
         this.uf = uf;
         this.context = context;
+        this.isPreference = isPreference;
     }
 
     // Retorna data no formato DD/MM/AAAA
@@ -216,7 +218,11 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
                 DatabaseController database = new DatabaseController(context);
                 database.deleteConvenios();
 
-                ConveniosFragment.listaConvenios.clear(); // Limpa lista de convênios
+                ConveniosFragment.listaConvenios.clear();
+                if(isPreference) {
+                    ConveniosFragment.setUpConvenios(1);
+                }
+
                 for (int i = 0; i < result.size(); i++) {
                     Convenio resultado = result.get(i);
 
@@ -225,13 +231,21 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
                     // Dados do convênio completo já vão ser adicionados no banco
                     DownloadConvenioId convenioCompleto = new DownloadConvenioId(context, resultado.getNumeroConvenio());
                     convenioCompleto.execute();
-                    //ConveniosFragment.listaConvenios.add(resultado);
+                    if(isPreference) ConveniosFragment.listaConvenios.add(resultado);
                 }
-                ConveniosFragment.listaConvenios = database.selectConvenios(); // Carrega os convênios que foram setados no banco de dados
-                ConveniosFragment.setUpConvenios(); // Carrega os convênios para o ListView da Activity
+                if(isPreference) {
+                    ConveniosFragment.setUpConvenios(0);
+                }
             } else {
-                ConveniosFragment.listaConvenios.clear();
-                ConveniosFragment.setUpConvenios();
+                // ArrayList result is null
+                DatabaseController database = new DatabaseController(context);
+                database.deleteConvenios();
+
+                if (isPreference) {
+                    ConveniosFragment.listaConvenios.clear();
+                    ConveniosFragment.setUpConvenios(0);
+                    Log.v("Convenios", "Convenios apagados!");
+                }
             }
         }
     }

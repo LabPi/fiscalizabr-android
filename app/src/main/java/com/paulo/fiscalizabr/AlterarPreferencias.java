@@ -1,5 +1,6 @@
 package com.paulo.fiscalizabr;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -13,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import com.paulo.fiscalizabr.connection.DownloadConvenios;
+import com.paulo.fiscalizabr.tools.StringsTreatment;
 
 /**
  * Created by Paulo on 03/04/2016.
@@ -55,9 +59,28 @@ public class AlterarPreferencias extends PreferenceActivity implements Preferenc
         bar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String cidadePreference = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
+                String ufPreference = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
+
+                DownloadConvenios downloadConvenios = new DownloadConvenios(getApplicationContext(), new StringsTreatment().normalizaString(cidadePreference), ufPreference, true);
+                downloadConvenios.execute();
+
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String cidadePreference = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
+        String ufPreference = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
+
+        DownloadConvenios downloadConvenios = new DownloadConvenios(getApplicationContext(), new StringsTreatment().normalizaString(cidadePreference), ufPreference, true);
+        downloadConvenios.execute();
+
+        finish();
     }
 
     @Override
@@ -90,6 +113,7 @@ public class AlterarPreferencias extends PreferenceActivity implements Preferenc
         } else {
             preference.setSummary(stringValue);
         }
+
         return true;
     }
 

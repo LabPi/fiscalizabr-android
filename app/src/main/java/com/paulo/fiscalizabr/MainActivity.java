@@ -66,18 +66,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String cidadePreference = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
-        String ufPreference = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
-
-        DownloadConvenios downloadConvenios = new DownloadConvenios(this, tratamentoString.normalizaString(cidadePreference), ufPreference);
-        downloadConvenios.execute();
-    }
-
-    @Override
     protected void onResume()
     {
         super.onResume();

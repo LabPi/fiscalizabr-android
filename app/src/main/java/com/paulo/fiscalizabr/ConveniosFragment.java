@@ -1,6 +1,7 @@
 package com.paulo.fiscalizabr;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -44,12 +45,8 @@ public class ConveniosFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_convenios, container, false);
 
-        // Só carrega dados do servidor se a listaConvenios estiver vazia
-        if(listaConvenios.isEmpty()) {
-            carregaDadosBanco();
-        }
-
         setUpWidgets();
+        carregaDadosBanco();
 
         return view;
     }
@@ -90,6 +87,7 @@ public class ConveniosFragment extends Fragment {
 
     public void carregaDadosBanco() {
         CheckConnection conexaoInternet = new CheckConnection(getContext());
+
         if(conexaoInternet.isConnected() == false) {
             adapter.clear();
             adapter.addEmptyList(new Convenio(new Convenio().NO_INTERNET));
@@ -99,41 +97,44 @@ public class ConveniosFragment extends Fragment {
             listaConvenios.clear();
 
             DatabaseController database = new DatabaseController(getContext());
-            ArrayList<Convenio> resultadoBanco = new ArrayList<Convenio>();
-            resultadoBanco.addAll(database.selectConvenios());
-
-            for(int i=0; i<resultadoBanco.size(); i++) {
-                listaConvenios.add(resultadoBanco.get(i));
-            }
+            listaConvenios.addAll(database.selectConvenios());
+            setUpConvenios(0);
         }
     }
 
-    public static void setUpConvenios() {
+    public static void setUpConvenios(int widget) {
         adapter.clear();
-        if(listaConvenios.size() == 0) {
-            adapter.addEmptyList(new Convenio(new Convenio().RESULT_IS_NULL));
+
+        if(widget == 1) {
+            adapter.addEmptyList(new Convenio(new Convenio().IS_LOADING));
         } else {
-            for (int i = 0; i < listaConvenios.size(); i++) {
-                Convenio convenio = new Convenio();
 
-                convenio.setObjetoConvenio(listaConvenios.get(i).getObjetoConvenio());
-                convenio.setValorConvenio(tratamentoString.converteValor(listaConvenios.get(i).getValorConvenio()));
-                String vigenciaInicio = "", vigenciaFinal = "";
-                vigenciaInicio = tratamentoString.converteAnoMes(listaConvenios.get(i).getMesVigencia(), listaConvenios.get(i).getAnoVigencia());
-                vigenciaFinal = tratamentoString.converteAnoMes(listaConvenios.get(i).getMesFinalVigencia(), listaConvenios.get(i).getAnoFinalVigencia());
+            if (listaConvenios.size() == 0) {
+                adapter.addEmptyList(new Convenio(new Convenio().RESULT_IS_NULL));
+            } else {
+                for (int i = 0; i < listaConvenios.size(); i++) {
+                    Convenio convenio = new Convenio();
 
-                convenio.setVigencia(vigenciaInicio + " à " + vigenciaFinal);
-                convenio.setIsFavorito(false);
-                if(listaConvenios.get(i).getSituacaoConvenio() == 7) {
-                    // verde
-                    convenio.setSituacaoConvenio(3);
-                } else if(listaConvenios.get(i).getSituacaoConvenio() == 5) {
-                    convenio.setSituacaoConvenio(1);
-                } else {
-                    convenio.setSituacaoConvenio(2);
+                    convenio.setObjetoConvenio(listaConvenios.get(i).getObjetoConvenio());
+                    convenio.setValorConvenio(tratamentoString.converteValor(listaConvenios.get(i).getValorConvenio()));
+                    String vigenciaInicio = "", vigenciaFinal = "";
+                    vigenciaInicio = tratamentoString.converteAnoMes(listaConvenios.get(i).getMesVigencia(), listaConvenios.get(i).getAnoVigencia());
+                    vigenciaFinal = tratamentoString.converteAnoMes(listaConvenios.get(i).getMesFinalVigencia(), listaConvenios.get(i).getAnoFinalVigencia());
+
+                    convenio.setVigencia(vigenciaInicio + " à " + vigenciaFinal);
+                    convenio.setIsFavorito(false);
+
+                    if (listaConvenios.get(i).getSituacaoConvenio() == 7) {
+                        // verde
+                        convenio.setSituacaoConvenio(3);
+                    } else if (listaConvenios.get(i).getSituacaoConvenio() == 5) {
+                        convenio.setSituacaoConvenio(1);
+                    } else {
+                        convenio.setSituacaoConvenio(2);
+                    }
+
+                    adapter.addItem(convenio);
                 }
-
-                adapter.addItem(convenio);
             }
         }
     }
