@@ -8,6 +8,8 @@ import android.util.Log;
 import com.paulo.fiscalizabr.ConveniosFragment;
 import com.paulo.fiscalizabr.MainActivity;
 import com.paulo.fiscalizabr.core.Convenio;
+import com.paulo.fiscalizabr.core.DadosConvenio;
+import com.paulo.fiscalizabr.database.DatabaseController;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,7 +66,7 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
         ArrayList<Convenio> result = new ArrayList<Convenio>();
 
         for(int i=0; i < arrayConvenios.length(); i++) {
-            Integer numeroConvenio;
+            String numeroConvenio;
             String objeto;
             String inicioVigencia;
             String fimVigencia;
@@ -78,7 +80,7 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
 
             JSONObject convenioObject = arrayConvenios.getJSONObject(i);
 
-            numeroConvenio = convenioObject.getInt(NUMERO_CONVENIO);
+            numeroConvenio = convenioObject.getString(NUMERO_CONVENIO);
             convenio.setNumeroConvenio(numeroConvenio);
 
             objeto = convenioObject.getString(OBJETO);
@@ -88,6 +90,7 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
             fimVigencia = getReadableData(convenioObject.getString(FIM_VIGENCIA));
             convenio.setVigencia(inicioVigencia + " a " + fimVigencia);
             // Inicio Vigencia
+            // 2008-09-19T00:00:00-04:00
             convenio.setMesVigencia(Integer.parseInt(inicioVigencia.substring(3, 5)));
             convenio.setAnoVigencia(Integer.parseInt(inicioVigencia.substring(6)));
 
@@ -131,6 +134,8 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
             } else if(situacaoConvenio.equals("PLANO_TRABALHO_EM_ANALISE")) {
                 convenio.setSituacaoConvenio(11);
             }
+
+            convenio.setIsFavorito(false);
 
             result.add(convenio);
         }
@@ -208,11 +213,21 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
         if(result != null) {
             if (!result.isEmpty()) {
                 // Limpa a tabela do banco e adiciona os convenios para fazer o cache local
+                DatabaseController database = new DatabaseController(context);
+                database.deleteConvenios();
+
                 ConveniosFragment.listaConvenios.clear(); // Limpa lista de convênios
                 for (int i = 0; i < result.size(); i++) {
-                    ConveniosFragment.listaConvenios.add(result.get(i)); // Atualiza os convênios
-                    //database.addPromocao(result.get(i));
+                    Convenio resultado = result.get(i);
+
+                    database.addConvenio(resultado);
+
+                    // Dados do convênio completo já vão ser adicionados no banco
+                    DownloadConvenioId convenioCompleto = new DownloadConvenioId(context, resultado.getNumeroConvenio());
+                    convenioCompleto.execute();
+                    //ConveniosFragment.listaConvenios.add(resultado);
                 }
+                ConveniosFragment.listaConvenios = database.selectConvenios(); // Carrega os convênios que foram setados no banco de dados
                 ConveniosFragment.setUpConvenios(); // Carrega os convênios para o ListView da Activity
             } else {
                 ConveniosFragment.listaConvenios.clear();

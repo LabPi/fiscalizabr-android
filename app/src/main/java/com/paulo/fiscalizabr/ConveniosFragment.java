@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.paulo.fiscalizabr.adapter.ConveniosAdapter;
 import com.paulo.fiscalizabr.connection.DownloadConvenios;
 import com.paulo.fiscalizabr.core.Convenio;
+import com.paulo.fiscalizabr.database.DatabaseController;
 import com.paulo.fiscalizabr.tools.CheckConnection;
 import com.paulo.fiscalizabr.tools.StringsTreatment;
 
@@ -45,7 +46,7 @@ public class ConveniosFragment extends Fragment {
 
         // Só carrega dados do servidor se a listaConvenios estiver vazia
         if(listaConvenios.isEmpty()) {
-            carregaDadosServidor();
+            carregaDadosBanco();
         }
 
         setUpWidgets();
@@ -56,7 +57,7 @@ public class ConveniosFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        carregaDadosServidor();
+        carregaDadosBanco();
     }
 
     public void setUpWidgets() {
@@ -68,26 +69,26 @@ public class ConveniosFragment extends Fragment {
 
         conveniosListView.setAdapter(adapter);
 
-        carregaDadosServidor();
+        carregaDadosBanco();
 
         conveniosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (listaConvenios.size() != 0) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("idConvenio", listaConvenios.get(position).getNumeroConvenio());
+                    bundle.putString("idConvenio", listaConvenios.get(position).getNumeroConvenio());
 
                     Intent i = new Intent(getContext(), DetalharConvenio.class);
                     i.putExtras(bundle);
                     startActivity(i);
                 } else {
-                    carregaDadosServidor();
+                    carregaDadosBanco();
                 }
             }
         });
     }
 
-    public void carregaDadosServidor() {
+    public void carregaDadosBanco() {
         CheckConnection conexaoInternet = new CheckConnection(getContext());
         if(conexaoInternet.isConnected() == false) {
             adapter.clear();
@@ -95,12 +96,15 @@ public class ConveniosFragment extends Fragment {
             //Toast.makeText(getContext(), "Ops, estamos sem conexão com a Internet!", Toast.LENGTH_SHORT).show();
         } else {
             // Carrega Municipio/Estado do arquivo de preferências
-            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String cidadePreference = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
-            String ufPreference = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
+            listaConvenios.clear();
 
-            DownloadConvenios downloadConvenios = new DownloadConvenios(getContext(), tratamentoString.normalizaString(cidadePreference), ufPreference);
-            downloadConvenios.execute();
+            DatabaseController database = new DatabaseController(getContext());
+            ArrayList<Convenio> resultadoBanco = new ArrayList<Convenio>();
+            resultadoBanco.addAll(database.selectConvenios());
+
+            for(int i=0; i<resultadoBanco.size(); i++) {
+                listaConvenios.add(resultadoBanco.get(i));
+            }
         }
     }
 

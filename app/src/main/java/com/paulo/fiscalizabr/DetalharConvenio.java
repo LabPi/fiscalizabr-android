@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 
 public class DetalharConvenio extends AppCompatActivity {
 
-    public static Integer idConvenio;
+    public static String idConvenio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class DetalharConvenio extends AppCompatActivity {
         Intent i = getIntent();
         Bundle dados = i.getExtras();
 
-        int idConvenio = dados.getInt("idConvenio");
+        String idConvenio = dados.getString("idConvenio");
         this.idConvenio = idConvenio;
 
         setContentView(R.layout.activity_detalhar_convenio);

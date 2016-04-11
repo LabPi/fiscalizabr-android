@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.paulo.fiscalizabr.connection.DownloadConvenioId;
 import com.paulo.fiscalizabr.core.DadosConvenio;
+import com.paulo.fiscalizabr.database.DatabaseController;
 import com.paulo.fiscalizabr.enums.EsferaAdministrativa;
 import com.paulo.fiscalizabr.enums.Modalidade;
 import com.paulo.fiscalizabr.enums.Qualificacao;
@@ -34,23 +35,21 @@ public class DetalharConvenioFragment extends Fragment {
     private static TextView anoAssinaturaConvenioPublicacao;
     private static TextView dataAssinatura;
     private static TextView dataPublicacao;
-    private static TextView assinadoEmpenhadoPublicado;
     private static TextView inicioVigencia;
     private static TextView fimVigencia;
     private static TextView justificativa;
     private static TextView modalidade;
     private static TextView nomePrograma;
     private static TextView numeroConvenio;
-    private static TextView numeroInterno;
     private static TextView numeroProcesso;
     private static TextView objeto;
+    private static TextView situacaoPublicacaoConvenio;
 
     private static TextView qtdAditivos;
     private static TextView qtdEmpenhos;
     private static TextView qtdProrrogas;
     private static TextView situacaoConvenio;
     private static TextView subSituacaoConvenio;
-    private static TextView ultimoEmpenho;
     private static TextView ultimoPagamento;
 
     // Orgão Concedente
@@ -60,9 +59,6 @@ public class DetalharConvenioFragment extends Fragment {
 
     // Orgão Superior
     private static TextView nomeOrgaoSuperior;
-    private static TextView permiteAjusteCronogramaFisico;
-    private static TextView possuiAditivo;
-    private static TextView prorrogasDeOficio;
 
     // Proponente
     private static TextView bairroProponente;
@@ -72,14 +68,13 @@ public class DetalharConvenioFragment extends Fragment {
     private static TextView esferaAdministrativa;
     private static TextView municipio;
     private static TextView nomeProponente;
+    private static TextView nomeResponsavelProponente;
     private static TextView qualificacao;
     private static TextView regiao;
     private static TextView uf;
 
     // Proposta
-    private static TextView anoProposta;
     private static TextView dataInclusaoProposta;
-    private static TextView situacaoProposta;
     private static TextView numeroProposta;
 
     // Valores
@@ -111,22 +106,21 @@ public class DetalharConvenioFragment extends Fragment {
         anoAssinaturaConvenioPublicacao = (TextView) view.findViewById(R.id.assinatura_convenio_publicacao_textview);
         dataAssinatura = (TextView) view.findViewById(R.id.data_assinatura_textview);
         dataPublicacao = (TextView) view.findViewById(R.id.data_publicacao_textview);
-        assinadoEmpenhadoPublicado = (TextView) view.findViewById(R.id.assinado_empenho_publicado_textview);
         inicioVigencia = (TextView) view.findViewById(R.id.inicio_vigencia_convenio_textview);
         fimVigencia = (TextView) view.findViewById(R.id.fim_vigencia_convenio_textview);
         justificativa = (TextView) view.findViewById(R.id.justificativa_textview);
         modalidade = (TextView) view.findViewById(R.id.modalidade_textview);
         nomePrograma = (TextView) view.findViewById(R.id.nome_programa_textview);
         numeroConvenio = (TextView) view.findViewById(R.id.numero_convenio_textview);
-        numeroInterno = (TextView) view.findViewById(R.id.numero_interno_textview);
         numeroProcesso = (TextView) view.findViewById(R.id.numero_processo_textview);
         objeto = (TextView) view.findViewById(R.id.objeto_convenio_textview);
+        situacaoPublicacaoConvenio = (TextView) view.findViewById(R.id.situacao_publicacao_convenio_textview);
         qtdAditivos = (TextView) view.findViewById(R.id.qtd_aditivos_textview);
         qtdEmpenhos = (TextView) view.findViewById(R.id.qtd_empenhos_textview);
         qtdProrrogas = (TextView) view.findViewById(R.id.qtd_prorrogas_textview);
         situacaoConvenio = (TextView) view.findViewById(R.id.situacao_convenio_textview);
         subSituacaoConvenio = (TextView) view.findViewById(R.id.subsituacao_convenio_textview);
-        ultimoEmpenho = (TextView) view.findViewById(R.id.ultimo_empenho_textview);
+        situacaoPublicacaoConvenio = (TextView) view.findViewById(R.id.situacao_publicacao_convenio_textview);
         ultimoPagamento = (TextView) view.findViewById(R.id.ultimo_pagamento_textview);
 
         // Orgão Concedente
@@ -136,9 +130,6 @@ public class DetalharConvenioFragment extends Fragment {
 
         // Orgão Superior
         nomeOrgaoSuperior = (TextView) view.findViewById(R.id.nome_orgao_superior_textview);
-        permiteAjusteCronogramaFisico = (TextView) view.findViewById(R.id.permite_ajuste_cronograma_fisico_textview);
-        possuiAditivo = (TextView) view.findViewById(R.id.possui_aditivo_textview);
-        prorrogasDeOficio = (TextView) view.findViewById(R.id.prorrogas_de_oficio_textview);
 
         // Proponente
         bairroProponente = (TextView) view.findViewById(R.id.bairro_proponente_textview);
@@ -148,12 +139,13 @@ public class DetalharConvenioFragment extends Fragment {
         esferaAdministrativa = (TextView) view.findViewById(R.id.esfera_administrativa_textview);
         municipio = (TextView) view.findViewById(R.id.municipio_proponente_textview);
         nomeProponente = (TextView) view.findViewById(R.id.nome_proponente_detalhado_textview);
+        nomeResponsavelProponente = (TextView) view.findViewById(R.id.nome_responsavel_pelo_proponente_textview);
         qualificacao = (TextView) view.findViewById(R.id.qualificacao_textview);
         regiao = (TextView) view.findViewById(R.id.regiao_textview);
         uf = (TextView) view.findViewById(R.id.uf_textview);
+        nomeResponsavelProponente = (TextView) view.findViewById(R.id.nome_responsavel_pelo_proponente_textview);
 
         // Proposta
-        anoProposta = (TextView) view.findViewById(R.id.ano_proposta_textview);
         dataInclusaoProposta = (TextView) view.findViewById(R.id.data_inclusao_proposta_textview);
         numeroProposta = (TextView) view.findViewById(R.id.numero_proposta_textview);
 
@@ -169,8 +161,10 @@ public class DetalharConvenioFragment extends Fragment {
     // Carrega os dados do convenio do webservice e seta nos TextViews
     public void carregaDadosConvenio() {
         // Carrega do WS
-        DownloadConvenioId downloadConvenioId = new DownloadConvenioId(getContext(), DetalharConvenio.idConvenio);
-        downloadConvenioId.execute();
+        DatabaseController database = new DatabaseController(getContext());
+        dadosConvenio.clear();
+        dadosConvenio.add(database.selectConvenioCompleto(DetalharConvenio.idConvenio));
+        setDadosConvenio();
     }
 
     public static void setDadosConvenio() {
@@ -179,33 +173,21 @@ public class DetalharConvenioFragment extends Fragment {
         dataAssinatura.setText(dadosConvenio.get(0).getDataAssinatura());
         dataPublicacao.setText(dadosConvenio.get(0).getDataPublicacao());
 
-        String assinado, empenhado, publicado;
-        if (dadosConvenio.get(0).isEstaAssinado()) assinado = "SIM";
-        else assinado = "NÃO";
-
-        if (dadosConvenio.get(0).isEstaEmpenhado()) empenhado = "SIM";
-        else empenhado = "NÃO";
-
-        if (dadosConvenio.get(0).isEstaPublicado()) publicado = "SIM";
-        else publicado = "NÃO";
-
-        assinadoEmpenhadoPublicado.setText(assinado + " / " + empenhado + " / " + publicado);
         inicioVigencia.setText(dadosConvenio.get(0).getInicioVigencia());
         fimVigencia.setText(dadosConvenio.get(0).getFimVigencia());
         justificativa.setText(dadosConvenio.get(0).getJustificativa());
         modalidade.setText(Modalidade.valueOf(dadosConvenio.get(0).getModalidade()).getDescricao());
         nomePrograma.setText(dadosConvenio.get(0).getNomePrograma());
         numeroConvenio.setText(String.valueOf(dadosConvenio.get(0).getNumeroConvenio()));
-        numeroInterno.setText(dadosConvenio.get(0).getNumeroInterno());
         numeroProcesso.setText(dadosConvenio.get(0).getNumeroProcesso());
         objeto.setText(dadosConvenio.get(0).getObjeto());
+        situacaoPublicacaoConvenio.setText(dadosConvenio.get(0).getSituacaoPublicacaoConvenio());
 
         qtdAditivos.setText(String.valueOf(dadosConvenio.get(0).getQuantidadeAditivos()));
         qtdEmpenhos.setText(String.valueOf(dadosConvenio.get(0).getQuantidadeEmpenhos()));
         qtdProrrogas.setText(String.valueOf(dadosConvenio.get(0).getQuantidadeProrrogas()));
         situacaoConvenio.setText(SituacaoConvenio.valueOf(dadosConvenio.get(0).getSituacaoConvenio()).getDescricao());
         subSituacaoConvenio.setText(SubsituacaoConvenio.valueOf(dadosConvenio.get(0).getSubsituacaoConvenio()).getDescricao());
-        ultimoEmpenho.setText(dadosConvenio.get(0).getUltimoEmpenho());
         ultimoPagamento.setText(dadosConvenio.get(0).getUltimoPagamento());
 
         cargoConcedenteResponsavel.setText(dadosConvenio.get(0).getOrgaoConcedente().getCargoResponsavelConcedente());
@@ -213,21 +195,6 @@ public class DetalharConvenioFragment extends Fragment {
         nomeResponsavelConcedente.setText(dadosConvenio.get(0).getOrgaoConcedente().getNomeResponsavelConcedente());
 
         nomeOrgaoSuperior.setText(dadosConvenio.get(0).getOrgaoSuperior().getNomeOrgaoSuperior());
-
-        String ajuste, aditivo, oficio;
-
-        if (dadosConvenio.get(0).isPermiteAjusteNoCronogramaFisico()) ajuste = "SIM";
-        else ajuste = "NÃO";
-
-        if (dadosConvenio.get(0).isPossuiAditivo()) aditivo = "SIM";
-        else aditivo = "NÃO";
-
-        if (dadosConvenio.get(0).isPossuiProrrogaDeOficio()) oficio = "SIM";
-        else oficio = "NÃO";
-
-        permiteAjusteCronogramaFisico.setText(ajuste);
-        possuiAditivo.setText(aditivo);
-        prorrogasDeOficio.setText(oficio);
 
         bairroProponente.setText(dadosConvenio.get(0).getProponente().getBairroProponente());
         cargoResponsavelProponente.setText(dadosConvenio.get(0).getProponente().getCargoResponsavelProponente());
@@ -239,14 +206,14 @@ public class DetalharConvenioFragment extends Fragment {
         qualificacao.setText(Qualificacao.valueOf(dadosConvenio.get(0).getProponente().getQualificacao()).getDescricao());
         regiao.setText(Regiao.valueOf(dadosConvenio.get(0).getProponente().getRegiao()).getDescricao());
         uf.setText(UF.valueOf(dadosConvenio.get(0).getProponente().getUf()).getDescricao());
+        nomeResponsavelProponente.setText(dadosConvenio.get(0).getProponente().getNomeResponsavelProponente());
 
-        anoProposta.setText(String.valueOf(dadosConvenio.get(0).getProposta().getAnoProposta()));
-        dataInclusaoProposta.setText(dadosConvenio.get(0).getProposta().getDataInclusaoProposta());
+        dataInclusaoProposta.setText(dadosConvenio.get(0).getProposta().getDataInclusao());
         numeroProposta.setText(String.valueOf(dadosConvenio.get(0).getProposta().getNumeroProposta()));
 
         contrapartidaFinanceiraBensServicos.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorContrapartidaFinanceiraBensEServicos())));
         valorDesembolsado.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorDesembolsado())));
-        valorEmpenhado.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorEmpenhado())));
+            valorEmpenhado.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorEmpenhado())));
         valorGlobal.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorGlobal())));
         repasseUniao.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorRepasseUniao())));
         contrapartidaTotal.setText(tratamentoString.converteValor(String.valueOf(dadosConvenio.get(0).getValorConvenio().getValorTotalContrapartida())));

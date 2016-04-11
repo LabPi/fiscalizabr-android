@@ -21,8 +21,10 @@ import android.widget.Toast;
 
 import com.paulo.fiscalizabr.adapter.DialogListViewAdapter;
 import com.paulo.fiscalizabr.adapter.ViewPagerAdapter;
+import com.paulo.fiscalizabr.connection.DownloadConvenios;
 import com.paulo.fiscalizabr.connection.DownloadConveniosParametros;
 import com.paulo.fiscalizabr.core.ItemDialog;
+import com.paulo.fiscalizabr.tools.StringsTreatment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     // Fragments
     private  ConveniosFragment convenios;
     private FavoritosFragment favoritos;
+
+    private StringsTreatment tratamentoString = new StringsTreatment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setUpViewPager();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String cidadePreference = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
+        String ufPreference = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
+
+        DownloadConvenios downloadConvenios = new DownloadConvenios(this, tratamentoString.normalizaString(cidadePreference), ufPreference);
+        downloadConvenios.execute();
     }
 
     @Override

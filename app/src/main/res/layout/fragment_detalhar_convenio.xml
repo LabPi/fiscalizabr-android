@@ -90,27 +90,6 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="@string/assinado_empenhado_publicado"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/assinado_empenho_publicado_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/divider_itens_listview"
-            android:padding="10dp"
             android:text="@string/inicio_vigenia"
             android:textColor="@android:color/black"
             android:textSize="14sp"
@@ -223,27 +202,6 @@
 
         <TextView
             android:id="@+id/numero_convenio_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/divider_itens_listview"
-            android:padding="10dp"
-            android:text="@string/numero_interno"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/numero_interno_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -405,13 +363,13 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="@string/ultimo_empenho"
+            android:text="@string/situacao_publicacao_convenio"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/ultimo_empenho_textview"
+            android:id="@+id/situacao_publicacao_convenio_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -539,69 +497,6 @@
 
         <TextView
             android:id="@+id/nome_orgao_superior_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/divider_itens_listview"
-            android:padding="10dp"
-            android:text="@string/permite_ajuste_cronograma_fisico"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/permite_ajuste_cronograma_fisico_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/divider_itens_listview"
-            android:padding="10dp"
-            android:text="@string/possui_aditivo"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/possui_aditivo_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/divider_itens_listview"
-            android:padding="10dp"
-            android:text="@string/prorrogas_de_oficio"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/prorrogas_de_oficio_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -774,6 +669,27 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
+            android:text="@string/nome_responsavel_pelo_proponente"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nome_responsavel_pelo_proponente_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/divider_itens_listview"
+            android:padding="10dp"
             android:text="@string/qualificacao"
             android:textColor="@android:color/black"
             android:textSize="14sp"
@@ -848,27 +764,6 @@
             android:layout_height="wrap_content"
             android:background="@color/divider_itens_listview"
             android:padding="10dp"
-            android:text="@string/ano_proposta"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/ano_proposta_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/divider_itens_listview"
-            android:padding="10dp"
             android:text="@string/data_inclusao"
             android:textColor="@android:color/black"
             android:textSize="14sp"
@@ -905,8 +800,6 @@
             android:padding="10dp"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
-
-
 
         <TextView
             android:layout_width="match_parent"

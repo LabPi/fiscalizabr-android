@@ -5,66 +5,47 @@ package com.paulo.fiscalizabr.core;
  */
 public class DadosConvenio {
 
-    private Integer anoAssinatura;
-    private Integer anoConvenio;
-    private Integer anoPublicacao;
-    private String codigoAcao;
-    private String codigoPrograma;
-    private String dataAssinatura;
-    private String dataPublicacao;
-    private boolean estaAssinado;
-    private boolean estaEmpenhado;
-    private boolean estaPublicado;
-    private String fimVigencia;
-    private Integer identificacaoConvenio;
-    private Integer identificacaoPropostaPrograma;
-    private String inicioVigencia;
-    private String justificativa;
-    private Integer mesAssinatura;
-    private Integer mesPublicacao;
-    private String modalidade;
-    private String nomePrograma;
-    private Integer numeroConvenio;
-    private String numeroInterno;
-    private String numeroProcesso;
-    private String objeto;
+    private Integer anoAssinatura; //
+    private Integer anoConvenio; //
+    private Integer anoPublicacao; //
+    private String dataAssinatura; //
+    private String dataPublicacao; //
+    private String fimVigencia; //
+    private String inicioVigencia; //
+    private String justificativa; //
+    private Integer mesAssinatura; //
+    private Integer mesPublicacao; //
+    private String modalidade; //
+    private String nomePrograma; //
+    private String numeroConvenio; //
+    private String numeroProcesso; //
+    private String objeto; //
+    private String situacaoPublicacaoConvenio;
 
     private OrgaoConcedente orgaoConcedente;
     private OrgaoSuperior orgaoSuperior;
 
-    private boolean permiteAjusteNoCronogramaFisico;
-    private boolean possuiAditivo;
-    private boolean possuiProrrogaDeOficio;
-
     private Proponente proponente;
     private Proposta proposta;
 
-    private Integer quantidadeAditivos;
-    private Integer quantidadeEmpenhos;
-    private Integer quantidadeProrrogas;
-    private String situacaoConvenio;
-    private String subsituacaoConvenio;
-    private String ultimoEmpenho;
-    private String ultimoPagamento;
+    private Integer quantidadeAditivos; //
+    private Integer quantidadeEmpenhos;//
+    private Integer quantidadeProrrogas;//
+    private String situacaoConvenio; //
+    private String subsituacaoConvenio; //
+    private String ultimoPagamento; //
 
     private ValorConvenio valorConvenio;
 
-    public DadosConvenio() {    }
+    public DadosConvenio() {   }
 
-    public DadosConvenio(Integer anoAssinatura, Integer anoConvenio, Integer anoPublicacao, String codigoAcao, String codigoPrograma, String dataAssinatura, String dataPublicacao, boolean estaAssinado, boolean estaEmpenhado, boolean estaPublicado, String fimVigencia, Integer identificacaoConvenio, Integer identificacaoPropostaPrograma, String inicioVigencia, String justificativa, Integer mesAssinatura, Integer mesPublicacao, String modalidade, String nomePrograma, Integer numeroConvenio, String numeroInterno, String numeroProcesso, String objeto, OrgaoConcedente orgaoConcedente, OrgaoSuperior orgaoSuperior, boolean permiteAjusteNoCronogramaFisico, boolean possuiAditivo, boolean possuiProrrogaDeOficio, Proponente proponente, Proposta proposta, Integer quantidadeAditivos, Integer quantidadeEmpenhos, Integer quantidadeProrrogas, String situacaoConvenio, String subsituacaoConvenio, String ultimoEmpenho, String ultimoPagamento, ValorConvenio valorConvenio) {
+    public DadosConvenio(Integer anoAssinatura, Integer anoConvenio, Integer anoPublicacao, String dataAssinatura, String dataPublicacao, String fimVigencia, String inicioVigencia, String justificativa, Integer mesAssinatura, Integer mesPublicacao, String modalidade, String nomePrograma, String numeroConvenio, String numeroProcesso, String objeto, String situacaoPublicacaoConvenio, OrgaoConcedente orgaoConcedente, OrgaoSuperior orgaoSuperior, Proponente proponente, Proposta proposta, Integer quantidadeAditivos, Integer quantidadeEmpenhos, Integer quantidadeProrrogas, String situacaoConvenio, String subsituacaoConvenio, String ultimoPagamento, ValorConvenio valorConvenio) {
         this.anoAssinatura = anoAssinatura;
         this.anoConvenio = anoConvenio;
         this.anoPublicacao = anoPublicacao;
-        this.codigoAcao = codigoAcao;
-        this.codigoPrograma = codigoPrograma;
         this.dataAssinatura = dataAssinatura;
         this.dataPublicacao = dataPublicacao;
-        this.estaAssinado = estaAssinado;
-        this.estaEmpenhado = estaEmpenhado;
-        this.estaPublicado = estaPublicado;
         this.fimVigencia = fimVigencia;
-        this.identificacaoConvenio = identificacaoConvenio;
-        this.identificacaoPropostaPrograma = identificacaoPropostaPrograma;
         this.inicioVigencia = inicioVigencia;
         this.justificativa = justificativa;
         this.mesAssinatura = mesAssinatura;
@@ -72,14 +53,11 @@ public class DadosConvenio {
         this.modalidade = modalidade;
         this.nomePrograma = nomePrograma;
         this.numeroConvenio = numeroConvenio;
-        this.numeroInterno = numeroInterno;
         this.numeroProcesso = numeroProcesso;
         this.objeto = objeto;
+        this.situacaoPublicacaoConvenio = situacaoPublicacaoConvenio;
         this.orgaoConcedente = orgaoConcedente;
         this.orgaoSuperior = orgaoSuperior;
-        this.permiteAjusteNoCronogramaFisico = permiteAjusteNoCronogramaFisico;
-        this.possuiAditivo = possuiAditivo;
-        this.possuiProrrogaDeOficio = possuiProrrogaDeOficio;
         this.proponente = proponente;
         this.proposta = proposta;
         this.quantidadeAditivos = quantidadeAditivos;
@@ -87,7 +65,6 @@ public class DadosConvenio {
         this.quantidadeProrrogas = quantidadeProrrogas;
         this.situacaoConvenio = situacaoConvenio;
         this.subsituacaoConvenio = subsituacaoConvenio;
-        this.ultimoEmpenho = ultimoEmpenho;
         this.ultimoPagamento = ultimoPagamento;
         this.valorConvenio = valorConvenio;
     }
@@ -116,22 +93,6 @@ public class DadosConvenio {
         this.anoPublicacao = anoPublicacao;
     }
 
-    public String getCodigoAcao() {
-        return codigoAcao;
-    }
-
-    public void setCodigoAcao(String codigoAcao) {
-        this.codigoAcao = codigoAcao;
-    }
-
-    public String getCodigoPrograma() {
-        return codigoPrograma;
-    }
-
-    public void setCodigoPrograma(String codigoPrograma) {
-        this.codigoPrograma = codigoPrograma;
-    }
-
     public String getDataAssinatura() {
         return dataAssinatura;
     }
@@ -148,52 +109,12 @@ public class DadosConvenio {
         this.dataPublicacao = dataPublicacao;
     }
 
-    public boolean isEstaAssinado() {
-        return estaAssinado;
-    }
-
-    public void setEstaAssinado(boolean estaAssinado) {
-        this.estaAssinado = estaAssinado;
-    }
-
-    public boolean isEstaEmpenhado() {
-        return estaEmpenhado;
-    }
-
-    public void setEstaEmpenhado(boolean estaEmpenhado) {
-        this.estaEmpenhado = estaEmpenhado;
-    }
-
-    public boolean isEstaPublicado() {
-        return estaPublicado;
-    }
-
-    public void setEstaPublicado(boolean estaPublicado) {
-        this.estaPublicado = estaPublicado;
-    }
-
     public String getFimVigencia() {
         return fimVigencia;
     }
 
     public void setFimVigencia(String fimVigencia) {
         this.fimVigencia = fimVigencia;
-    }
-
-    public Integer getIdentificacaoConvenio() {
-        return identificacaoConvenio;
-    }
-
-    public void setIdentificacaoConvenio(Integer identificacaoConvenio) {
-        this.identificacaoConvenio = identificacaoConvenio;
-    }
-
-    public Integer getIdentificacaoPropostaPrograma() {
-        return identificacaoPropostaPrograma;
-    }
-
-    public void setIdentificacaoPropostaPrograma(Integer identificacaoPropostaPrograma) {
-        this.identificacaoPropostaPrograma = identificacaoPropostaPrograma;
     }
 
     public String getInicioVigencia() {
@@ -244,20 +165,12 @@ public class DadosConvenio {
         this.nomePrograma = nomePrograma;
     }
 
-    public Integer getNumeroConvenio() {
+    public String getNumeroConvenio() {
         return numeroConvenio;
     }
 
-    public void setNumeroConvenio(Integer numeroConvenio) {
+    public void setNumeroConvenio(String numeroConvenio) {
         this.numeroConvenio = numeroConvenio;
-    }
-
-    public String getNumeroInterno() {
-        return numeroInterno;
-    }
-
-    public void setNumeroInterno(String numeroInterno) {
-        this.numeroInterno = numeroInterno;
     }
 
     public String getNumeroProcesso() {
@@ -276,6 +189,14 @@ public class DadosConvenio {
         this.objeto = objeto;
     }
 
+    public String getSituacaoPublicacaoConvenio() {
+        return situacaoPublicacaoConvenio;
+    }
+
+    public void setSituacaoPublicacaoConvenio(String situacaoPublicacaoConvenio) {
+        this.situacaoPublicacaoConvenio = situacaoPublicacaoConvenio;
+    }
+
     public OrgaoConcedente getOrgaoConcedente() {
         return orgaoConcedente;
     }
@@ -290,30 +211,6 @@ public class DadosConvenio {
 
     public void setOrgaoSuperior(OrgaoSuperior orgaoSuperior) {
         this.orgaoSuperior = orgaoSuperior;
-    }
-
-    public boolean isPermiteAjusteNoCronogramaFisico() {
-        return permiteAjusteNoCronogramaFisico;
-    }
-
-    public void setPermiteAjusteNoCronogramaFisico(boolean permiteAjusteNoCronogramaFisico) {
-        this.permiteAjusteNoCronogramaFisico = permiteAjusteNoCronogramaFisico;
-    }
-
-    public boolean isPossuiAditivo() {
-        return possuiAditivo;
-    }
-
-    public void setPossuiAditivo(boolean possuiAditivo) {
-        this.possuiAditivo = possuiAditivo;
-    }
-
-    public boolean isPossuiProrrogaDeOficio() {
-        return possuiProrrogaDeOficio;
-    }
-
-    public void setPossuiProrrogaDeOficio(boolean possuiProrrogaDeOficio) {
-        this.possuiProrrogaDeOficio = possuiProrrogaDeOficio;
     }
 
     public Proponente getProponente() {
@@ -372,14 +269,6 @@ public class DadosConvenio {
         this.subsituacaoConvenio = subsituacaoConvenio;
     }
 
-    public String getUltimoEmpenho() {
-        return ultimoEmpenho;
-    }
-
-    public void setUltimoEmpenho(String ultimoEmpenho) {
-        this.ultimoEmpenho = ultimoEmpenho;
-    }
-
     public String getUltimoPagamento() {
         return ultimoPagamento;
     }
@@ -395,5 +284,4 @@ public class DadosConvenio {
     public void setValorConvenio(ValorConvenio valorConvenio) {
         this.valorConvenio = valorConvenio;
     }
-
 }

@@ -9,9 +9,9 @@ public class Convenio {
     public final String NO_INTERNET = "NO_INTERNET"; // Contém dados resultantes da busca no servidor
     public final String IS_LOADING = "IS_LOADING"; // Está carregando os convênios do servidor
 
-    private Integer numeroConvenio;
+    private String numeroConvenio;
     private String objetoConvenio;
-    private boolean isFavorito;
+    private boolean isFavorito = false;
     private String municipio;
     private String uf;
     private String nomeProponente;
@@ -39,7 +39,7 @@ public class Convenio {
 
     public Convenio() { }
 
-    public Convenio(Integer numeroConvenio, String objetoConvenio, boolean isFavorito, String municipio, String uf, String nomeProponente, String vigencia, String valorConvenio) {
+    public Convenio(String numeroConvenio, String objetoConvenio, boolean isFavorito, String municipio, String uf, String nomeProponente, String vigencia, String valorConvenio) {
         this.numeroConvenio = numeroConvenio;
         this.objetoConvenio = objetoConvenio;
         this.isFavorito = isFavorito;
@@ -95,11 +95,11 @@ public class Convenio {
         this.situacaoConvenio = situacaoConvenio;
     }
 
-    public Integer getNumeroConvenio() {
+    public String getNumeroConvenio() {
         return numeroConvenio;
     }
 
-    public void setNumeroConvenio(Integer numeroConvenio) {
+    public void setNumeroConvenio(String numeroConvenio) {
         this.numeroConvenio = numeroConvenio;
     }
 

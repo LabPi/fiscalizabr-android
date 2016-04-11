@@ -75,7 +75,7 @@ public class ConveniosPesquisaDetalhada extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (listaConvenios.size() != 0) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("idConvenio", listaConvenios.get(position).getNumeroConvenio());
+                    bundle.putString("idConvenio", listaConvenios.get(position).getNumeroConvenio());
 
                     Intent i = new Intent(getApplicationContext(), DetalharConvenio.class);
                     i.putExtras(bundle);

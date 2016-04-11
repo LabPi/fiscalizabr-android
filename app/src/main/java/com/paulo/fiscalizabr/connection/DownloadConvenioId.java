@@ -12,6 +12,7 @@ import com.paulo.fiscalizabr.core.OrgaoSuperior;
 import com.paulo.fiscalizabr.core.Proponente;
 import com.paulo.fiscalizabr.core.Proposta;
 import com.paulo.fiscalizabr.core.ValorConvenio;
+import com.paulo.fiscalizabr.database.DatabaseController;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,11 +34,11 @@ import java.util.ArrayList;
 // http://fiscalizabr-dccufla.rhcloud.com/rest/convenios/idConvenio
 public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosConvenio>> {
 
-    public Integer idConvenio;
+    public String idConvenio;
 
     private Context context;
 
-    public DownloadConvenioId(Context context, Integer idConvenio) {
+    public DownloadConvenioId(Context context, String idConvenio) {
         this.context = context;
         this.idConvenio = idConvenio;
     }
@@ -55,16 +56,9 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         final String ANO_ASSINATURA = "anoAssinatura";
         final String ANO_CONVENIO = "anoConvenio";
         final String ANO_PUBLICACAO = "anoPublicacao";
-        final String CODIGO_ACAO = "codigoAcao";
-        final String CODIGO_PROGRAMA = "codigoPrograma";
         final String DATA_ASSINATURA = "dataAssinatura";
         final String DATA_PUBLICACACAO = "dataPublicacao";
-        final String ESTA_ASSINADO = "estaAssinado";
-        final String ESTA_EMPENHADO = "estaEmpenhado";
-        final String ESTA_PUBLICADO = "estaPublicado";
         final String FIM_VIGENCIA = "fimVigencia";
-        final String IDENTIFICACAO_CONVENIO = "identificacaoConvenio";
-        final String IDENTIFICACAO_PROPOSTA_PROGRAMA = "identificacaoPropostaPrograma";
         final String INICIO_VIGENCIA = "inicioVigencia";
         final String JUSTIFICATIVA = "justificativa";
         final String MES_ASSINATURA = "mesAssinatura";
@@ -72,23 +66,18 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         final String MODALIDADE = "modalidade";
         final String NOME_PROGRAMA = "nomePrograma";
         final String NUMERO_CONVENIO = "numeroConvenio";
-        final String NUMERO_INTERNO = "numeroInterno";
         final String NUMERO_PROCESSO = "numeroProcesso";
         final String OBJETO = "objeto";
+        final String SITUACAO_PUBLICACAO_CONVENIO = "situacaoPublicacaoConvenio";
         // ORGAO CONCEDENTE
         final String ORGAO_CONCEDENTE = "orgaoConcedente";
         final String CARGO_RESPONSAVEL_CONCEDENTE = "cargoResponsavelConcedente";
-        final String CODIGO_ORGAO_CONCEDENTE = "codigoOrgaoConcedente";
-        final String CODIGO_RESPONSAVEL_CONCEDENTE = "codigoResponsavelConcedente";
         final String NOME_ORGAO_CONCEDENTE = "nomeOrgaoConcedente";
         final String NOME_RESPONSAVEL_CONCEDENTE = "nomeResponsavelConcedente";
         // ORGAO SUPERIOR
         final String ORGAO_SUPERIOR = "orgaoSuperior";
         final String CODIGO_ORGAO_SUPERIOR = "codigoOrgaoSuperior";
         final String NOME_ORGAO_SUPERIOR = "nomeOrgaoSuperior";
-        final String PERMITE_AJUSTE_NO_CRONOGRAMA_FISICO = "permiteAjusteNoCronogramaFisico";
-        final String POSSUI_ADITIVO = "possuiAditivo";
-        final String POSSUI_PRORROGA_DE_OFICIO = "possuiProrrogaDeOficio";
         // PROPONENTE
         final String PROPONENTE = "proponente";
         final String BAIRRO_PROPONENTE = "bairroProponente";
@@ -100,10 +89,10 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         final String IDENTIFICACAO_PROPONENTE = "identificacaoProponente";
         final String MUNICIPIO = "municipio";
         final String NOME_PROPONENTE = "nomeProponente";
-        final String NOME_RESPOSAVEL_PROPONENTE = "nomeResponsavelProponente";
         final String QUALIFICACAO = "qualificacao";
         final String REGIAO = "regiao";
         final String UF = "uf";
+        final String NOME_RESPONSAVEL_PROPONENTE = "nomeResponsavelProponente";
         // PROPOSTA
         final String PROPOSTA = "proposta";
         final String ANO_PROPOSTA = "anoProposta";
@@ -115,9 +104,7 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         final String QUANTIDADE_EMPENHOS = "quantidadeEmpenhos";
         final String QUANTIDADE_PRORROGAS = "quantidadeProrrogas";
         final String SITUACAO_CONVENIO = "situacaoConvenio";
-        final String SITUACAO_PUBLICACAO_CONVENIO = "situacaoPublicacaoConvenio";
         final String SUBSITUACAO_CONVENIO = "subsituacaoConvenio";
-        final String ULTIMO_EMPENHO = "ultimoEmpenho";
         final String ULTIMO_PAGAMENTO = "ultimoPagamento";
         // VALOR CONVENIO
         final String VALOR = "valor";
@@ -127,6 +114,7 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         final String VALOR_GLOBAL = "valorGlobal";
         final String VALOR_REPASSE_UNIAO = "valorRepasseUniao";
         final String VALOR_TOTAL_CONTRAPARTIDA = "valorTotalContrapartida";
+        final String VALOR_CONTRAPARTIDA_FINANCEIRA = "valorContrapartidaFinanceira";
 
         JSONObject dataJson = new JSONObject(appJsonStr);
         JSONObject convenioObject = dataJson.getJSONObject(ID_CONVENIO_COMPLETO);
@@ -137,38 +125,26 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         Integer anoAssinatura;
         Integer anoConvenio;
         Integer anoPublicacao;
-        String codigoAcao;
-        String codigoPrograma;
         String dataAssinatura;
         String dataPublicacao;
-        boolean estaAssinado;
-        boolean estaEmpenhado;
-        boolean estaPublicado;
         String fimVigencia;
-        Integer identificacaoConvenio;
-        Integer identificacaoPropostaPrograma;
         String inicioVigencia;
         String justificativa;
         Integer mesAssinatura;
         Integer mesPublicacao;
         String modalidade;
         String nomePrograma;
-        Integer numeroConvenio;
-        String numeroInterno;
+        String numeroConvenio;
         String numeroProcesso;
         String objeto;
+        String situacaoPublicacaoConvenio;
         // Orgão Concedente
         String cargoResponsavelConcedente;
-        Integer codigoOrgaoConcedente;
-        String codigoResponsavelConcedente;
         String nomeOrgaoConcedente;
         String nomeResponsavelConcedente;
         //ORGÃO SUPERIOR
-        Integer codigoOrgaoSuperior;
+        String codigoOrgaoSuperior;
         String nomeOrgaoSuperior;
-        boolean permiteAjusteNoCronogramaFisico;
-        boolean possuiAditivo;
-        boolean possuiProrrogaDeOficio;
         // PROPONENTE
         String bairroProponente;
         String cargoResponsavelProponente;
@@ -186,23 +162,23 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         // PROPOSTA
         Integer anoProposta;
         String dataInclusaoProposta;
-        Integer identificacaoProposta;
-        Integer numeroProposta;
+        String identificacaoProposta;
+        String numeroProposta;
 
         Integer quantidadeAditivos;
         Integer quantidadeEmpenhos;
         Integer quantidadeProrrogas;
         String situacaoConvenio;
         String subsituacaoConvenio;
-        String ultimoEmpenho;
         String ultimoPagamento;
         // VALOR
-        Integer valorContrapartidaFinanceiraBensEServicos;
-        Integer valorDesembolsado;
-        Integer valorEmpenhado;
-        Integer valorGlobal;
-        Integer valorRepasseUniao;
-        Integer valorTotalContrapartida;
+        String valorContrapartidaFinanceiraBensEServicos;
+        String valorDesembolsado;
+        String valorEmpenhado;
+        String valorGlobal;
+        String valorRepasseUniao;
+        String valorTotalContrapartida;
+        String valorContrapartidaFinanceira;
 
         DadosConvenio convenio = new DadosConvenio();
 
@@ -212,26 +188,12 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         convenio.setAnoConvenio(anoConvenio);
         anoPublicacao = convenioObject.getInt(ANO_PUBLICACAO);
         convenio.setAnoPublicacao(anoPublicacao);
-        codigoAcao = convenioObject.getString(CODIGO_ACAO);
-        convenio.setCodigoAcao(codigoAcao);
-        codigoPrograma = convenioObject.getString(CODIGO_PROGRAMA);
-        convenio.setCodigoPrograma(codigoPrograma);
         dataAssinatura = convenioObject.getString(DATA_ASSINATURA);
         convenio.setDataAssinatura(getReadableData(dataAssinatura));
         dataPublicacao = convenioObject.getString(DATA_PUBLICACACAO);
         convenio.setDataPublicacao(getReadableData(dataPublicacao));
-        estaAssinado = convenioObject.getBoolean(ESTA_ASSINADO);
-        convenio.setEstaAssinado(estaAssinado);
-        estaEmpenhado = convenioObject.getBoolean(ESTA_EMPENHADO);
-        convenio.setEstaEmpenhado(estaEmpenhado);
-        estaPublicado = convenioObject.getBoolean(ESTA_PUBLICADO);
-        convenio.setEstaPublicado(estaPublicado);
         fimVigencia = convenioObject.getString(FIM_VIGENCIA);
         convenio.setFimVigencia(getReadableData(fimVigencia));
-        identificacaoConvenio = convenioObject.getInt(IDENTIFICACAO_CONVENIO);
-        convenio.setIdentificacaoConvenio(identificacaoConvenio);
-        identificacaoPropostaPrograma = convenioObject.getInt(IDENTIFICACAO_PROPOSTA_PROGRAMA);
-        convenio.setIdentificacaoPropostaPrograma(identificacaoPropostaPrograma);
         inicioVigencia = convenioObject.getString(INICIO_VIGENCIA);
         convenio.setInicioVigencia(getReadableData(inicioVigencia));
         justificativa = convenioObject.getString(JUSTIFICATIVA);
@@ -244,14 +206,14 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         convenio.setModalidade(modalidade);
         nomePrograma = convenioObject.getString(NOME_PROGRAMA);
         convenio.setNomePrograma(nomePrograma);
-        numeroConvenio = convenioObject.getInt(NUMERO_CONVENIO);
+        numeroConvenio = convenioObject.getString(NUMERO_CONVENIO);
         convenio.setNumeroConvenio(numeroConvenio);
-        numeroInterno = convenioObject.getString(NUMERO_INTERNO);
-        convenio.setNumeroInterno(numeroInterno);
         numeroProcesso = convenioObject.getString(NUMERO_PROCESSO);
         convenio.setNumeroProcesso(numeroProcesso);
         objeto = convenioObject.getString(OBJETO);
         convenio.setObjeto(objeto);
+        situacaoPublicacaoConvenio = convenioObject.getString(SITUACAO_PUBLICACAO_CONVENIO);
+        convenio.setSituacaoPublicacaoConvenio(situacaoPublicacaoConvenio);
 
         // ORGÃO CONCEDENTE
 
@@ -261,10 +223,6 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
 
             cargoResponsavelConcedente = orgaoConcedenteObject.getString(CARGO_RESPONSAVEL_CONCEDENTE);
             orgaoConcedente.setCargoResponsavelConcedente(cargoResponsavelConcedente);
-            codigoOrgaoConcedente = orgaoConcedenteObject.getInt(CODIGO_ORGAO_CONCEDENTE);
-            orgaoConcedente.setCodigoOrgaoConcedente(codigoOrgaoConcedente);
-            codigoResponsavelConcedente = orgaoConcedenteObject.getString(CODIGO_RESPONSAVEL_CONCEDENTE);
-            orgaoConcedente.setCodigoResponsavelConcedente(codigoResponsavelConcedente);
             nomeOrgaoConcedente = orgaoConcedenteObject.getString(NOME_ORGAO_CONCEDENTE);
             orgaoConcedente.setNomeOrgaoConcedente(nomeOrgaoConcedente);
             nomeResponsavelConcedente = orgaoConcedenteObject.getString(NOME_RESPONSAVEL_CONCEDENTE);
@@ -278,19 +236,12 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
 
             OrgaoSuperior orgaoSuperior = new OrgaoSuperior();
 
-            codigoOrgaoSuperior = orgaoSuperiorObject.getInt(CODIGO_ORGAO_SUPERIOR);
-            orgaoSuperior.setCodigoOrgaoSuperior(codigoOrgaoSuperior);
+            codigoOrgaoSuperior = orgaoSuperiorObject.getString(CODIGO_ORGAO_SUPERIOR);
+            orgaoSuperior.setCodigoOrgaoSuperior(Integer.parseInt(codigoOrgaoSuperior));
             nomeOrgaoSuperior = orgaoSuperiorObject.getString(NOME_ORGAO_SUPERIOR);
             orgaoSuperior.setNomeOrgaoSuperior(nomeOrgaoSuperior);
 
-            convenio.setOrgaoSuperior(orgaoSuperior);
-
-        permiteAjusteNoCronogramaFisico = convenioObject.getBoolean(PERMITE_AJUSTE_NO_CRONOGRAMA_FISICO);
-        convenio.setPermiteAjusteNoCronogramaFisico(permiteAjusteNoCronogramaFisico);
-        possuiAditivo = convenioObject.getBoolean(POSSUI_ADITIVO);
-        convenio.setPossuiAditivo(possuiAditivo);
-        possuiProrrogaDeOficio = convenioObject.getBoolean(POSSUI_PRORROGA_DE_OFICIO);
-        convenio.setPossuiProrrogaDeOficio(possuiProrrogaDeOficio);
+        convenio.setOrgaoSuperior(orgaoSuperior);
 
         // PROPONENTE
 
@@ -316,7 +267,7 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
             proponente.setMunicipio(municipio);
             nomeProponente = proponenteObject.getString(NOME_PROPONENTE);
             proponente.setNomeProponente(nomeProponente);
-            nomeResponsavelProponente = proponenteObject.getString(NOME_RESPOSAVEL_PROPONENTE);
+            nomeResponsavelProponente = proponenteObject.getString(NOME_RESPONSAVEL_PROPONENTE);
             proponente.setNomeResponsavelProponente(nomeResponsavelProponente);
             qualificacao = proponenteObject.getString(QUALIFICACAO);
             proponente.setQualificacao(qualificacao);
@@ -334,15 +285,15 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
             Proposta proposta = new Proposta();
 
             anoProposta = propostaObject.getInt(ANO_PROPOSTA);
-            proposta.setAnoProposta(anoProposta);
-            dataInclusaoProposta = propostaObject.getString(DATA_INCLUSAO_PROPOSTA);
-            proposta.setDataInclusaoProposta(getReadableData(dataInclusaoProposta));
-            identificacaoProposta = propostaObject.getInt(IDENTIFICACAO_PROPOSTA);
+        proposta.setAnoProposta(anoProposta);
+        dataInclusaoProposta = propostaObject.getString(DATA_INCLUSAO_PROPOSTA);
+            proposta.setDataInclusao(getReadableData(dataInclusaoProposta));
+            identificacaoProposta = propostaObject.getString(IDENTIFICACAO_PROPOSTA);
             proposta.setIdentificacaoProposta(identificacaoProposta);
-            numeroProposta = propostaObject.getInt(NUMERO_PROPOSTA);
+            numeroProposta = propostaObject.getString(NUMERO_PROPOSTA);
             proposta.setNumeroProposta(numeroProposta);
 
-            convenio.setProposta(proposta);
+        convenio.setProposta(proposta);
 
         quantidadeAditivos = convenioObject.getInt(QUANTIDADE_ADITIVOS);
         convenio.setQuantidadeAditivos(quantidadeAditivos);
@@ -354,8 +305,6 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         convenio.setSituacaoConvenio(situacaoConvenio);
         subsituacaoConvenio = convenioObject.getString(SUBSITUACAO_CONVENIO);
         convenio.setSubsituacaoConvenio(subsituacaoConvenio);
-        ultimoEmpenho = convenioObject.getString(ULTIMO_EMPENHO);
-        convenio.setUltimoEmpenho(getReadableData(ultimoEmpenho));
         ultimoPagamento = convenioObject.getString(ULTIMO_PAGAMENTO);
         convenio.setUltimoPagamento(getReadableData(ultimoPagamento));
 
@@ -365,18 +314,20 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
 
             ValorConvenio valor = new ValorConvenio();
 
-            valorContrapartidaFinanceiraBensEServicos = valorObject.getInt(VALOR_CONTRAPARTIDA_FINANCEIRA_BENS_E_SERVICOS);
+            valorContrapartidaFinanceiraBensEServicos = valorObject.getString(VALOR_CONTRAPARTIDA_FINANCEIRA_BENS_E_SERVICOS);
             valor.setValorContrapartidaFinanceiraBensEServicos(valorContrapartidaFinanceiraBensEServicos);
-            valorDesembolsado = valorObject.getInt(VALOR_DESEMBOLSADO);
+            valorDesembolsado = valorObject.getString(VALOR_DESEMBOLSADO);
             valor.setValorDesembolsado(valorDesembolsado);
-            valorEmpenhado = valorObject.getInt(VALOR_EMPENHADO);
+            valorEmpenhado = valorObject.getString(VALOR_EMPENHADO);
             valor.setValorEmpenhado(valorEmpenhado);
-            valorGlobal = valorObject.getInt(VALOR_GLOBAL);
+            valorGlobal = valorObject.getString(VALOR_GLOBAL);
             valor.setValorGlobal(valorGlobal);
-            valorRepasseUniao = valorObject.getInt(VALOR_REPASSE_UNIAO);
+            valorRepasseUniao = valorObject.getString(VALOR_REPASSE_UNIAO);
             valor.setValorRepasseUniao(valorRepasseUniao);
-            valorTotalContrapartida = valorObject.getInt(VALOR_TOTAL_CONTRAPARTIDA);
+            valorTotalContrapartida = valorObject.getString(VALOR_TOTAL_CONTRAPARTIDA);
             valor.setValorTotalContrapartida(valorTotalContrapartida);
+            valorContrapartidaFinanceira = valorObject.getString(VALOR_CONTRAPARTIDA_FINANCEIRA);
+            valor.setValorContrapartidaFinanceira(valorContrapartidaFinanceira);
 
             convenio.setValorConvenio(valor);
 
@@ -394,7 +345,7 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         String dataJsonStr = "{\"convenio_completo\":";
 
         try {
-            final String CONVENIO_URL = "http://fiscalizabr-dccufla.rhcloud.com/rest/convenios/" + String.valueOf(idConvenio);
+            final String CONVENIO_URL = "http://fiscalizabr-dccufla.rhcloud.com/rest/convenios/" + idConvenio;
 
             Uri builtUri = Uri.parse(CONVENIO_URL);
 
@@ -451,12 +402,15 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
         if(!result.isEmpty()) {
             // Adiciona produtos no banco de dados
 
-            //DatabaseController database = new DatabaseController(context);
+            DatabaseController database = new DatabaseController(context);
 
+            //DetalharConvenioFragment.dadosConvenio.clear();
             for(int i=0; i<result.size(); i++) {
-                DetalharConvenioFragment.dadosConvenio.add(result.get(i));
+                DadosConvenio resultado = (DadosConvenio) result.get(i);
+                database.addConvenioCompleto(resultado);
+                Log.v("CONVENIO", "Convenio " + result.get(i).getNumeroConvenio() + " adicionado!");
             }
-            DetalharConvenioFragment.setDadosConvenio();
+            //DetalharConvenioFragment.setDadosConvenio();
 
             //MainActivityFragment.loadPromocoesItens(); */
         }

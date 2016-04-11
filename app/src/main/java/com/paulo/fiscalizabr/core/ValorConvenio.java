@@ -5,16 +5,18 @@ package com.paulo.fiscalizabr.core;
  */
 public class ValorConvenio {
 
-    private Integer valorContrapartidaFinanceiraBensEServicos;
-    private Integer valorDesembolsado;
-    private Integer valorEmpenhado;
-    private Integer valorGlobal;
-    private Integer valorRepasseUniao;
-    private Integer valorTotalContrapartida;
+    private String valorContrapartidaFinanceira;
+    private String valorContrapartidaFinanceiraBensEServicos;
+    private String valorDesembolsado;
+    private String valorEmpenhado;
+    private String valorGlobal;
+    private String valorRepasseUniao;
+    private String valorTotalContrapartida;
 
     public ValorConvenio() {   }
 
-    public ValorConvenio(Integer valorContrapartidaFinanceiraBensEServicos, Integer valorDesembolsado, Integer valorEmpenhado, Integer valorGlobal, Integer valorRepasseUniao, Integer valorTotalContrapartida) {
+    public ValorConvenio(String valorContrapartidaFinanceira, String valorContrapartidaFinanceiraBensEServicos, String valorDesembolsado, String valorEmpenhado, String valorGlobal, String valorRepasseUniao, String valorTotalContrapartida) {
+        this.valorContrapartidaFinanceira = valorContrapartidaFinanceira;
         this.valorContrapartidaFinanceiraBensEServicos = valorContrapartidaFinanceiraBensEServicos;
         this.valorDesembolsado = valorDesembolsado;
         this.valorEmpenhado = valorEmpenhado;
@@ -23,52 +25,59 @@ public class ValorConvenio {
         this.valorTotalContrapartida = valorTotalContrapartida;
     }
 
-    public Integer getValorContrapartidaFinanceiraBensEServicos() {
+    public String getValorContrapartidaFinanceira() {
+        return valorContrapartidaFinanceira;
+    }
+
+    public void setValorContrapartidaFinanceira(String valorContrapartidaFinanceira) {
+        this.valorContrapartidaFinanceira = valorContrapartidaFinanceira;
+    }
+
+    public String getValorContrapartidaFinanceiraBensEServicos() {
         return valorContrapartidaFinanceiraBensEServicos;
     }
 
-    public void setValorContrapartidaFinanceiraBensEServicos(Integer valorContrapartidaFinanceiraBensEServicos) {
+    public void setValorContrapartidaFinanceiraBensEServicos(String valorContrapartidaFinanceiraBensEServicos) {
         this.valorContrapartidaFinanceiraBensEServicos = valorContrapartidaFinanceiraBensEServicos;
     }
 
-    public Integer getValorDesembolsado() {
+    public String getValorDesembolsado() {
         return valorDesembolsado;
     }
 
-    public void setValorDesembolsado(Integer valorDesembolsado) {
+    public void setValorDesembolsado(String valorDesembolsado) {
         this.valorDesembolsado = valorDesembolsado;
     }
 
-    public Integer getValorEmpenhado() {
+    public String getValorEmpenhado() {
         return valorEmpenhado;
     }
 
-    public void setValorEmpenhado(Integer valorEmpenhado) {
+    public void setValorEmpenhado(String valorEmpenhado) {
         this.valorEmpenhado = valorEmpenhado;
     }
 
-    public Integer getValorGlobal() {
+    public String getValorGlobal() {
         return valorGlobal;
     }
 
-    public void setValorGlobal(Integer valorGlobal) {
+    public void setValorGlobal(String valorGlobal) {
         this.valorGlobal = valorGlobal;
     }
 
-    public Integer getValorRepasseUniao() {
+    public String getValorRepasseUniao() {
         return valorRepasseUniao;
     }
 
-    public void setValorRepasseUniao(Integer valorRepasseUniao) {
+    public void setValorRepasseUniao(String valorRepasseUniao) {
         this.valorRepasseUniao = valorRepasseUniao;
     }
 
-    public Integer getValorTotalContrapartida() {
+    public String getValorTotalContrapartida() {
         return valorTotalContrapartida;
     }
 
-    public void setValorTotalContrapartida(Integer valorTotalContrapartida) {
+    public void setValorTotalContrapartida(String valorTotalContrapartida) {
         this.valorTotalContrapartida = valorTotalContrapartida;
     }
-
 }

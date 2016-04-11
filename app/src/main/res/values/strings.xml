@@ -102,4 +102,7 @@
     <string name="conexao_internet_null">Ops, verifique sua conexão com a Internet!</string>
     <string name="title_activity_convenios_pesquisa_detalhada">Resultados da pesquisa</string>
 
+    <string name="situacao_publicacao_convenio">SITUAÇÃO DA PUBLICAÇÃO</string>
+    <string name="nome_responsavel_pelo_proponente">NOME DO RESPONSÁVEL PELO PROPONENTE</string>
+
 </resources>

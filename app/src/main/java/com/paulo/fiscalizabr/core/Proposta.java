@@ -6,15 +6,15 @@ package com.paulo.fiscalizabr.core;
 public class Proposta {
 
     private Integer anoProposta;
-    private String dataInclusaoProposta;
-    private Integer identificacaoProposta;
-    private Integer numeroProposta;
+    private String dataInclusao;
+    private String identificacaoProposta;
+    private String numeroProposta;
 
     public Proposta() {   }
 
-    public Proposta(Integer anoProposta, String dataInclusaoProposta, Integer identificacaoProposta, Integer numeroProposta) {
+    public Proposta(Integer anoProposta, String dataInclusao, String identificacaoProposta, String numeroProposta) {
         this.anoProposta = anoProposta;
-        this.dataInclusaoProposta = dataInclusaoProposta;
+        this.dataInclusao = dataInclusao;
         this.identificacaoProposta = identificacaoProposta;
         this.numeroProposta = numeroProposta;
     }
@@ -27,28 +27,27 @@ public class Proposta {
         this.anoProposta = anoProposta;
     }
 
-    public String getDataInclusaoProposta() {
-        return dataInclusaoProposta;
+    public String getDataInclusao() {
+        return dataInclusao;
     }
 
-    public void setDataInclusaoProposta(String dataInclusaoProposta) {
-        this.dataInclusaoProposta = dataInclusaoProposta;
+    public void setDataInclusao(String dataInclusao) {
+        this.dataInclusao = dataInclusao;
     }
 
-    public Integer getIdentificacaoProposta() {
+    public String getIdentificacaoProposta() {
         return identificacaoProposta;
     }
 
-    public void setIdentificacaoProposta(Integer identificacaoProposta) {
+    public void setIdentificacaoProposta(String identificacaoProposta) {
         this.identificacaoProposta = identificacaoProposta;
     }
 
-    public Integer getNumeroProposta() {
+    public String getNumeroProposta() {
         return numeroProposta;
     }
 
-    public void setNumeroProposta(Integer numeroProposta) {
+    public void setNumeroProposta(String numeroProposta) {
         this.numeroProposta = numeroProposta;
     }
-
 }

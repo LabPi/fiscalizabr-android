@@ -75,7 +75,7 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
         ArrayList<Convenio> result = new ArrayList<Convenio>();
 
         for(int i=0; i < arrayConvenios.length(); i++) {
-            Integer numeroConvenio;
+            String numeroConvenio;
             String objeto;
             String inicioVigencia;
             String fimVigencia;
@@ -89,7 +89,7 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
 
             JSONObject convenioObject = arrayConvenios.getJSONObject(i);
 
-            numeroConvenio = convenioObject.getInt(NUMERO_CONVENIO);
+            numeroConvenio = convenioObject.getString(NUMERO_CONVENIO);
             convenio.setNumeroConvenio(numeroConvenio);
 
             objeto = convenioObject.getString(OBJETO);
