@@ -10,9 +10,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.paulo.fiscalizabr.database.DatabaseController;
+
 public class DetalharConvenio extends AppCompatActivity {
 
     public static String idConvenio;
+    public DatabaseController database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,8 @@ public class DetalharConvenio extends AppCompatActivity {
         String idConvenio = dados.getString("idConvenio");
         this.idConvenio = idConvenio;
 
+        database = new DatabaseController(getApplicationContext());
+
         setContentView(R.layout.activity_detalhar_convenio);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_detalhar_convenios);
@@ -34,7 +39,14 @@ public class DetalharConvenio extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_detalhar_convenio, menu);
+        boolean isFavorito = database.isFavorito(idConvenio);
+        if(isFavorito) {
+            // Menu 2
+            inflater.inflate(R.menu.menu_detalhar_convenio_2, menu);
+        } else {
+            // Menu 1
+            inflater.inflate(R.menu.menu_detalhar_convenio, menu);
+        }
         return true;
     }
 
@@ -48,7 +60,16 @@ public class DetalharConvenio extends AppCompatActivity {
                 return true;
             case R.id.favoritar_convenio:
                 // Adiciona aos favoritos
-                Toast.makeText(getApplicationContext(), "Adicionar aos Favoritos", Toast.LENGTH_SHORT).show();
+                boolean isFavorito = database.isFavorito(idConvenio);
+                if(isFavorito) {
+                    // Remove
+                    database.removeFavoritos(idConvenio);
+                    Toast.makeText(getApplicationContext(), "Convênio removido da lista de Favoritos!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Adiciona
+                    database.addFavoritos(idConvenio);
+                    Toast.makeText(getApplicationContext(), "Convênio adicionado aos Favoritos!", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

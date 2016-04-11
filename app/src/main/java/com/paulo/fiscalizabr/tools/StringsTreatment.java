@@ -85,4 +85,29 @@ public class StringsTreatment {
         return str;
     }
 
+    public String normalizaStringBanco(String str) {
+        str = str.toUpperCase();
+
+        str = str.replace("Á", "A");
+        str = str.replace("É", "E");
+        str = str.replace("Í", "I");
+        str = str.replace("Ú", "U");
+        str = str.replace("Ó", "O");
+        str = str.replace("Ù", "U");
+        str = str.replace("Ò", "O");
+        str = str.replace("Ì", "I");
+        str = str.replace("È", "E");
+        str = str.replace("À", "A");
+        str = str.replace("Ç", "C");
+        str = str.replace("Ã", "A");
+        str = str.replace("Õ", "O");
+        str = str.replace("Â", "A");
+        str = str.replace("Ê", "E");
+        str = str.replace("Î", "I");
+        str = str.replace("Ô", "O");
+        str = str.replace("Û", "U");
+
+        return str;
+    }
+
 }

@@ -122,7 +122,7 @@ public class ConveniosFragment extends Fragment {
                     vigenciaFinal = tratamentoString.converteAnoMes(listaConvenios.get(i).getMesFinalVigencia(), listaConvenios.get(i).getAnoFinalVigencia());
 
                     convenio.setVigencia(vigenciaInicio + " à " + vigenciaFinal);
-                    convenio.setIsFavorito(false);
+                    convenio.setIsFavorito(listaConvenios.get(i).isFavorito());
 
                     if (listaConvenios.get(i).getSituacaoConvenio() == 7) {
                         // verde

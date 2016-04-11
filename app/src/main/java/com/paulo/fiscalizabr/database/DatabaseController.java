@@ -2,10 +2,12 @@ package com.paulo.fiscalizabr.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteQuery;
+import android.preference.PreferenceManager;
 
+import com.paulo.fiscalizabr.R;
 import com.paulo.fiscalizabr.core.Convenio;
 import com.paulo.fiscalizabr.core.DadosConvenio;
 import com.paulo.fiscalizabr.core.OrgaoConcedente;
@@ -13,6 +15,7 @@ import com.paulo.fiscalizabr.core.OrgaoSuperior;
 import com.paulo.fiscalizabr.core.Proponente;
 import com.paulo.fiscalizabr.core.Proposta;
 import com.paulo.fiscalizabr.core.ValorConvenio;
+import com.paulo.fiscalizabr.tools.StringsTreatment;
 
 import java.util.ArrayList;
 
@@ -32,9 +35,36 @@ public class DatabaseController {
     }
 
     public void addConvenio(Convenio convenio) {
+        // Se for favorito só atualiza os dados no banco. Não irá duplicar a tupla de dados
+        if(isFavorito(convenio.getNumeroConvenio())) {
+            atualizaConvenio(convenio.getNumeroConvenio(), convenio);
+        } else {
+            ContentValues values = new ContentValues();
+
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_NUMERO_CONVENIO, convenio.getNumeroConvenio());
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_OBJETO_CONVENIO, convenio.getObjetoConvenio());
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_VIGENCIA, convenio.getVigencia());
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_MUNICIPIO, convenio.getMunicipio());
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_UF, convenio.getUf());
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_NOME_PROPONENTE, convenio.getNomeProponente());
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_VALOR_CONVENIO, convenio.getValorConvenio()); // Valor Global
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_SITUACAO_CONVENIO, convenio.getSituacaoConvenio());
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO, convenio.isFavorito());
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_MES_VIGENCIA, convenio.getMesVigencia());
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_ANO_VIGENCIA, convenio.getAnoVigencia());
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_MES_FINAL_VIGENCIA, convenio.getMesFinalVigencia());
+            values.put(Contract.ConvenioEntry.COLUMN_NAME_ANO_FINAL_VIGENCIA, convenio.getAnoFinalVigencia());
+
+            database.insert(
+                    Contract.ConvenioEntry.TABLE_NAME,
+                    Contract.COLUMN_NAME_NULLABLE,
+                    values);
+        }
+    }
+
+    public void atualizaConvenio(String numeroConvenio, Convenio convenio) {
         ContentValues values = new ContentValues();
 
-        values.put(Contract.ConvenioEntry.COLUMN_NAME_NUMERO_CONVENIO, convenio.getNumeroConvenio());
         values.put(Contract.ConvenioEntry.COLUMN_NAME_OBJETO_CONVENIO, convenio.getObjetoConvenio());
         values.put(Contract.ConvenioEntry.COLUMN_NAME_VIGENCIA, convenio.getVigencia());
         values.put(Contract.ConvenioEntry.COLUMN_NAME_MUNICIPIO, convenio.getMunicipio());
@@ -42,19 +72,19 @@ public class DatabaseController {
         values.put(Contract.ConvenioEntry.COLUMN_NAME_NOME_PROPONENTE, convenio.getNomeProponente());
         values.put(Contract.ConvenioEntry.COLUMN_NAME_VALOR_CONVENIO, convenio.getValorConvenio()); // Valor Global
         values.put(Contract.ConvenioEntry.COLUMN_NAME_SITUACAO_CONVENIO, convenio.getSituacaoConvenio());
-        values.put(Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO, convenio.isFavorito());
         values.put(Contract.ConvenioEntry.COLUMN_NAME_MES_VIGENCIA, convenio.getMesVigencia());
         values.put(Contract.ConvenioEntry.COLUMN_NAME_ANO_VIGENCIA, convenio.getAnoVigencia());
         values.put(Contract.ConvenioEntry.COLUMN_NAME_MES_FINAL_VIGENCIA, convenio.getMesFinalVigencia());
         values.put(Contract.ConvenioEntry.COLUMN_NAME_ANO_FINAL_VIGENCIA, convenio.getAnoFinalVigencia());
 
-        database.insert(
+        database.update(
                 Contract.ConvenioEntry.TABLE_NAME,
-                Contract.COLUMN_NAME_NULLABLE,
-                values);
+                values,
+                Contract.ConvenioEntry.COLUMN_NAME_NUMERO_CONVENIO + " = ?",
+                new String[]{numeroConvenio});
     }
 
-    public void addConvenioCompleto(DadosConvenio convenioCompleto) {
+    public void atualizaConvenioCompleto(String numeroConvenio, DadosConvenio convenioCompleto) {
         ContentValues values = new ContentValues();
 
         values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_ANO_ASSINATURA, convenioCompleto.getAnoAssinatura());
@@ -69,7 +99,6 @@ public class DatabaseController {
         values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_MES_PUBLICACAO, convenioCompleto.getMesPublicacao());
         values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_MODALIDADE, convenioCompleto.getModalidade());
         values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NOME_PROGRAMA, convenioCompleto.getNomePrograma());
-        values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NUMERO_CONVENIO, convenioCompleto.getNumeroConvenio());
         values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NUMERO_PROCESSO, convenioCompleto.getNumeroProcesso());
         values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_OBJETO, convenioCompleto.getObjeto());
         values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_SITUACAO_PUBLICACAO_CONVENIO, convenioCompleto.getSituacaoPublicacaoConvenio());
@@ -115,15 +144,94 @@ public class DatabaseController {
         values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_VALOR_TOTAL_CONTRAPARTIDA, convenioCompleto.getValorConvenio().getValorTotalContrapartida());
         values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_VALOR_CONTRAPARTIDA_FINANCEIRA, convenioCompleto.getValorConvenio().getValorContrapartidaFinanceira());
 
-                database.insert(
-                        Contract.ConvenioCompletoEntry.TABLE_NAME,
-                        Contract.COLUMN_NAME_NULLABLE,
-                        values);
+        database.update(
+                Contract.ConvenioCompletoEntry.TABLE_NAME,
+                values,
+                Contract.ConvenioCompletoEntry.COLUMN_NAME_NUMERO_CONVENIO + " = ?",
+                new String[]{numeroConvenio});
+    }
+
+    public void addConvenioCompleto(DadosConvenio convenioCompleto) {
+        if(isFavorito(convenioCompleto.getNumeroConvenio())) {
+            atualizaConvenioCompleto(convenioCompleto.getNumeroConvenio(), convenioCompleto);
+        } else {
+            ContentValues values = new ContentValues();
+
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_ANO_ASSINATURA, convenioCompleto.getAnoAssinatura());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_ANO_CONVENIO, convenioCompleto.getAnoConvenio());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_ANO_PUBLICACAO, convenioCompleto.getAnoAssinatura());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_DATA_ASSINATURA, convenioCompleto.getDataAssinatura());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_DATA_PUBLICACAO, convenioCompleto.getDataPublicacao());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_FIM_VIGENCIA, convenioCompleto.getFimVigencia());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_INICIO_VIGENCIA, convenioCompleto.getInicioVigencia());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_JUSTIFICATIVA, convenioCompleto.getJustificativa());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_MES_ASSINATURA, convenioCompleto.getMesAssinatura());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_MES_PUBLICACAO, convenioCompleto.getMesPublicacao());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_MODALIDADE, convenioCompleto.getModalidade());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NOME_PROGRAMA, convenioCompleto.getNomePrograma());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NUMERO_CONVENIO, convenioCompleto.getNumeroConvenio());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NUMERO_PROCESSO, convenioCompleto.getNumeroProcesso());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_OBJETO, convenioCompleto.getObjeto());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_SITUACAO_PUBLICACAO_CONVENIO, convenioCompleto.getSituacaoPublicacaoConvenio());
+
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_CARGO_RESPONSAVEL_CONCEDENTE, convenioCompleto.getOrgaoConcedente().getCargoResponsavelConcedente());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NOME_ORGAO_CONCEDENTE, convenioCompleto.getOrgaoConcedente().getNomeOrgaoConcedente());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NOME_RESPONSAVEL_CONCEDENTE, convenioCompleto.getOrgaoConcedente().getNomeResponsavelConcedente());
+
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_CODIGO_ORGAO_SUPERIOR, convenioCompleto.getOrgaoSuperior().getCodigoOrgaoSuperior());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NOME_ORGAO_SUPERIOR, convenioCompleto.getOrgaoSuperior().getNomeOrgaoSuperior());
+
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_BAIRRO_PROPONENTE, convenioCompleto.getProponente().getBairroProponente());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_CARGO_RESPONSAVEL_PROPONENTE, convenioCompleto.getProponente().getCargoResponsavelProponente());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_CEP_PROPONENTE, convenioCompleto.getProponente().getCepProponente());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_CODIGO_RESPONSAVEL_PROPONENTE, convenioCompleto.getProponente().getCodigoResponsavelProponente());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_ENDERECO_PROPONENTE, convenioCompleto.getProponente().getEnderecoProponente());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_ESFERA_ADMINISTRATIVA, convenioCompleto.getProponente().getEsferaAdministrativa());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_IDENTIFICACAO_PROPONENTE, convenioCompleto.getProponente().getIdentificacaoProponente());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_MUNICIPIO, convenioCompleto.getProponente().getMunicipio());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NOME_PROPONENTE, convenioCompleto.getProponente().getNomeProponente());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NOME_RESPONSAVEL_PROPONENTE, convenioCompleto.getProponente().getNomeResponsavelProponente());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_QUALIFICACAO, convenioCompleto.getProponente().getQualificacao());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_REGIAO, convenioCompleto.getProponente().getRegiao());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_UF, convenioCompleto.getProponente().getUf());
+
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_ANO_PROPOSTA, convenioCompleto.getProposta().getAnoProposta());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_DATA_INCLUSAO_PROPOSTA, convenioCompleto.getProposta().getDataInclusao());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_IDENTIFICACAO_PROPOSTA, convenioCompleto.getProposta().getIdentificacaoProposta());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_NUMERO_PROPOSTA, convenioCompleto.getProposta().getNumeroProposta());
+
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_QTD_ADITIVOS, convenioCompleto.getQuantidadeAditivos());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_QTD_EMPENHOS, convenioCompleto.getQuantidadeEmpenhos());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_QTD_PRORROGAS, convenioCompleto.getQuantidadeProrrogas());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_SITUACAO_CONVENIO, convenioCompleto.getSituacaoConvenio());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_SUBSITUACAO_CONVENIO, convenioCompleto.getSubsituacaoConvenio());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_ULTIMO_PAGAMENTO, convenioCompleto.getUltimoPagamento());
+
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_VALOR_CONTRAPARTIDA_FINANCEIRA_BENS_E_SERVICOS, convenioCompleto.getValorConvenio().getValorContrapartidaFinanceiraBensEServicos());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_VALOR_DESEMBOLSADO, convenioCompleto.getValorConvenio().getValorDesembolsado());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_VALOR_EMPENHADO, convenioCompleto.getValorConvenio().getValorEmpenhado());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_VALOR_GLOBAL, convenioCompleto.getValorConvenio().getValorGlobal());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_VALOR_REPASSE_UNIAO, convenioCompleto.getValorConvenio().getValorRepasseUniao());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_VALOR_TOTAL_CONTRAPARTIDA, convenioCompleto.getValorConvenio().getValorTotalContrapartida());
+            values.put(Contract.ConvenioCompletoEntry.COLUMN_NAME_VALOR_CONTRAPARTIDA_FINANCEIRA, convenioCompleto.getValorConvenio().getValorContrapartidaFinanceira());
+
+            database.insert(
+                    Contract.ConvenioCompletoEntry.TABLE_NAME,
+                    Contract.COLUMN_NAME_NULLABLE,
+                    values);
+        }
     }
 
     // Retorna todos os convênios do banco
     public ArrayList<Convenio> selectConvenios() {
         database = mDbHelper.getReadableDatabase();
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String cidadePreference = sharedPrefs.getString(context.getString(R.string.preference_cidade), context.getString(R.string.default_cidade));
+        String ufPreference = sharedPrefs.getString(context.getString(R.string.preference_uf), context.getString(R.string.default_uf));
+
+        cidadePreference = new StringsTreatment().normalizaStringBanco(cidadePreference);
+        ufPreference = new StringsTreatment().normalizaStringBanco(ufPreference);
 
         String[] convenios = {
                 Contract.ConvenioEntry._ID,
@@ -146,8 +254,9 @@ public class DatabaseController {
         Cursor c = database.query(
                 Contract.ConvenioEntry.TABLE_NAME,      // The table to query
                 convenios,                               // The columns to return
-                null,                                   // The columns for the WHERE clause
-                null,                                   // The values for the WHERE clause
+                Contract.ConvenioEntry.COLUMN_NAME_MUNICIPIO + " = ? AND " +
+                Contract.ConvenioEntry.COLUMN_NAME_UF + " = ?",                                   // The columns for the WHERE clause
+                new String[]{String.valueOf(cidadePreference), String.valueOf(ufPreference)},                                   // The values for the WHERE clause
                 null,                                   // don't group the rows
                 null,                                   // don't filter by row groups
                 null                                    // The sort order
@@ -171,9 +280,7 @@ public class DatabaseController {
                 conv.setValorConvenio(c.getString(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_VALOR_CONVENIO)));
                 conv.setSituacaoConvenio(c.getInt(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_SITUACAO_CONVENIO)));
 
-                int favorito = c.getInt(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO));
-                if (favorito == 0) conv.setIsFavorito(false);
-                else conv.setIsFavorito(true);
+                conv.setIsFavorito(isFavorito(conv.getNumeroConvenio()));
 
                 conv.setMesVigencia(c.getInt(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_MES_VIGENCIA)));
                 conv.setAnoVigencia(c.getInt(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_ANO_VIGENCIA)));
@@ -200,12 +307,13 @@ public class DatabaseController {
 
                 Contract.ConvenioEntry.COLUMN_NAME_NUMERO_CONVENIO,
                 Contract.ConvenioEntry.COLUMN_NAME_OBJETO_CONVENIO,
-                Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO,
+                Contract.ConvenioEntry.COLUMN_NAME_VIGENCIA,
                 Contract.ConvenioEntry.COLUMN_NAME_MUNICIPIO,
                 Contract.ConvenioEntry.COLUMN_NAME_UF,
                 Contract.ConvenioEntry.COLUMN_NAME_NOME_PROPONENTE,
-                Contract.ConvenioEntry.COLUMN_NAME_VIGENCIA,
                 Contract.ConvenioEntry.COLUMN_NAME_VALOR_CONVENIO,
+                Contract.ConvenioEntry.COLUMN_NAME_SITUACAO_CONVENIO,
+                Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO,
                 Contract.ConvenioEntry.COLUMN_NAME_MES_VIGENCIA,
                 Contract.ConvenioEntry.COLUMN_NAME_ANO_VIGENCIA,
                 Contract.ConvenioEntry.COLUMN_NAME_MES_FINAL_VIGENCIA,
@@ -215,8 +323,8 @@ public class DatabaseController {
         Cursor c = database.query(
                 Contract.ConvenioEntry.TABLE_NAME,      // The table to query
                 convenios,                               // The columns to return
-                " WHERE " + Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO + " = ?",     // The columns for the WHERE clause
-                new String[]{String.valueOf("true")},                                   // The values for the WHERE clause
+                Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO + " = ?",     // The columns for the WHERE clause
+                new String[]{String.valueOf("1")},                                   // The values for the WHERE clause
                 null,                                   // don't group the rows
                 null,                                   // don't filter by row groups
                 null                                    // The sort order
@@ -233,12 +341,13 @@ public class DatabaseController {
 
                 conv.setNumeroConvenio(c.getString(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_NUMERO_CONVENIO)));
                 conv.setObjetoConvenio(c.getString(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_OBJETO_CONVENIO)));
-                conv.setIsFavorito(Boolean.valueOf(c.getString(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO))));
+                conv.setIsFavorito(isFavorito(conv.getNumeroConvenio()));
                 conv.setMunicipio(c.getString(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_MUNICIPIO)));
                 conv.setUf(c.getString(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_UF)));
                 conv.setNomeProponente(c.getString(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_NOME_PROPONENTE)));
                 conv.setVigencia(c.getString(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_VIGENCIA)));
                 conv.setValorConvenio(c.getString(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_VALOR_CONVENIO)));
+                conv.setSituacaoConvenio(c.getInt(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_SITUACAO_CONVENIO)));
                 conv.setMesVigencia(c.getInt(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_MES_VIGENCIA)));
                 conv.setAnoVigencia(c.getInt(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_ANO_VIGENCIA)));
                 conv.setAnoFinalVigencia(c.getInt(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_ANO_FINAL_VIGENCIA)));
@@ -412,11 +521,80 @@ public class DatabaseController {
     }
 
     public void deleteConvenios() {
-        database.delete(Contract.ConvenioEntry.TABLE_NAME,
-                null,
-                null);
+        // Deleta todos os convenios que não foram favoritados
+        ArrayList<Convenio> convenios = new ArrayList<Convenio>();
+        convenios.addAll(selectConvenios());
 
-        database.delete(Contract.ConvenioCompletoEntry.TABLE_NAME, null, null);
+        for(int i=0; i<convenios.size(); i++) {
+            if(convenios.get(i).isFavorito() == false) {
+                database.delete(Contract.ConvenioEntry.TABLE_NAME,
+                        Contract.ConvenioEntry.COLUMN_NAME_NUMERO_CONVENIO + " = ?",
+                        new String[]{convenios.get(i).getNumeroConvenio()});
+
+                database.delete(Contract.ConvenioCompletoEntry.TABLE_NAME,
+                        Contract.ConvenioEntry.COLUMN_NAME_NUMERO_CONVENIO + " = ?",
+                        new String[]{convenios.get(i).getNumeroConvenio()});
+            }
+        }
+    }
+
+    public void addFavoritos(String numeroConvenio) {
+        ContentValues values = new ContentValues();
+
+        values.put(Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO, "1");
+
+        database.update(
+                Contract.ConvenioEntry.TABLE_NAME,
+                values,
+                Contract.ConvenioEntry.COLUMN_NAME_NUMERO_CONVENIO + " = ?",
+                new String[]{numeroConvenio});
+    }
+
+    public void removeFavoritos(String numeroConvenio) {
+        ContentValues values = new ContentValues();
+
+        values.put(Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO, "0");
+
+        database.update(
+                Contract.ConvenioEntry.TABLE_NAME,
+                values,
+                Contract.ConvenioEntry.COLUMN_NAME_NUMERO_CONVENIO + " = ?",
+                new String[]{numeroConvenio});
+    }
+
+    // Verifica se o convênio está favoritado
+    public boolean isFavorito(String numeroConvenio) {
+        database = mDbHelper.getReadableDatabase();
+
+        String[] convenios = {
+                Contract.ConvenioEntry._ID,
+                Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO
+        };
+
+        Cursor c = database.query(
+                Contract.ConvenioEntry.TABLE_NAME,      // The table to query
+                convenios,                               // The columns to return
+                Contract.ConvenioEntry.COLUMN_NAME_NUMERO_CONVENIO + " = ?",     // The columns for the WHERE clause
+                new String[]{String.valueOf(numeroConvenio)},                                   // The values for the WHERE clause
+                null,                                   // don't group the rows
+                null,                                   // don't filter by row groups
+                null                                    // The sort order
+        );
+
+        Convenio resultado = new Convenio();
+
+        if(c.moveToFirst() == true) {
+
+            c.moveToFirst();
+
+            int favorito = c.getInt(c.getColumnIndexOrThrow(Contract.ConvenioEntry.COLUMN_NAME_IS_FAVORITO));
+            if (favorito == 1) return true;
+            else return false;
+        }
+
+        c.close();
+
+        return false;
     }
 
 }

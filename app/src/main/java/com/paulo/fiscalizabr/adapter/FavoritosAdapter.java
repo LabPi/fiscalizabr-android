@@ -137,9 +137,11 @@ public class FavoritosAdapter extends BaseAdapter {
 
             convertView = convertViewFavoritos;
         } else if(type == TYPE_SEPARATOR) {
-            // Separator utilizado para quando a lista de noticias está vazia
-            //holderVazio.iconeVazio.setImageResource(R.drawable.ic_star_black_48dp);
-            //holderVazio.textoVazio.setText(convertViewVazio.getResources().getString(R.string.nao_possui_favoritos));
+            if(mData.get(0).getObjetoConvenio().equals(mData.get(0).RESULT_IS_NULL)) {
+                // Separator utilizado para quando a lista de noticias está vazia
+                holderVazio.iconeVazio.setImageResource(R.drawable.ic_star_black_48dp);
+                holderVazio.textoVazio.setText(convertViewVazio.getResources().getString(R.string.nao_possui_favoritos));
+            }
 
             convertView = convertViewVazio;
         }

@@ -5,6 +5,8 @@ package com.paulo.fiscalizabr.core;
  */
 public class Favoritos {
 
+    public final String RESULT_IS_NULL = "RESULT_IS_NULL"; // Resultado da busca do Convênio não retornou resultados
+
     private String objetoConvenio;
     private String vigencia;
     private String valorConvenio;
@@ -13,6 +15,10 @@ public class Favoritos {
     private Integer situacaoConvenio;
 
     public Favoritos() {    }
+
+    public Favoritos(String objetoConvenio) {
+        this.objetoConvenio = objetoConvenio;
+    }
 
     public Favoritos(String objetoConvenio, String vigencia, String valorConvenio, String municipioUf, Integer situacaoConvenio) {
         this.objetoConvenio = objetoConvenio;
