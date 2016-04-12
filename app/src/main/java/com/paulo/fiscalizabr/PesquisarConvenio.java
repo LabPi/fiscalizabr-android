@@ -69,6 +69,8 @@ public class PesquisarConvenio extends AppCompatActivity {
 
         minimoTextView = (TextView) findViewById(R.id.valor_minimo_textview);
         maximoTextView = (TextView) findViewById(R.id.valor_maximo_textview);
+        minimoTextView.setText("R$ 0.00");
+        maximoTextView.setText("R$ 0.00");
 
         valorCheckBox = (CheckBox) findViewById(R.id.valor_checkbox);
         vigenciaCheckBox = (CheckBox) findViewById(R.id.vigencia_checkbox);
@@ -174,7 +176,7 @@ public class PesquisarConvenio extends AppCompatActivity {
         inicioVigencia = this.inicioVigencia.getText().toString();
         fimVigencia = this.fimVigencia.getText().toString();
 
-        boolean verificaData = false;
+        boolean verificaData = true;
         if(!(inicioVigencia.contains("Clique") && fimVigencia.contains("Clique"))) {
             verificaData = verificaDatas(new Date(inicioVigencia), new Date(fimVigencia));
         }

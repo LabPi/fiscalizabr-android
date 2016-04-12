@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.paulo.fiscalizabr.ConveniosFragment;
 import com.paulo.fiscalizabr.ConveniosPesquisaDetalhada;
 import com.paulo.fiscalizabr.core.Convenio;
+import com.paulo.fiscalizabr.database.DatabaseController;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -238,16 +240,17 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
             if (!result.isEmpty()) {
                 // Adiciona produtos no banco de dados
 
-                //DatabaseController database = new DatabaseController(context);
+                DatabaseController database = new DatabaseController(context);
 
                 ConveniosPesquisaDetalhada.listaConvenios.clear();
                 for (int i = 0; i < result.size(); i++) {
+                    Convenio resultado = result.get(i);
+
+                    resultado.setIsFavorito(database.isFavorito(resultado.getNumeroConvenio()));
                     ConveniosPesquisaDetalhada.listaConvenios.add(result.get(i));
                     ConveniosPesquisaDetalhada.setUpConvenios();
                     //database.addPromocao(result.get(i));
                 }
-
-                Log.v("FINAL", "OK");
 
                 //MainActivityFragment.loadPromocoesItens(); */
             } else {
