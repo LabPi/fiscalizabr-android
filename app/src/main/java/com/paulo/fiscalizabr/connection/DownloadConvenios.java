@@ -231,7 +231,10 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
                     // Dados do convênio completo já vão ser adicionados no banco
                     DownloadConvenioId convenioCompleto = new DownloadConvenioId(context, resultado.getNumeroConvenio());
                     convenioCompleto.execute();
-                    if(isPreference) ConveniosFragment.listaConvenios.add(resultado);
+                    if(isPreference) {
+                        resultado.setIsFavorito(database.isFavorito(resultado.getNumeroConvenio()));
+                        ConveniosFragment.listaConvenios.add(resultado);
+                    }
                 }
                 if(isPreference) {
                     ConveniosFragment.setUpConvenios(0);

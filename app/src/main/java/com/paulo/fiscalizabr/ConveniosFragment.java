@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,11 +104,14 @@ public class ConveniosFragment extends Fragment {
     }
 
     public static void setUpConvenios(int widget) {
-        adapter.clear();
 
         if(widget == 1) {
+            adapter.clear();
             adapter.addEmptyList(new Convenio(new Convenio().IS_LOADING));
+            Log.v("ENTROU", "IS_LOADING");
         } else {
+
+            adapter.clear();
 
             if (listaConvenios.size() == 0) {
                 adapter.addEmptyList(new Convenio(new Convenio().RESULT_IS_NULL));
