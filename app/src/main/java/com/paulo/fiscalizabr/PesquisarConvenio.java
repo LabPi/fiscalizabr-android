@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -18,7 +20,10 @@ import android.widget.Toast;
 
 import com.paulo.fiscalizabr.tools.StringsTreatment;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Calendar;
+import java.util.Date;
 
 public class PesquisarConvenio extends AppCompatActivity {
 
@@ -32,6 +37,13 @@ public class PesquisarConvenio extends AppCompatActivity {
 
     private TextView inicioVigencia;
     private TextView fimVigencia;
+
+    private CheckBox valorCheckBox;
+    private CheckBox vigenciaCheckBox;
+
+    public boolean filtrarValor = true;
+    public boolean filtrarVigencia = true;
+    public boolean filtrarSituacao = true;
 
     private int dia, mes, ano; // DatePicker
     private static final int DIALOG_ID = 0;
@@ -58,6 +70,9 @@ public class PesquisarConvenio extends AppCompatActivity {
         minimoTextView = (TextView) findViewById(R.id.valor_minimo_textview);
         maximoTextView = (TextView) findViewById(R.id.valor_maximo_textview);
 
+        valorCheckBox = (CheckBox) findViewById(R.id.valor_checkbox);
+        vigenciaCheckBox = (CheckBox) findViewById(R.id.vigencia_checkbox);
+
         situacaoConvenioSpinner = (Spinner) findViewById(R.id.situacao_convenio_spinner);
 
         inicioVigencia = (TextView) findViewById(R.id.inicio_vigencia_pesquisar_textview);
@@ -66,7 +81,8 @@ public class PesquisarConvenio extends AppCompatActivity {
         minimoSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progress = progress / 1000;
+                progress = progress / 100000;
+                progress = progress * 100000;
 
                 minimoTextView.setText(tratamentoString.converteValorSpinner(String.valueOf(progress)));
             }
@@ -146,47 +162,59 @@ public class PesquisarConvenio extends AppCompatActivity {
 
     public void pesquisarConvenio(View view) {
         String municipio, uf, inicioVigencia, fimVigencia, situacaoConvenio;
-        int valorMinimo, valorMaximo;
+        BigDecimal valorMinimo, valorMaximo;
 
         // Carrega Municipio/Estado do arquivo de preferências
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         municipio = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
         uf = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
 
-        valorMaximo = maximoSeekBar.getProgress();
-        valorMinimo = minimoSeekBar.getProgress();
+        valorMaximo = valorConvertido(maximoTextView.getText().toString());
+        valorMinimo = valorConvertido(minimoTextView.getText().toString());
         inicioVigencia = this.inicioVigencia.getText().toString();
         fimVigencia = this.fimVigencia.getText().toString();
-        situacaoConvenio = situacaoConvenioSpinner.getSelectedItem().toString();
 
-        if(situacaoConvenio.equals("AGUARDANDO PRESTAÇÃO DE CONTAS")) {
-            situacaoConvenio = "AGUARDANDO_PRESTACAO_CONTAS";
-        } else if(situacaoConvenio.equals("EM EXECUÇÃO")) {
-            situacaoConvenio = "EM_EXECUCAO";
-        } else if(situacaoConvenio.equals("ASSINADO")) {
-            situacaoConvenio = "ASSINADO";
-        } else if(situacaoConvenio.equals("PRESTAÇÃO DE CONTAS EM ANÁLISE")) {
-            situacaoConvenio = "PRESTACAO_CONTAS_EM_ANALISE";
-        } else if(situacaoConvenio.equals("PRESTAÇÃO DE CONTAS REJEITADA")) {
-            situacaoConvenio = "PRESTACAO_CONTAS_REJEITADA";
-        } else if(situacaoConvenio.equals("PRESTAÇÃO DE CONTAS EM COMPLEMENTAÇÃO")) {
-            situacaoConvenio = "PRESTACAO_CONTAS_EM_COMPLEMENTACAO";
-        } else if(situacaoConvenio.equals("PRESTAÇÃO DE CONTAS APROVADA")) {
-            situacaoConvenio = "PRESTACAO_CONTAS_APROVADA";
-        } else if(situacaoConvenio.equals("PLANO DE TRABALHO COMPLEMENTADO EM ANÁLISE")) {
-            situacaoConvenio = "PLANO_TRABALHO_COMPLEMENTADO_EM_ANALISE";
-        } else if(situacaoConvenio.equals("PLANO DE TRABALHO EM COMPLEMENTAÇÃO")) {
-            situacaoConvenio = "PLANO_TRABALHO_EM_COMPLEMENTACAO";
-        } else if(situacaoConvenio.equals("PROPOSTA EM ANÁLISE")) {
-            situacaoConvenio = "PROPOSTA_EM_ANALISE";
-        } else if(situacaoConvenio.equals("PLANO DE TRABALHO EM ANÁLISE")) {
-            situacaoConvenio = "PLANO_TRABALHO_EM_ANALISE";
+        boolean verificaData = false;
+        if(!(inicioVigencia.contains("Clique") && fimVigencia.contains("Clique"))) {
+            verificaData = verificaDatas(new Date(inicioVigencia), new Date(fimVigencia));
         }
 
-        // valorMinimo, valorMaximo, inicioVigencia, fimVigencia, situacaoConvenio
-        if(valorMinimo == 0 || valorMaximo == 0 || inicioVigencia.equals("Clique aqui para selecionar uma data") ||
-                fimVigencia.equals("Clique aqui para selecionar uma data")) {
-            Toast.makeText(this, "Selecione valores para todos os campos antes de continuar", Toast.LENGTH_SHORT).show();
+        situacaoConvenio = situacaoConvenioSpinner.getSelectedItem().toString();
+
+        if(situacaoConvenio.equals("TODOS")) filtrarSituacao = false;
+        else {
+            if (situacaoConvenio.equals("AGUARDANDO PRESTAÇÃO DE CONTAS")) {
+                situacaoConvenio = "AGUARDANDO_PRESTACAO_CONTAS";
+            } else if (situacaoConvenio.equals("EM EXECUÇÃO")) {
+                situacaoConvenio = "EM_EXECUCAO";
+            } else if (situacaoConvenio.equals("ASSINADO")) {
+                situacaoConvenio = "ASSINADO";
+            } else if (situacaoConvenio.equals("PRESTAÇÃO DE CONTAS EM ANÁLISE")) {
+                situacaoConvenio = "PRESTACAO_CONTAS_EM_ANALISE";
+            } else if (situacaoConvenio.equals("PRESTAÇÃO DE CONTAS REJEITADA")) {
+                situacaoConvenio = "PRESTACAO_CONTAS_REJEITADA";
+            } else if (situacaoConvenio.equals("PRESTAÇÃO DE CONTAS EM COMPLEMENTAÇÃO")) {
+                situacaoConvenio = "PRESTACAO_CONTAS_EM_COMPLEMENTACAO";
+            } else if (situacaoConvenio.equals("PRESTAÇÃO DE CONTAS APROVADA")) {
+                situacaoConvenio = "PRESTACAO_CONTAS_APROVADA";
+            } else if (situacaoConvenio.equals("PLANO DE TRABALHO COMPLEMENTADO EM ANÁLISE")) {
+                situacaoConvenio = "PLANO_TRABALHO_COMPLEMENTADO_EM_ANALISE";
+            } else if (situacaoConvenio.equals("PLANO DE TRABALHO EM COMPLEMENTAÇÃO")) {
+                situacaoConvenio = "PLANO_TRABALHO_EM_COMPLEMENTACAO";
+            } else if (situacaoConvenio.equals("PROPOSTA EM ANÁLISE")) {
+                situacaoConvenio = "PROPOSTA_EM_ANALISE";
+            } else if (situacaoConvenio.equals("PLANO DE TRABALHO EM ANÁLISE")) {
+                situacaoConvenio = "PLANO_TRABALHO_EM_ANALISE";
+            }
+        }
+
+        if((((valorMinimo.compareTo(new BigDecimal(0)) < 0) ||
+                (valorMaximo.compareTo(new BigDecimal(0)) < 0)) && filtrarValor == true) ||
+                ((inicioVigencia.equals("Clique aqui para selecionar uma data") ||
+                fimVigencia.equals("Clique aqui para selecionar uma data")) && filtrarVigencia == true)) {
+            Toast.makeText(this, "Selecione valores para todos os campos habilitados antes de continuar", Toast.LENGTH_SHORT).show();
+        } else if(valorMaximo.compareTo(valorMinimo) < 0 && filtrarValor == true || verificaData == false) {
+            Toast.makeText(this, "Por favor, verifique os valores informados!", Toast.LENGTH_SHORT).show();
         } else {
             Bundle bundle = new Bundle();
             bundle.putString("valorMinimo", String.valueOf(valorMinimo));
@@ -194,12 +222,45 @@ public class PesquisarConvenio extends AppCompatActivity {
             bundle.putString("inicioVigencia", inicioVigencia);
             bundle.putString("fimVigencia", fimVigencia);
             bundle.putString("situacaoConvenio", situacaoConvenio);
+            bundle.putBoolean("filtrarValor", filtrarValor);
+            bundle.putBoolean("filtrarVigencia", filtrarVigencia);
+            bundle.putBoolean("filtrarSituacao", filtrarSituacao);
 
             Intent i = new Intent(getApplicationContext(), ConveniosPesquisaDetalhada.class);
             i.putExtras(bundle);
             startActivity(i);
         }
 
+    }
+
+    public void desabilitaValor(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        filtrarValor = !checked;
+    }
+
+    public void desabilitaVigencia(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        filtrarVigencia = !checked;
+    }
+
+    public BigDecimal valorConvertido(String valorMinimo) {
+        if(valorMinimo.contains("R$ 0.00")) return new BigDecimal(0);
+        else if(valorMinimo.contains("mil")) {
+            int valor = Integer.valueOf(valorMinimo.substring(3, 6));
+            return new BigDecimal(valor * 1000);
+        } else {
+            String valor = valorMinimo.substring(3, 6);
+            valor = valor.replace(",", ".");
+            Double valorDouble = Double.parseDouble(valor);
+            BigDecimal valorFinal = new BigDecimal(valorDouble * 1000000);
+            return valorFinal;
+        }
+    }
+
+    // verifica se o inicio da vigencia é menor do que o final da vigencia
+    public boolean verificaDatas(Date data1, Date data2) {
+        if(data2.compareTo(data1) < 0) return false;
+        else return true;
     }
 
 }

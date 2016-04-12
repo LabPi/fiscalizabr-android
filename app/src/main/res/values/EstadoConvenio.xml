@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="situacao_array">
+        <item>TODOS</item>
         <item>AGUARDANDO PRESTAÇÃO DE CONTAS</item>
         <item>EM EXECUÇÃO</item>
         <item>ASSINADO</item>

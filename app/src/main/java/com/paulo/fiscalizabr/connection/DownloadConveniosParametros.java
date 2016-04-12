@@ -37,8 +37,11 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
     private String inicioVigencia;
     private String fimVigencia;
     private String situacaoConvenio;
+    private boolean isValor;
+    private boolean isVigencia;
+    private boolean isSituacao;
 
-    public DownloadConveniosParametros(Context context, String municipio, String uf, String valorMinimo, String valorMaximo, String inicioVigencia, String fimVigencia, String situacaoConveio) {
+    public DownloadConveniosParametros(Context context, String municipio, String uf, String valorMinimo, String valorMaximo, String inicioVigencia, String fimVigencia, String situacaoConveio, boolean isValor, boolean isVigencia, boolean isSituacao) {
         this.municipio = municipio;
         this.uf = uf;
         this.valorMinimo = valorMinimo;
@@ -47,6 +50,9 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
         this.fimVigencia = fimVigencia;
         this.situacaoConvenio = situacaoConveio;
         this.context = context;
+        this.isValor = isValor;
+        this.isVigencia = isVigencia;
+        this.isSituacao = isSituacao;
     }
 
     // Retorna data no formato DD/MM/AAAA
@@ -158,14 +164,21 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
         String dataJsonStr = "{\"convenios\":";
 
         try {
-            final String CONVENIO_URL = "http://fiscalizabr-dccufla.rhcloud.com/rest/convenios?" +
-                                                "mun=" + municipio +
-                                                "&uf=" + uf +
-                                                "&iniPer=" + inicioVigencia +
-                                                "&fimPer=" + fimVigencia +
-                                                "&minV=" + valorMinimo +
-                                                "&maxV=" + valorMaximo +
-                                                "&sit=" + situacaoConvenio;
+
+            String CONVENIO_URL = "http://fiscalizabr-dccufla.rhcloud.com/rest/convenios?" +
+                    "mun=" + municipio +
+                    "&uf=" + uf;
+
+            if(isVigencia == true) {
+                    CONVENIO_URL += "&iniPer=" + inicioVigencia +
+                            "&fimPer=" + fimVigencia;
+            }
+            if(isValor == true) {
+                    CONVENIO_URL += "&minV=" + valorMinimo +
+                            "&maxV=" + valorMaximo;
+            } if(isSituacao == true) {
+                    CONVENIO_URL += "&sit=" + situacaoConvenio;
+            }
 
             Log.v("URL PARAMETRO", CONVENIO_URL);
 
@@ -237,6 +250,9 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
                 Log.v("FINAL", "OK");
 
                 //MainActivityFragment.loadPromocoesItens(); */
+            } else {
+                ConveniosPesquisaDetalhada.listaConvenios.clear();
+                ConveniosPesquisaDetalhada.setUpConvenios();
             }
         } else {
             ConveniosPesquisaDetalhada.listaConvenios.clear();

@@ -32,6 +32,9 @@ public class ConveniosPesquisaDetalhada extends AppCompatActivity {
     private String inicioVigencia;
     private String fimVigencia;
     private String situacaoConvenio;
+    private boolean isValor;
+    private boolean isSituacao;
+    private boolean isVigencia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,10 @@ public class ConveniosPesquisaDetalhada extends AppCompatActivity {
         inicioVigencia = bundle.getString("inicioVigencia");
         fimVigencia = bundle.getString("fimVigencia");
         situacaoConvenio = bundle.getString("situacaoConvenio");
+
+        isSituacao = bundle.getBoolean("filtrarSituacao");
+        isValor = bundle.getBoolean("filtrarValor");
+        isVigencia = bundle.getBoolean("filtrarVigencia");
 
         // Só carrega dados do servidor se a listaConvenios estiver vazia
         //if(listaConvenios.isEmpty()) {
@@ -99,7 +106,7 @@ public class ConveniosPesquisaDetalhada extends AppCompatActivity {
             String cidadePreference = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
             String ufPreference = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
 
-            DownloadConveniosParametros parametros = new DownloadConveniosParametros(this, tratamentoString.normalizaString(cidadePreference), ufPreference, valorMinimo, valorMaximo, inicioVigencia, fimVigencia, situacaoConvenio);
+            DownloadConveniosParametros parametros = new DownloadConveniosParametros(this, tratamentoString.normalizaString(cidadePreference), ufPreference, valorMinimo, valorMaximo, inicioVigencia, fimVigencia, situacaoConvenio, isValor, isVigencia, isSituacao);
             parametros.execute();
         }
     }
