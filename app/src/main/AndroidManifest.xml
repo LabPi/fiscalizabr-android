@@ -20,14 +20,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetalharConvenio"
-            android:label="@string/title_activity_detalhar_convenio"
+            android:name="com.paulo.fiscalizabr.DetalharConvenio"
+            android:label="@string/app_name"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.paulo.fiscalizabr.MainActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data  android:host="fiscalizabr-dccufla.rhcloud.com" android:scheme="http" />
+            </intent-filter>
         </activity>
+
         <activity
             android:name=".PesquisarConvenio"
             android:label="@string/title_activity_pesquisar_convenio"
@@ -67,6 +76,8 @@
         <activity
             android:name=".SplashScreenFiscaliza"
             android:label="@string/app_name"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
