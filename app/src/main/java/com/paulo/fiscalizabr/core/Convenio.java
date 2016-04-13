@@ -1,9 +1,16 @@
 package com.paulo.fiscalizabr.core;
 
+import android.util.Log;
+
+import com.paulo.fiscalizabr.tools.StringsTreatment;
+
+import java.math.BigDecimal;
+import java.util.Comparator;
+
 /**
  * Created by Paulo on 25/03/2016.
  */
-public class Convenio {
+public class Convenio implements Comparator<Convenio> {
 
     public final String RESULT_IS_NULL = "RESULT_IS_NULL"; // Resultado da busca do Convênio não retornou resultados
     public final String NO_INTERNET = "NO_INTERNET"; // Contém dados resultantes da busca no servidor
@@ -157,5 +164,16 @@ public class Convenio {
 
     public void setAnoFinalVigencia(Integer anoFinalVigencia) {
         this.anoFinalVigencia = anoFinalVigencia;
+    }
+
+    @Override
+    public int compare(Convenio obj1, Convenio obj2) {
+            // Valor
+        StringsTreatment tratamento = new StringsTreatment();
+        BigDecimal valor1 = new BigDecimal(obj1.getValorConvenio());
+        BigDecimal valor2 = new BigDecimal(obj2.getValorConvenio());
+        if(valor1.compareTo(valor2) < 0) return -1;
+        else if(!(valor1.compareTo(valor2) < 0)) return 1;
+        return 0;
     }
 }

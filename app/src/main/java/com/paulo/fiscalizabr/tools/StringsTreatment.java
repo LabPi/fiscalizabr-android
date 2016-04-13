@@ -110,4 +110,18 @@ public class StringsTreatment {
         return str;
     }
 
+    public BigDecimal valorConvertido(String valorMinimo) {
+        if(valorMinimo.contains("R$ 0.00")) return new BigDecimal(0);
+        else if(valorMinimo.contains("mil")) {
+            int valor = Integer.valueOf(valorMinimo.substring(3, 6));
+            return new BigDecimal(valor * 1000);
+        } else {
+            String valor = valorMinimo.substring(3, 6);
+            valor = valor.replace(",", ".");
+            Double valorDouble = Double.parseDouble(valor);
+            BigDecimal valorFinal = new BigDecimal(valorDouble * 1000000);
+            return valorFinal;
+        }
+    }
+
 }

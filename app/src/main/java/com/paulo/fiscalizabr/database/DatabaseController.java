@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import com.paulo.fiscalizabr.R;
 import com.paulo.fiscalizabr.core.Convenio;
 import com.paulo.fiscalizabr.core.DadosConvenio;
+import com.paulo.fiscalizabr.core.DataComparator;
 import com.paulo.fiscalizabr.core.OrgaoConcedente;
 import com.paulo.fiscalizabr.core.OrgaoSuperior;
 import com.paulo.fiscalizabr.core.Proponente;
@@ -18,6 +19,9 @@ import com.paulo.fiscalizabr.core.ValorConvenio;
 import com.paulo.fiscalizabr.tools.StringsTreatment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by Paulo on 08/04/2016.
@@ -598,13 +602,19 @@ public class DatabaseController {
     }
 
     public ArrayList<Convenio> ordenaConveniosValor() {
+        ArrayList<Convenio> resultado = selectConvenios();
 
-        return null;
+        Collections.sort(resultado, new Convenio());
+
+        return resultado;
     }
 
     public ArrayList<Convenio> ordenaConveniosVigencia() {
+        ArrayList<Convenio> resultado = selectConvenios();
 
-        return null;
+        Collections.sort(resultado, new DataComparator());
+
+        return resultado;
     }
 
 }

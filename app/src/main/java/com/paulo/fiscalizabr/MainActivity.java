@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.paulo.fiscalizabr.adapter.DialogListViewAdapter;
 import com.paulo.fiscalizabr.adapter.ViewPagerAdapter;
 import com.paulo.fiscalizabr.core.ItemDialog;
+import com.paulo.fiscalizabr.database.DatabaseController;
 import com.paulo.fiscalizabr.tools.StringsTreatment;
 
 public class MainActivity extends AppCompatActivity {
@@ -135,12 +136,17 @@ public class MainActivity extends AppCompatActivity {
                 dialogListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        DatabaseController database = new DatabaseController(getApplicationContext());
                         if(position == 0) {
                             // Valor
-                            Toast.makeText(getApplicationContext(), "Ordena pelo Valor", Toast.LENGTH_SHORT).show();
+                            ConveniosFragment.listaConvenios.clear();
+                            ConveniosFragment.listaConvenios.addAll(database.ordenaConveniosValor());
+                            ConveniosFragment.setUpConvenios(0);
                             dialog.hide();
                         } else if(position == 1) {
-                            Toast.makeText(getApplicationContext(), "Ordena pela Vigência", Toast.LENGTH_SHORT).show();
+                            ConveniosFragment.listaConvenios.clear();
+                            ConveniosFragment.listaConvenios.addAll(database.ordenaConveniosVigencia());
+                            ConveniosFragment.setUpConvenios(0);
                             dialog.hide();
                         }
                     }
