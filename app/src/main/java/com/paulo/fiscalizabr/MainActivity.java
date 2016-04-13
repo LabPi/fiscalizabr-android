@@ -21,8 +21,6 @@ import android.widget.Toast;
 
 import com.paulo.fiscalizabr.adapter.DialogListViewAdapter;
 import com.paulo.fiscalizabr.adapter.ViewPagerAdapter;
-import com.paulo.fiscalizabr.connection.DownloadConvenios;
-import com.paulo.fiscalizabr.connection.DownloadConveniosParametros;
 import com.paulo.fiscalizabr.core.ItemDialog;
 import com.paulo.fiscalizabr.tools.StringsTreatment;
 
@@ -110,13 +108,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         switch (item.getItemId()) {
             case R.id.editar_localizacao:
-                // Compartilha convenio
-                //Intent editarLocalizacao = new Intent(getApplicationContext(), AlterarLocalizacao.class);
-                //startActivity(editarLocalizacao);
-
                 Intent intent = new Intent(this.getApplicationContext(), AlterarPreferencias.class);
                 startActivity(intent);
 

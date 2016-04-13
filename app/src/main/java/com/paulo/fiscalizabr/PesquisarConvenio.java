@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 import com.paulo.fiscalizabr.tools.StringsTreatment;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,7 +43,7 @@ public class PesquisarConvenio extends AppCompatActivity {
     public boolean filtrarVigencia = true;
     public boolean filtrarSituacao = true;
 
-    private int dia, mes, ano; // DatePicker
+    private int dia, mes, ano;
     private static final int DIALOG_ID = 0;
 
     private DatePickerDialog.OnDateSetListener datePickerListener;

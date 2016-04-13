@@ -5,9 +5,9 @@ package com.paulo.fiscalizabr.core;
  */
 public class OrgaoConcedente {
 
-    private String cargoResponsavelConcedente; //
-    private String nomeOrgaoConcedente; //
-    private String nomeResponsavelConcedente; //
+    private String cargoResponsavelConcedente;
+    private String nomeOrgaoConcedente;
+    private String nomeResponsavelConcedente;
 
     public OrgaoConcedente() {   }
 

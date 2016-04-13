@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,7 +25,6 @@ public class ConveniosPesquisaDetalhada extends AppCompatActivity {
     public static ArrayList<Convenio> listaConvenios = new ArrayList<Convenio>();
     public static StringsTreatment tratamentoString = new StringsTreatment();
 
-    // valorMinimo, valorMaximo, inicioVigencia, fimVigencia, situacaoConvenio
     private String valorMinimo;
     private String valorMaximo;
     private String inicioVigencia;
@@ -57,11 +55,6 @@ public class ConveniosPesquisaDetalhada extends AppCompatActivity {
         isSituacao = bundle.getBoolean("filtrarSituacao");
         isValor = bundle.getBoolean("filtrarValor");
         isVigencia = bundle.getBoolean("filtrarVigencia");
-
-        // Só carrega dados do servidor se a listaConvenios estiver vazia
-        //if(listaConvenios.isEmpty()) {
-          //  carregaDadosServidor();
-        //}
 
         setUpWidgets();
     }
@@ -99,7 +92,6 @@ public class ConveniosPesquisaDetalhada extends AppCompatActivity {
         if(conexaoInternet.isConnected() == false) {
             adapter.clear();
             adapter.addEmptyList(new Convenio(new Convenio().NO_INTERNET));
-            //Toast.makeText(getContext(), "Ops, estamos sem conexão com a Internet!", Toast.LENGTH_SHORT).show();
         } else {
             // Carrega Municipio/Estado do arquivo de preferências
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

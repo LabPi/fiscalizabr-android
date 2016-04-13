@@ -3,9 +3,7 @@ package com.paulo.fiscalizabr.connection;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.paulo.fiscalizabr.DetalharConvenioFragment;
 import com.paulo.fiscalizabr.core.DadosConvenio;
 import com.paulo.fiscalizabr.core.OrgaoConcedente;
 import com.paulo.fiscalizabr.core.OrgaoSuperior;
@@ -14,7 +12,6 @@ import com.paulo.fiscalizabr.core.Proposta;
 import com.paulo.fiscalizabr.core.ValorConvenio;
 import com.paulo.fiscalizabr.database.DatabaseController;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,8 +27,7 @@ import java.util.ArrayList;
  * Created by Paulo on 01/04/2016.
  */
 
-// Classe para resgatas os dados do convênio baseados no id do mesmo
-// http://fiscalizabr-dccufla.rhcloud.com/rest/convenios/idConvenio
+// Classe para resgatar os dados do convênio baseados no id do mesmo
 public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosConvenio>> {
 
     public String idConvenio;
@@ -45,7 +41,6 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
 
     // Retorna data no formato DD/MM/AAAA
     private String getReadableData(String date) {
-        //2016-12-31T00:00:00-05:00
         String data = date.substring(8, 10) + "/" + date.substring(5, 7) + "/" + date.substring(0, 4);
         return data;
     }
@@ -400,19 +395,11 @@ public class DownloadConvenioId extends AsyncTask<String, Void, ArrayList<DadosC
     @Override
     protected void onPostExecute(ArrayList<DadosConvenio> result) {
         if(!result.isEmpty()) {
-            // Adiciona produtos no banco de dados
-
             DatabaseController database = new DatabaseController(context);
-
-            //DetalharConvenioFragment.dadosConvenio.clear();
             for(int i=0; i<result.size(); i++) {
                 DadosConvenio resultado = (DadosConvenio) result.get(i);
                 database.addConvenioCompleto(resultado);
-                Log.v("CONVENIO", "Convenio " + result.get(i).getNumeroConvenio() + " adicionado!");
             }
-            //DetalharConvenioFragment.setDadosConvenio();
-
-            //MainActivityFragment.loadPromocoesItens(); */
         }
     }
 

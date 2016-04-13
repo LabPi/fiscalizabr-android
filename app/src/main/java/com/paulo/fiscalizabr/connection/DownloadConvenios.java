@@ -3,12 +3,9 @@ package com.paulo.fiscalizabr.connection;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.paulo.fiscalizabr.ConveniosFragment;
-import com.paulo.fiscalizabr.MainActivity;
 import com.paulo.fiscalizabr.core.Convenio;
-import com.paulo.fiscalizabr.core.DadosConvenio;
 import com.paulo.fiscalizabr.database.DatabaseController;
 
 import org.json.JSONArray;
@@ -19,7 +16,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -44,7 +40,6 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
 
     // Retorna data no formato DD/MM/AAAA
     private String getReadableData(String date) {
-        //2016-12-31T00:00:00-05:00
         String data = date.substring(8, 10) + "/" + date.substring(5, 7) + "/" + date.substring(0, 4);
         return data;
     }
@@ -92,7 +87,6 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
             fimVigencia = getReadableData(convenioObject.getString(FIM_VIGENCIA));
             convenio.setVigencia(inicioVigencia + " a " + fimVigencia);
             // Inicio Vigencia
-            // 2008-09-19T00:00:00-04:00
             convenio.setMesVigencia(Integer.parseInt(inicioVigencia.substring(3, 5)));
             convenio.setAnoVigencia(Integer.parseInt(inicioVigencia.substring(6)));
 
@@ -158,8 +152,6 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
                                         "mun="+municipio+
                                         "&uf="+uf;
 
-            Log.v("URL CONVENIO", CONVENIO_URL);
-
             Uri builtUri = Uri.parse(CONVENIO_URL);
 
             URL url = new URL(builtUri.toString());
@@ -219,13 +211,13 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
                 database.deleteConvenios();
 
                 ConveniosFragment.listaConvenios.clear();
+
                 if(isPreference) {
                     ConveniosFragment.setUpConvenios(1);
                 }
 
                 for (int i = 0; i < result.size(); i++) {
                     Convenio resultado = result.get(i);
-
                     database.addConvenio(resultado);
 
                     // Dados do convênio completo já vão ser adicionados no banco
@@ -247,7 +239,6 @@ public class DownloadConvenios extends AsyncTask<String, Void, ArrayList<Conveni
                 if (isPreference) {
                     ConveniosFragment.listaConvenios.clear();
                     ConveniosFragment.setUpConvenios(0);
-                    Log.v("Convenios", "Convenios apagados!");
                 }
             }
         }

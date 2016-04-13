@@ -10,7 +10,6 @@
         android:icon="@drawable/ic_share_white_24dp"
         app:showAsAction="always" />
 
-
     <item
         android:id="@+id/favoritar_convenio"
         android:orderInCategory="1"

@@ -5,19 +5,19 @@ package com.paulo.fiscalizabr.core;
  */
 public class Proponente {
 
-    private String bairroProponente; //
-    private String cargoResponsavelProponente; //
-    private String cepProponente; //
+    private String bairroProponente;
+    private String cargoResponsavelProponente;
+    private String cepProponente;
     private String codigoResponsavelProponente;
-    private String enderecoProponente; //
-    private String esferaAdministrativa; //
+    private String enderecoProponente;
+    private String esferaAdministrativa;
     private String identificacaoProponente;
-    private String municipio; //
-    private String nomeProponente; //
-    private String nomeResponsavelProponente; //
-    private String qualificacao; //
-    private String regiao; //
-    private String uf; //
+    private String municipio;
+    private String nomeProponente;
+    private String nomeResponsavelProponente;
+    private String qualificacao;
+    private String regiao;
+    private String uf;
 
     public Proponente() {   }
 

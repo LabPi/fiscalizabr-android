@@ -597,4 +597,14 @@ public class DatabaseController {
         return false;
     }
 
+    public ArrayList<Convenio> ordenaConveniosValor() {
+
+        return null;
+    }
+
+    public ArrayList<Convenio> ordenaConveniosVigencia() {
+
+        return null;
+    }
+
 }

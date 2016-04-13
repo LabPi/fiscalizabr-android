@@ -1,22 +1,15 @@
 package com.paulo.fiscalizabr;
 
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.paulo.fiscalizabr.adapter.ConveniosAdapter;
-import com.paulo.fiscalizabr.connection.DownloadConvenios;
 import com.paulo.fiscalizabr.core.Convenio;
 import com.paulo.fiscalizabr.database.DatabaseController;
 import com.paulo.fiscalizabr.tools.CheckConnection;
@@ -92,7 +85,6 @@ public class ConveniosFragment extends Fragment {
         if(conexaoInternet.isConnected() == false) {
             adapter.clear();
             adapter.addEmptyList(new Convenio(new Convenio().NO_INTERNET));
-            //Toast.makeText(getContext(), "Ops, estamos sem conexão com a Internet!", Toast.LENGTH_SHORT).show();
         } else {
             // Carrega Municipio/Estado do arquivo de preferências
             listaConvenios.clear();
@@ -108,7 +100,6 @@ public class ConveniosFragment extends Fragment {
         if(widget == 1) {
             adapter.clear();
             adapter.addEmptyList(new Convenio(new Convenio().IS_LOADING));
-            Log.v("ENTROU", "IS_LOADING");
         } else {
 
             adapter.clear();

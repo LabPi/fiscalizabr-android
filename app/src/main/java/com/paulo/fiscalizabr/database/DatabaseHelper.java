@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 
 /**
  * Created by Paulo on 08/04/2016.
@@ -16,7 +15,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
-    private static final String REAL_TYPE = " REAL";
     private static final String COMMA_SEP = ",";
 
     public DatabaseHelper(Context context) {

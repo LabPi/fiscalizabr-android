@@ -14,7 +14,6 @@ import com.paulo.fiscalizabr.adapter.FavoritosAdapter;
 import com.paulo.fiscalizabr.core.Convenio;
 import com.paulo.fiscalizabr.core.Favoritos;
 import com.paulo.fiscalizabr.database.DatabaseController;
-import com.paulo.fiscalizabr.tools.CheckConnection;
 import com.paulo.fiscalizabr.tools.StringsTreatment;
 
 import java.util.ArrayList;
@@ -56,11 +55,7 @@ public class FavoritosFragment extends Fragment {
         favoritosListView = (ListView) view.findViewById(R.id.listview_convenios);
         adapter = new FavoritosAdapter(getContext());
 
-        // Se a lista for vazia seta um Convenio qualquer no EmptyList
         adapter.addEmptyList(new Favoritos());
-
-        // Fazer o mesmo com os Favoritos
-
         favoritosListView.setAdapter(adapter);
 
         favoritosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -80,7 +75,6 @@ public class FavoritosFragment extends Fragment {
 
     public void carregaDadosBanco() {
         listaFavoritos.clear();
-
         DatabaseController database = new DatabaseController(getContext());
         listaFavoritos.addAll(database.selectFavoritos());
         setUpFavoritos();

@@ -5,21 +5,21 @@ package com.paulo.fiscalizabr.core;
  */
 public class DadosConvenio {
 
-    private Integer anoAssinatura; //
-    private Integer anoConvenio; //
-    private Integer anoPublicacao; //
-    private String dataAssinatura; //
-    private String dataPublicacao; //
-    private String fimVigencia; //
-    private String inicioVigencia; //
-    private String justificativa; //
-    private Integer mesAssinatura; //
-    private Integer mesPublicacao; //
-    private String modalidade; //
-    private String nomePrograma; //
-    private String numeroConvenio; //
-    private String numeroProcesso; //
-    private String objeto; //
+    private Integer anoAssinatura;
+    private Integer anoConvenio;
+    private Integer anoPublicacao;
+    private String dataAssinatura;
+    private String dataPublicacao;
+    private String fimVigencia;
+    private String inicioVigencia;
+    private String justificativa;
+    private Integer mesAssinatura;
+    private Integer mesPublicacao;
+    private String modalidade;
+    private String nomePrograma;
+    private String numeroConvenio;
+    private String numeroProcesso;
+    private String objeto;
     private String situacaoPublicacaoConvenio;
 
     private OrgaoConcedente orgaoConcedente;
@@ -28,12 +28,12 @@ public class DadosConvenio {
     private Proponente proponente;
     private Proposta proposta;
 
-    private Integer quantidadeAditivos; //
-    private Integer quantidadeEmpenhos;//
-    private Integer quantidadeProrrogas;//
-    private String situacaoConvenio; //
-    private String subsituacaoConvenio; //
-    private String ultimoPagamento; //
+    private Integer quantidadeAditivos;
+    private Integer quantidadeEmpenhos;
+    private Integer quantidadeProrrogas;
+    private String situacaoConvenio;
+    private String subsituacaoConvenio;
+    private String ultimoPagamento;
 
     private ValorConvenio valorConvenio;
 

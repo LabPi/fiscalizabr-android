@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="18sp"
+        android:textColor="@android:color/black"
         android:layout_margin="16dp"
         android:text="Valor" />
 

@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -31,9 +30,6 @@ public class AlterarLocalizacao extends AppCompatActivity {
 
         String cidadePreference = sharedPref.getString(getString(R.string.preference_cidade), "Brasilia");
         String ufPreference = sharedPref.getString(getString(R.string.preference_uf), "DF");
-
-        Log.v("NOME CIDADE", cidadePreference);
-        Log.v("UF",  ufPreference);
 
         municipio.setText(cidadePreference);
 

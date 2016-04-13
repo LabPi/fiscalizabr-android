@@ -32,8 +32,6 @@ public class Contract {
     public static abstract class ConvenioCompletoEntry implements BaseColumns {
         public static final String TABLE_NAME = "convenioCompleto";
 
-        public static final String COLUMN_NAME_IS_FAVORITO = "isFavorito";
-
         public static final String COLUMN_NAME_ANO_ASSINATURA = "anoAssinatura";
         public static final String COLUMN_NAME_ANO_CONVENIO = "anoConvenio";
         public static final String COLUMN_NAME_ANO_PUBLICACAO = "anoPublicacao";

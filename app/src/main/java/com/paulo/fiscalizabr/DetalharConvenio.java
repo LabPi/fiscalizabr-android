@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -100,7 +99,6 @@ public class DetalharConvenio extends AppCompatActivity {
             String fullPath = data.getEncodedSchemeSpecificPart();//get the full path -scheme - fragments
             String idConvenio = scheme + fullPath;
             this.idConvenio = idConvenio.substring(48);
-            Log.v("ID CONVENIO SHARE", idConvenio);
         } else {
             // Recebe Intent da Main
             Bundle dados = intent.getExtras();
@@ -143,23 +141,18 @@ public class DetalharConvenio extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.compartilhar_convenio:
-                // Compartilha convenio
                 String URL = "http://fiscalizabr-dccufla.rhcloud.com/convenios/" + idConvenio;
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_TEXT, URL);
                 startActivity(i);
-                //Toast.makeText(getApplicationContext(), "Compartilhar Convênio", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.favoritar_convenio:
-                // Adiciona aos favoritos
                 boolean isFavorito = database.isFavorito(idConvenio);
                 if(isFavorito) {
-                    // Remove
                     database.removeFavoritos(idConvenio);
                     Toast.makeText(getApplicationContext(), "Convênio removido da lista de Favoritos!", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Adiciona
                     database.addFavoritos(idConvenio);
                     Toast.makeText(getApplicationContext(), "Convênio adicionado aos Favoritos!", Toast.LENGTH_SHORT).show();
                 }
@@ -228,14 +221,13 @@ public class DetalharConvenio extends AppCompatActivity {
 
     // Carrega os dados do convenio do webservice e seta nos TextViews
     public void carregaDadosConvenio() {
-        // Carrega do WS
         dadosConvenio.clear();
         dadosConvenio.add(database.selectConvenioCompleto(this.idConvenio));
         setDadosConvenio();
     }
 
     public static void setDadosConvenio() {
-        // Pega os dados do WS e seta aqui
+        // Pega os dados do WS e seta nas Views
         anoAssinaturaConvenioPublicacao.setText(dadosConvenio.get(0).getAnoAssinatura() + " / " + dadosConvenio.get(0).getAnoConvenio() + " / " + dadosConvenio.get(0).getAnoPublicacao());
         dataAssinatura.setText(dadosConvenio.get(0).getDataAssinatura());
         dataPublicacao.setText(dadosConvenio.get(0).getDataPublicacao());

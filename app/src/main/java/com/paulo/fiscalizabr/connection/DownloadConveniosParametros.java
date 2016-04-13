@@ -3,9 +3,7 @@ package com.paulo.fiscalizabr.connection;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.paulo.fiscalizabr.ConveniosFragment;
 import com.paulo.fiscalizabr.ConveniosPesquisaDetalhada;
 import com.paulo.fiscalizabr.core.Convenio;
 import com.paulo.fiscalizabr.database.DatabaseController;
@@ -27,8 +25,6 @@ import java.util.ArrayList;
  */
 
 // Baixa os convenios baseados nos parametros passados
-// http://fiscalizabr-dccufla.rhcloud.com/rest/convenios?mun=Lavras&uf=MG&iniPer=01/01/2015&fimPer=31/12/2015
-
 public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayList<Convenio>> {
 
     private Context context;
@@ -59,7 +55,6 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
 
     // Retorna data no formato DD/MM/AAAA
     private String getReadableData(String date) {
-        //2016-12-31T00:00:00-05:00
         String data = date.substring(8, 10) + "/" + date.substring(5, 7) + "/" + date.substring(0, 4);
         return data;
     }
@@ -182,8 +177,6 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
                     CONVENIO_URL += "&sit=" + situacaoConvenio;
             }
 
-            Log.v("URL PARAMETRO", CONVENIO_URL);
-
             Uri builtUri = Uri.parse(CONVENIO_URL);
 
             URL url = new URL(builtUri.toString());
@@ -238,21 +231,16 @@ public class DownloadConveniosParametros extends AsyncTask<String, Void, ArrayLi
     protected void onPostExecute(ArrayList<Convenio> result) {
         if(result != null) {
             if (!result.isEmpty()) {
-                // Adiciona produtos no banco de dados
-
                 DatabaseController database = new DatabaseController(context);
-
                 ConveniosPesquisaDetalhada.listaConvenios.clear();
+
                 for (int i = 0; i < result.size(); i++) {
                     Convenio resultado = result.get(i);
 
                     resultado.setIsFavorito(database.isFavorito(resultado.getNumeroConvenio()));
                     ConveniosPesquisaDetalhada.listaConvenios.add(result.get(i));
                     ConveniosPesquisaDetalhada.setUpConvenios();
-                    //database.addPromocao(result.get(i));
                 }
-
-                //MainActivityFragment.loadPromocoesItens(); */
             } else {
                 ConveniosPesquisaDetalhada.listaConvenios.clear();
                 ConveniosPesquisaDetalhada.setUpConvenios();
