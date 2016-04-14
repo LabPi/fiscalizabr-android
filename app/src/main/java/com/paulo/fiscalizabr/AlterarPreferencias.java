@@ -62,6 +62,7 @@ public class AlterarPreferencias extends PreferenceActivity implements Preferenc
             public void onClick(View v) {
                 SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 String cidadePreference = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
+                if(cidadePreference.equals("")) cidadePreference = "Brasília";
                 String ufPreference = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
 
                 DownloadConvenios downloadConvenios = new DownloadConvenios(getApplicationContext(), new StringsTreatment().normalizaString(cidadePreference), ufPreference, true);
@@ -76,6 +77,7 @@ public class AlterarPreferencias extends PreferenceActivity implements Preferenc
     public void onBackPressed() {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String cidadePreference = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
+        if(cidadePreference.equals("")) cidadePreference = "Brasília";
         String ufPreference = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
 
         DownloadConvenios downloadConvenios = new DownloadConvenios(getApplicationContext(), new StringsTreatment().normalizaString(cidadePreference), ufPreference, true);
@@ -116,7 +118,8 @@ public class AlterarPreferencias extends PreferenceActivity implements Preferenc
                 preference.setSummary(stringValue);
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Por favor, preencha este campo com o nome do município", Toast.LENGTH_SHORT).show();
+            preference.setSummary("Brasília");
+            //Toast.makeText(getApplicationContext(), "Por favor, preencha este campo com o nome do município", Toast.LENGTH_SHORT).show();
         }
 
         return true;

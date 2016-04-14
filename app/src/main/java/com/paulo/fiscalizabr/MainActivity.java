@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.paulo.fiscalizabr.adapter.DialogListViewAdapter;
 import com.paulo.fiscalizabr.adapter.ViewPagerAdapter;
@@ -75,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         // Carrega Municipio/Estado do arquivo de preferências
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String cidadePreference = sharedPrefs.getString(getString(R.string.preference_cidade), getString(R.string.default_cidade));
+        if(cidadePreference.equals("")) cidadePreference = "Brasília";
         String ufPreference = sharedPrefs.getString(getString(R.string.preference_uf), getString(R.string.default_uf));
 
         municipioEstado.setText(cidadePreference + ", " + ufPreference);
