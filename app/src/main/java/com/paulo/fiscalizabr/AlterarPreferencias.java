@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.paulo.fiscalizabr.connection.DownloadConvenios;
 import com.paulo.fiscalizabr.tools.StringsTreatment;
@@ -104,14 +105,18 @@ public class AlterarPreferencias extends PreferenceActivity implements Preferenc
     public boolean onPreferenceChange(Preference preference, Object value) {
         String stringValue = value.toString();
 
-        if(preference instanceof ListPreference) {
-            ListPreference listPreference = (ListPreference) preference;
-            int prefIndex = listPreference.findIndexOfValue(stringValue);
-            if(prefIndex >= 0) {
-                preference.setSummary(listPreference.getEntries()[prefIndex]);
+        if(!stringValue.equals("")) {
+            if (preference instanceof ListPreference) {
+                ListPreference listPreference = (ListPreference) preference;
+                int prefIndex = listPreference.findIndexOfValue(stringValue);
+                if (prefIndex >= 0) {
+                    preference.setSummary(listPreference.getEntries()[prefIndex]);
+                }
+            } else {
+                preference.setSummary(stringValue);
             }
         } else {
-            preference.setSummary(stringValue);
+            Toast.makeText(getApplicationContext(), "Por favor, preencha este campo com o nome do município", Toast.LENGTH_SHORT).show();
         }
 
         return true;
